@@ -4,7 +4,9 @@ const path = require("path")
 const router = express.Router()
 const app = express(); 
 
-const connect = require("./config/database")
+
+ require("./config/database").connect()
+
 
 const apiRouter = require('./routes/apiRoutes')
 const userRouter = require('./routes/userRoutes')
@@ -18,7 +20,7 @@ const authRouter = require('./routes/authRoutes')
 /*Scrapping jobs to get legal vocabulary in medium or easy websites"*/
 
 /*1-Oauth --- JWT--- , cookie session -- middleware*/ 
-/*2-DB MONGO + SCHEMAS --- mongoose then MAKING DAO implementation*/
+/*2-DB MONGO + SCHEMAS(OK) --- mongoose then MAKING DAO implementation*/
 /*3-React serving ==> OK*/
 /*4-External routing ==> OK */
 /*5-3 games  #andYouSay(quizz situationnel) #words(quizz) #buildSentences(mots par briques)*/
@@ -35,4 +37,5 @@ app.use('/',authRouter)
 
 app.listen(5000 , () => {
     console.log("server started on port 5000")
+    
 })
