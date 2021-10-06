@@ -5,7 +5,7 @@ const router = express.Router()
 const app = express(); 
 
 
- require("./config/database").connect()
+require("./config/database").connect()
 
 
 const apiRouter = require('./routes/apiRoutes')
@@ -37,5 +37,4 @@ app.use('/',authRouter)
 
 app.listen(5000 , () => {
     console.log("server started on port 5000")
-    
 })
