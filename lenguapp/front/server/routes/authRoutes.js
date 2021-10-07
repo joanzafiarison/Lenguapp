@@ -36,29 +36,32 @@ router.post("/login", async(req,res) => {
     //if first connexion no cookie , give him cookie
 
     //get params
-    const {password,email} = req.params
-    grant_access = false
+    const {password,email} = req.body
+    msg = "password and email required"
     if( password && email){
         // find if email already exist
         // get user  database
         User = db.model("users",UserModel)
 
-        selected = await User.find({email : email})
+        selected = await User.findOne({email : email})
         if( selected != null) {
-            pass = await bcrypt.compare(password,selected["password"])
+            console.log(selected)
+            pass =  await bcrypt.compare(password,selected["password"])
             if (pass) {
-                grant_access = true
+                msg = "accès à la plateforme"
+                //GENERATE TOKEN HERE
             }
+            else {
+                msg = "wrong password or mail"
+            }
+        }
+        else {
+            msg = "no user found please register"
         }
         
     }
     //cookie attached to user (act like a token)
-    if (grant_access) {
-        msg = "connected"
-    }
-    else {
-        msg = "error"
-    }
+   
     res.send(msg)
 })
 

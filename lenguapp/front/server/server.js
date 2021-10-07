@@ -19,8 +19,8 @@ const authRouter = require('./routes/authRoutes')
 /*Test on network response*/ 
 /*Scrapping jobs to get legal vocabulary in medium or easy websites"*/
 
-/*1-Oauth --- JWT--- , cookie session -- middleware*/ 
-/*2-DB MONGO(CONNEXION OK)+ SCHEMAS(OK) + WRITE REQUETES(TODO) --- mongoose then MAKING DAO implementation*/
+/*1- middleware(cookie , JWT)*/ 
+/*2-DB MONGO(CONNEXION OK)+ SCHEMAS(OK) + WRITE REQUETES(EN COURS) --- mongoose then MAKING DAO implementation*/
 /*3-React serving ==> OK*/
 /*4-External routing ==> OK */
 /*5-3 games  #andYouSay(quizz situationnel) #words(quizz) #buildSentences(mots par briques)*/
