@@ -26,6 +26,41 @@ router.get("/user/:userId", function (req,res,next) {
 
 })
 
+//create a user
+router.post("/user/create", function (req,res) {
+    let user = { 
+        id : '42',
+        name: 'Joan',
+        age: 25, 
+        gender: 'Male',
+        password :'SkuSku', 
+        identifiant :'BendoFlakes'
+    };
+    //give cookie, at first connection
+    // to rewrite => JSON.parse(file_read) 
+    // append a data 
+    //and write it
+    //status pending?
+    let data = JSON.stringify(user);
+    fs.writeFileSync('./public/pending.json', data);
+    res.send(data)
+})
+
+router.post("/user/confirm", function (req,res) {
+    let user = { 
+        id : '42',
+        name: 'Joan',
+        age: 25, 
+        gender: 'Male',
+        password :'SkuSku', 
+        identifiant :'BendoFlakes'
+    };
+    
+    let data = JSON.stringify(user);
+    fs.writeFileSync('./public/pending.json', data);
+    res.send(data)
+})
+
 
 //delete user
 router.delete("/user/:userId", function (req,res) {

@@ -8,4 +8,4 @@ const postSchema = new mongoose.Schema({
     comment : { type : Map , default : {}}
 })
 
-module.exports = mongoose.model("post", postSchema)
+module.exports = postSchema

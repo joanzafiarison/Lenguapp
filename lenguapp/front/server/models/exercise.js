@@ -1,4 +1,3 @@
-const { MongoGridFSStreamError } = require("mongodb")
 const mongoose = require("mongoose") 
 
 const exerciseSchema = new mongoose.model({
@@ -8,4 +7,4 @@ const exerciseSchema = new mongoose.model({
     words : {type : Map , required : true}
 })
 
-module.exports = mongoose.model("exercise",exerciseSchema)
+module.exports = exerciseSchema

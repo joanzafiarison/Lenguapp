@@ -5,7 +5,7 @@ const router = express.Router()
 const app = express(); 
 
 
-require("./config/database").connect()
+connexion = require("./config/database")
 
 
 const apiRouter = require('./routes/apiRoutes')
@@ -20,7 +20,7 @@ const authRouter = require('./routes/authRoutes')
 /*Scrapping jobs to get legal vocabulary in medium or easy websites"*/
 
 /*1-Oauth --- JWT--- , cookie session -- middleware*/ 
-/*2-DB MONGO + SCHEMAS(OK) --- mongoose then MAKING DAO implementation*/
+/*2-DB MONGO(CONNEXION OK)+ SCHEMAS(OK) + WRITE REQUETES(TODO) --- mongoose then MAKING DAO implementation*/
 /*3-React serving ==> OK*/
 /*4-External routing ==> OK */
 /*5-3 games  #andYouSay(quizz situationnel) #words(quizz) #buildSentences(mots par briques)*/
@@ -28,6 +28,10 @@ const authRouter = require('./routes/authRoutes')
 //serve build version of react app
 app.use(express.static(path.join(__dirname,"..","build")))
 app.use(express.static(path.join(__dirname,"public")))
+
+//middleware to parse body
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use('/', userRouter);
 app.use('/', postRouter);
