@@ -25,6 +25,7 @@ const authRouter = require('./routes/authRoutes')
 /*3-React serving ==> OK*/
 /*4-External routing ==> OK */
 /*5-3 games  #andYouSay(quizz situationnel) #words(quizz) #buildSentences(mots par briques)*/
+/*Rotation OK , score () , UI train */ 
 /*6 - react router */
 //serve build version of react app
 app.use(express.static(path.join(__dirname,"..","build")))

@@ -7,7 +7,7 @@ export default class TrainContainer extends React.Component {
         //["AndYouSay","Words","Sentences"],
         type :"Words",
         content : {},
-        exercise_id : 1,
+        exercise_id : 2,
         cursor : 0
     };
     componentDidMount() {
