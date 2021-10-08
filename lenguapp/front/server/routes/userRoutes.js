@@ -4,7 +4,7 @@ const fs = require('fs');
 
 
 //get all users
-router.get("/users", function (req,res) {
+router.get("/users",function (req,res) {
     let rawdata = fs.readFileSync('./public/users.json');
     let user = JSON.parse(rawdata);
     res.send(user)
