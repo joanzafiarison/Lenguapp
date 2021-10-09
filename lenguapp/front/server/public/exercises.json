@@ -2,6 +2,7 @@
     {   "id" : 1,
         "theme":"law",
         "level":"beginner",
+        "type" :"words",
         "words" : [
             {
                 "word" : "traité",
@@ -31,6 +32,7 @@
         "id" :2,
         "theme":"law",
         "level":"intermediate",
+        "type" :"words",
         "words" : [
             {
                 "word" : "ajourner",
@@ -56,8 +58,10 @@
 
     },
     {
+        "id":3,
         "theme":"economics",
         "level":"beginner",
+        "type" :"words",
         "words" : [
             {
                 "word" : "taux",

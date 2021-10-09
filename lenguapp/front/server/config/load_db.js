@@ -29,10 +29,11 @@ const db_infos = [
 ]
 
 
- function populate(dbs){
+ async function populate(dbs){
   for(info of dbs){
     let Collection = connexion.model(info.db_name,info.db_schema)
-    let objects = Collection.find()
+    let objects = await Collection.find()
+    
     if(objects.length == 0) {
       let rawdata = fs.readFileSync(path.join(__dirname,info.db_source));
       let data_list = JSON.parse(rawdata);
@@ -46,8 +47,8 @@ const db_infos = [
         console.log(error)      // Failure
     });
     }
-    
   }
+  
 } 
 
 
