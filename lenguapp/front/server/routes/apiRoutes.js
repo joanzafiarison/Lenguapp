@@ -2,23 +2,29 @@ const express= require("express")
 const router = express.Router()
 const fs = require('fs');
 
+
+const db = require("../config/database")
+const ExerciseSchema = require("../models/exercise")
+const Exercise = db.model("Exercise",ExerciseSchema)
+
 /*EXERCISES*/ 
 //exercices , make exercise set
-router.get("/exercises/:exerciseId", function (req,res){
-    let rd = fs.readFileSync("./public/exercises.json")
-    exercises = JSON.parse(rd)
-    selected ="no such exercise"
-    for (ex of exercises) {
-        if(ex["id"] == req.params.exerciseId){
-            selected = ex
-        }
+router.get("/exercises/:exerciseId", async function (req,res){
+    let exercise = []
+   try {
+    exercise = await Exercise.find({_id : req.params.exerciseId})
+   }
+    catch(e) {
+        console.log(e)
     }
-    res.send(selected)
+   res.send(exercise)
 })
 
 //NLP  get traduction ,japanese :: omae wa mo shindeiru => tu es déjà mort
 router.post("/traduction", function (req,res){
-    res.send("traduction of is ")
+    const {sentence} = req.body
+    res.send("traduction of \""+sentence+"\" is ")
+    //apiCall to NLP
     //make api call and get results
 })
 

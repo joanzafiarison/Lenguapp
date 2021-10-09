@@ -2,11 +2,22 @@ const express= require("express")
 const router = express.Router()
 const fs = require('fs');
 
+
+const db = require("../config/database")
+const PostSchema = require("../models/post")
+const Post = db.model("Posts",PostSchema)
 /*USER POST*/
 // post by user id
 
-router.get("/feed", function (res,req) {
-    
+router.get("/feed", async function (req,res) {
+    let posts = "no posts yet"
+   try {
+    posts = await Post.find()
+   }
+    catch(e) {
+        console.log(e)
+    }
+   res.send(posts)
 })
 
 router.get("/user/:userId/posts",function (req,res){
