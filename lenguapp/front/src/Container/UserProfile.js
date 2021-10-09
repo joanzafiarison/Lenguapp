@@ -7,13 +7,12 @@ export default class UserProfile extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            user_id : 2,
             info : {}
         }
     }
     
     componentDidMount() {
-        axios.get(`http://localhost:5000/user/${this.state.user_id}`).then( (resp) => {
+        axios.get(`http://localhost:5000/user/${this.props.user_id}`).then( (resp) => {
             this.setState({info : resp.data})
         })
     }

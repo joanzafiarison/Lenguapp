@@ -11,7 +11,7 @@ export default class TrainContainer extends React.Component {
         cursor : 0
     };
     componentDidMount() {
-        axios.get(`http://localhost:5000/exercises/${this.state.exercise_id}`).then((response) => {
+        axios.get(`http://localhost:5000/exercises/${this.props.exercise_id}`).then((response) => {
             this.setState({content : response.data })
         })
     }

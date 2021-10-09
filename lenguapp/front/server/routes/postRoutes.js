@@ -4,6 +4,11 @@ const fs = require('fs');
 
 /*USER POST*/
 // post by user id
+
+router.get("/feed", function (res,req) {
+    
+})
+
 router.get("/user/:userId/posts",function (req,res){
     let rawdata = fs.readFileSync('./public/users.json');
     let users = JSON.parse(rawdata);

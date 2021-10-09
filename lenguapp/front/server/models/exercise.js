@@ -1,6 +1,6 @@
 const mongoose = require("mongoose") 
 
-const exerciseSchema = new mongoose.model({
+const exerciseSchema = new mongoose.Schema({
     theme : {type : String , required : true},
     level : {type : String , required  : true}, 
     type : { type : String , required : true},

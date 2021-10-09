@@ -2,73 +2,36 @@ const express= require("express")
 const router = express.Router()
 const fs = require('fs');
 
+const userSchema = require('../models/user')
+const db = require("../config/database")
+const User = db.model("Users",userSchema)
 
-//get all users
-router.get("/users",function (req,res) {
-    let rawdata = fs.readFileSync('./public/users.json');
-    let user = JSON.parse(rawdata);
-    res.send(user)
+//get all users OK
+router.get("/users",async function (req,res) {
+    const users = await User.find()
+    res.send(users)
 })
 
-// get one user
-router.get("/user/:userId", function (req,res,next) {
-    let rawdata = fs.readFileSync('./public/users.json');
-    let users = JSON.parse(rawdata);
-    selected = "no such user"
-    for (user of users ) {
-        if (user["id"] == req.params.userId){
-            selected = user
-        }
-    }
+// get one user OK
+router.get("/user/:userId", async function (req,res,next) {
+    const user = await User.find({_id : req.params.userId})
     // moving to next route
     next()
-    res.send(selected)
+    res.send(user)
 
 })
+ 
 
-//create a user
-router.post("/user/create", function (req,res) {
-    let user = { 
-        id : '42',
-        name: 'Joan',
-        age: 25, 
-        gender: 'Male',
-        password :'SkuSku', 
-        identifiant :'BendoFlakes'
-    };
-    //give cookie, at first connection
-    // to rewrite => JSON.parse(file_read) 
-    // append a data 
-    //and write it
-    //status pending?
-    let data = JSON.stringify(user);
-    fs.writeFileSync('./public/pending.json', data);
-    res.send(data)
+//delete user OK
+router.delete("/user/:userId", async function (req,res) {
+    const user = await User.deleteOne({_id : req.params.userId})
+    res.send(user)
 })
-
-router.post("/user/confirm", function (req,res) {
-    let user = { 
-        id : '42',
-        name: 'Joan',
-        age: 25, 
-        gender: 'Male',
-        password :'SkuSku', 
-        identifiant :'BendoFlakes'
-    };
-    
-    let data = JSON.stringify(user);
-    fs.writeFileSync('./public/pending.json', data);
-    res.send(data)
-})
-
-
-//delete user
-router.delete("/user/:userId", function (req,res) {
-
-})
-
-router.put("/user/:userId", function (req,res) {
-
+//update OK
+router.put("/user/:userId", async function (req,res) {
+    const username = req.body.username
+    const user = await User.updateOne({_id : req.params.userId}, {username : username})
+    res.send(user)
 })
 
 

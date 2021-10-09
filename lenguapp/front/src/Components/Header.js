@@ -5,7 +5,7 @@ export default class Header extends React.Component{
         return(
             <header>
                 <div id="logo">
-                    <h1>Served Html</h1>
+                    <h1>Lenguapp</h1>
                 </div>
                 <nav>
                     <ul>
