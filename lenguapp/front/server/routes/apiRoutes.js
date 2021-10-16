@@ -20,6 +20,17 @@ router.get("/exercises/:exerciseId", async function (req,res){
    res.send(exercise)
 })
 
+router.get("/exercises/", async function (req,res){
+    let exercise = []
+   try {
+    exercise = await Exercise.find()
+   }
+    catch(e) {
+        console.log(e)
+    }
+   res.send(exercise)
+})
+
 //NLP  get traduction ,japanese :: omae wa mo shindeiru => tu es déjà mort
 router.post("/traduction", function (req,res){
     const {sentence} = req.body

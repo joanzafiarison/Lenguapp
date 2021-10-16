@@ -16,7 +16,7 @@ export default class App extends React.Component {
       <Header/>
       <SearchResult/>
       <UserProfile user_id = {3}/>
-      <Train exercise_id = {2}/>
+      <Train/>
       <SignUp/> 
       <Login/>
     </>

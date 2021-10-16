@@ -7,19 +7,21 @@ export default class TrainContainer extends React.Component {
         //["AndYouSay","Words","Sentences"],
         type :"Words",
         content : {},
-        exercise_id : 2,
+        exercise_id : "6161a9798b8178d949a87657",
         cursor : 0
     };
     componentDidMount() {
-        axios.get(`http://localhost:5000/exercises/${this.props.exercise_id}`).then((response) => {
-            this.setState({content : response.data })
+        axios.get(`http://localhost:5000/exercises/${this.state.exercise_id}`).then((response) => {
+            this.setState({content : response.data[0]})
         })
     }
     
 
     render () {
-        console.log(this.state.content.words)
+        console.log("content")
+        console.log(this.state.content)
         const {words} = this.state.content
+        console.log(words)
         
         return(
             <div id ="train_container">

@@ -18,9 +18,9 @@ export default class SearchResults extends React.Component {
     return (
         <ul className="users">
           {users.map((user) => (
-            <li  key={user.id.toString()} className="user">
+            <li  key={user._id.toString()} className="user">
               <p>
-                <strong>Name:</strong> {user.name}
+                <strong>Name:</strong> {user.username}
               </p>
               <p>
                 <strong>Email:</strong> {user.email}
