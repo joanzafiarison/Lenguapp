@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import {Link} from "react-router-dom";
 
 export default class Header extends React.Component{
     render() {
@@ -9,9 +10,15 @@ export default class Header extends React.Component{
                 </div>
                 <nav>
                     <ul>
-                    <li>Train</li>
-                    <li>Share</li>
-                    <li>Read</li>
+                    <li>
+                        <Link to="/train">Train</Link>
+                    </li>
+                    <li>
+                        <Link to="/">Share</Link>
+                    </li>
+                    <li>
+                        <Link to ="/">Read</Link>
+                    </li>
                     </ul>
                 </nav>
                 <div id="admin">

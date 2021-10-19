@@ -15,6 +15,9 @@ const Course = db.model("Course",CourseSchema)
 const DicoSchema = require("../models/dico")
 const Dico = db.model("Dictionnary",DicoSchema)
 
+const SentenceSchema = require("../models/sentences")
+const Sentence = db.model("Sentences",SentenceSchema)
+
 /*EXERCISES*/ 
 //exercices , make exercise set
 router.get("/exercises/:exerciseId", async function (req,res){
@@ -109,5 +112,35 @@ router.post("/traduction", function (req,res){
     //apiCall to NLP
     //make api call and get results
 })
+//get all sentences
+router.post("/sentences/find", async (req,res) => {
+    const {sentence, language } = req.body
+    let sentences = []
+    try {
+        sentences = await Sentence.find({sentence : sentence , language : language})
+    }
+    catch (e){
+        console.log(e)
+    }
 
+    res.send(sentences)
+})
+
+// create sentence
+router.post("/sentences/create", async (req,res) => {
+    const {sentence, language } = req.body
+    let sentences = []
+    let result = {}
+    try {
+        sentences = await Sentence.find({sentence : sentence , language : language})
+        if(sentences.length == 0) {
+            result = await Sentence.create(req.body)
+        }
+    }
+    catch (e){
+        console.log(e)
+    }
+
+    res.send(result)
+})
 module.exports = router
