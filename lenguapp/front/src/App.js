@@ -2,8 +2,7 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Header from "./Components/Header";
 import SearchResult from "./Components/SearchResult"
@@ -20,12 +19,13 @@ export default class App extends React.Component {
     return (
     <Router>
       <Header/>
+      <div className="mainContainer">
       <Switch>
         <Route path="/users">
           <SearchResult/>
         </Route>
         <Route path="/user">
-          <UserProfile user_id = {3}/>
+          <UserProfile />
         </Route>
         <Route path="/train">
           <Train/>
@@ -40,6 +40,7 @@ export default class App extends React.Component {
           <Login/>
         </Router>
       </Switch>
+      </div>
     </Router>
     );
   }

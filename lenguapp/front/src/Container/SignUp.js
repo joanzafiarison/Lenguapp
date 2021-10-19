@@ -4,7 +4,7 @@ import React from "react"
 export default class SignUp extends React.Component {
     render() {
         return(
-            <div id="sign">
+            <div id="sign" className="mainElement">
                 <h1>Inscription</h1>
                 <form method="post" action="http://localhost:5000/register">
                     <div className="form_container">

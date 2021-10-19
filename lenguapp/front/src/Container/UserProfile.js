@@ -21,7 +21,7 @@ export default class UserProfile extends React.Component{
         const {info} = this.state
         console.log(this.state.info)
         return(
-            <div id="user_admin">
+            <div id="user_admin" className="mainElement" >
                 <div className="meta_info">
                 
                     <h1>Mon Compte</h1>

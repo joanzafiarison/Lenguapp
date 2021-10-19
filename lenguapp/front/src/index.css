@@ -2,18 +2,39 @@ body {
   font-size: 16px;
 }
 
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color :black
+}
+
 header {
  display: flex;
  justify-content: space-around;
  align-items: center;
  height :15vh; 
  background-color: #3066BE ;
+ margin-bottom: 3em;
+
 }
 
-.btn {
-font-size: inherit;
-margin-bottom: 10px;
+nav > ul {
+  display: flex;
+  width :10vw;
+  justify-content: space-around;
 }
+.mainContainer {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
 
 #hero {
 display: flex;
@@ -40,3 +61,55 @@ padding:0.8em;
 margin:1.2em
 }
 
+.mainElement {
+  display:flex;
+  flex-direction: column;
+  width: 40vw;
+  margin: 1em;
+  padding:1em;
+  box-shadow: 0 0 0 10px black, 0 0 0 26px #f2bf60;
+}
+/*TRAIN*/
+
+
+.train_meta {
+  display :flex;
+  justify-content: space-between;
+}
+
+.words > h2 {
+  display :flex; 
+  justify-content: center;
+}
+
+.words > ul {
+  display:flex;
+  flex-wrap :wrap;
+}
+
+.choice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size : 19px;
+  width: 260px;
+  height: 60px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.focus {
+  background-color: green;
+}
+
+
+.right_side {
+  display:flex;
+  justify-content: flex-end;
+}
+
+.btn {
+    width: 80px;
+    height: 26px;
+}

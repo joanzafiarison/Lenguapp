@@ -16,7 +16,7 @@ export default class Feed extends React.Component {
     }
     render() {
         return(
-            <div id="feed">
+            <div id="feed" className="mainContainer">
                 {this.state.feed_content.map((post)=>
                     <PostItem/>
                 )}
