@@ -27,7 +27,7 @@ router.get("/exercises/:exerciseId", async function (req,res){
     }
    res.send(exercise)
 })
-
+//get exercises
 router.get("/exercises/", async function (req,res){
     let exercise = []
    try {
@@ -38,7 +38,7 @@ router.get("/exercises/", async function (req,res){
     }
    res.send(exercise)
 })
-
+//get courses OK
 router.get("/courses/", async function (req,res){
     let courses = []
    try {
@@ -49,7 +49,7 @@ router.get("/courses/", async function (req,res){
     }
    res.send(courses)
 })
-
+//create a course OK
 router.post("/course/", async function (req,res){
     const {theme,name,level,language,from} = req.body
     let courses = []
@@ -68,6 +68,7 @@ router.post("/course/", async function (req,res){
    res.send(operation)
 })
 
+//search the traduction for a word
 router.post("/dico/", async function (req,res){
     const {word,lang} = req.body
     let word_info = []
@@ -79,6 +80,24 @@ router.post("/dico/", async function (req,res){
     }
    res.send(word_info)
 })
+
+//create a dico element
+router.post("/dico/create", async function (req,res){
+    const {word,lang} = req.body
+    let word_info = []
+    let result = {}
+   try {
+    word_info = await Dico.find({word : word , lang : lang})
+    if(word_info.length == 0){
+        result = await Dico.create(req.body)
+    }
+   }
+    catch(e) {
+        console.log(e)
+    }
+   res.send(result)
+})
+
 
 //NLP  get traduction ,japanese :: omae wa mo shindeiru => tu es déjà mort
 router.post("/traduction", function (req,res){
