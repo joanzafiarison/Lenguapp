@@ -1,9 +1,9 @@
-import React from 'react';
+import React , {useContext,useState} from 'react';
 import {Link} from "react-router-dom";
+import {withContext} from "../Services/ContextWrapper"
 
-export default class Header extends React.Component{
-    constructor(props){
-        super(props)
+ function Header (props){
+  
         let options = {
             timeZone:"Europe/Paris",
             hour12 : false,
@@ -11,13 +11,10 @@ export default class Header extends React.Component{
             minute: "2-digit",
            second: "2-digit"
          }
-        this.state = {
-            time : new Date().toLocaleTimeString("fr-FR",options)
-        }
-    }
-
-    
-    render() {
+        
+         const [time,setTime] = useState(new Date().toLocaleTimeString("fr-FR",options))
+         const [connected,setConnected]=useState(true)
+        console.log("CONTEXT",props.context)
         return(
             <header>
                 <div id="logo">
@@ -25,6 +22,9 @@ export default class Header extends React.Component{
                 </div>
                 <nav>
                     <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
                         <li>
                             <Link to="/train">Train</Link>
                         </li>
@@ -38,13 +38,18 @@ export default class Header extends React.Component{
                 </nav>
                 <div id="admin">
                     <div id="date">
-                    <div className="hour">{this.state.time}</div>
+                    <div className="hour">{time}</div>
                     <div className="date"></div>
                     </div>
-                    <button id="account">
-                        <Link to ="/signin">Se connecter</Link>
-                    </button>
+                    <Link to ="/signin">
+                        <figure className="icon_container">
+                            <img src={connected ? "profil.png" : "question_mark.png"}/>
+                            <p>{props.context.username}</p>
+                        </figure>
+                    </Link>
                 </div>
             </header>
-    )}
+    )
 }
+
+export default withContext(Header)

@@ -1,6 +1,7 @@
 const express= require("express")
 const router = express.Router()
 const fs = require('fs');
+const bcrypt = require("bcrypt")
 
 const userSchema = require('../models/user')
 const db = require("../config/database")
@@ -29,8 +30,29 @@ router.delete("/user/:userId", async function (req,res) {
 })
 //update OK
 router.put("/user/:userId", async function (req,res) {
-    const username = req.body.username
-    const user = await User.updateOne({_id : req.params.userId}, {username : username})
+    const {username,email,password,scores,friends} = req.body
+    console.log(req.body)
+    user = {}
+    saltRounds = 10;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    hashed_pass =  bcrypt.hashSync(password,salt);
+    try {
+        const user = await User.updateOne({_id : req.params.userId}, 
+            {$set: {
+               username : username,
+               email :email,
+               password :hashed_pass,
+               scores : scores ,
+               friends: friends
+            }
+        })
+        .then((res)=> console.log(res))
+        .catch((e) => console.log(e))
+    }
+    catch {
+        console.log(e)
+    }
+    
     res.send(user)
 })
 

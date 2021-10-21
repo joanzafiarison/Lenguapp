@@ -143,4 +143,22 @@ router.post("/sentences/create", async (req,res) => {
 
     res.send(result)
 })
+
+router.post("/scores" , async (req,res) => {
+    const {content} = req.body
+    console.log("scores in request")
+    let total = content.length
+    let score = 0
+    for ( result of content) {
+        if(result.item.solution === result.chosen ){
+            score += 1
+        }
+    }
+    //calcul {
+    /*item: { word: 'décreter', words: [Array], solution: 'decree' },
+    chosen: 'order'
+  },*/
+    res.send(`vous avez trouvé ${score} mots sur ${total}`)
+
+})
 module.exports = router

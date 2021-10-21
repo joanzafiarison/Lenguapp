@@ -1,38 +1,34 @@
-import React from "react"
+import React , {useEffect,useContext,useState} from "react"
 import axios from "axios"
+import { withContext } from "../Services/ContextWrapper"
 
 
-export default class UserProfile extends React.Component{
-
-    constructor(props){
-        super(props)
-        this.state = {
-            info : {},
-            user_id : "61657b8703b3bb47dc848f3d"
-        }
-    }
+ function UserProfile(props){
+    const [userInfo,setUserInfo] = useState({})
+        
     
-    componentDidMount() {
-        axios.get(`http://localhost:5000/user/${this.state.user_id}`).then( (resp) => {
-            this.setState({info : resp.data[0]})
+    useEffect( () => {
+        axios.get(`http://localhost:5000/user/${props.context.user_id}`).then( (resp) => {
+            setUserInfo(resp.data[0])
         })
-    }
-    render() {
-        const {info} = this.state
-        console.log(this.state.info)
-        return(
+        console.log("useEffect")
+    },[])
+    
+    console.log("user info")
+    console.log(userInfo)
+    return(
             <div id="user_admin" className="mainElement" >
                 <div className="meta_info">
                 
                     <h1>Mon Compte</h1>
-                    <p>Nom : {info.username}</p>
-                    <p>E-mail : {info.email}</p>
+                    <p>Nom : {props.context.username}</p>
+                    <p>E-mail : {props.context.mail}</p>
                 </div>
                 <div className="performance">
                     <p>Score : </p>
-                    {info.scores != null ?
+                    {userInfo.scores != null ?
                         <ul>
-                        {info.scores.map((score)=>(
+                        {userInfo.scores.map((score)=>(
                                 <li>{score.score}/{score.total}</li>
                          ))}
                          </ul>
@@ -46,9 +42,9 @@ export default class UserProfile extends React.Component{
 
                 <div className="social">
                     <p>Amis : </p>
-                    {info.friends != null ?
+                    {userInfo.friends != null ?
                         <ul>
-                        {info.friends.map((friend)=>(
+                        {userInfo.friends.map((friend)=>(
                             <li>Matricule N * :{friend}</li>
                         ))}
                         </ul>
@@ -58,9 +54,9 @@ export default class UserProfile extends React.Component{
                         </ul>
                     }
                     <p>Posts : </p>
-                    {info.posts != null ?
+                    {userInfo.posts != null ?
                         <ul>
-                        {info.posts.map((post)=>(
+                        {userInfo.posts.map((post)=>(
                             <li>Publication N * :{post}</li>
                         ))}
                         </ul>
@@ -74,5 +70,8 @@ export default class UserProfile extends React.Component{
                 
             </div>
         )
-    }
+    
 }
+
+
+export default withContext(UserProfile)

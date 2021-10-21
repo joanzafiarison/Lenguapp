@@ -21,6 +21,15 @@ header {
 
 }
 
+.icon_container {
+  display:flex;
+  justify-content: space-around;
+  align-items : center;
+}
+.icon_container img{
+  width:30px;
+  height:25px
+}
 nav > ul {
   display: flex;
   width :10vw;

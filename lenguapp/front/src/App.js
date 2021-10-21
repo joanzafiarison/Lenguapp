@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext,useState} from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,38 +10,50 @@ import Train from "./Container/Train";
 import SignUp from "./Container/SignUp"; 
 import Login from "./Container/Login";
 import UserProfile from "./Container/UserProfile";
+import Test from "./Container/Test"
 import "./index.css";
+import HomePage from "./Container/Homepage";
+import Learn from "./Container/Learn";
+
+import ContextProvider from "./Services/ContextProvider"
 
 
-export default class App extends React.Component {
 
-  render() {
+export default function App() {
+  
     return (
-    <Router>
-      <Header/>
-      <div className="mainContainer">
-      <Switch>
-        <Route path="/users">
-          <SearchResult/>
-        </Route>
-        <Route path="/user">
-          <UserProfile />
-        </Route>
-        <Route path="/train">
-          <Train/>
-        </Route>
-        <Route path="/courses">
-          <Train/>
-        </Route>
-        <Router path="/signup">
-          <SignUp/>
-        </Router>
-        <Router path ="/signin">
-          <Login/>
-        </Router>
-      </Switch>
-      </div>
-    </Router>
+    <ContextProvider>
+      <Router>
+        <Header/>
+        <div className="mainContainer">
+        <Switch>
+          <Route path="/users">
+            <SearchResult/>
+          </Route>
+          <Route path="/user">
+            <UserProfile />
+          </Route>
+          <Route path="/train">
+            <Train/>
+          </Route>
+          <Route path="/courses">
+            <Learn/>
+          </Route>
+          <Router path="/signup">
+            <SignUp/>
+          </Router>
+          <Router path ="/signin">
+            <Login/>
+          </Router>
+          <Router path ="/test">
+            <Test/>
+          </Router>
+          <Route path="/">
+            <HomePage/>
+          </Route>
+        </Switch>
+        </div>
+      </Router>
+    </ContextProvider>
     );
-  }
 }

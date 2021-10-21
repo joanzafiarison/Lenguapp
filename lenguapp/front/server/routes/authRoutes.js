@@ -34,7 +34,8 @@ router.post("/tanks", async(req,res) => {
 /*USER ROUTES*/
 router.post("/login", async(req,res) => {
     //if first connexion no cookie , give him cookie
-
+    console.log("attemp to connect")
+    console.log(req.body)
     //get params
     const {password,email} = req.body
     msg = "password and email required"
@@ -66,7 +67,7 @@ router.post("/login", async(req,res) => {
 })
 
 router.post("/register", async(req,res) => {
-    
+    console.log("attempt to register")
     const {username, password , email} = req.body
     subscribe = false
 

@@ -6,9 +6,9 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required:true },
   address : {type : String, default : null},
   token: { type: String, required : false},
-  posts : {type: Number , default : null},
-  friends : {type: Number , default : null},
-  scores : {type: Number , default : null}
+  posts : {type: Array , default : null},
+  friends : {type: Array , default : null},
+  scores : {type: Array , default : null}
 });
 
 module.exports = userSchema
