@@ -8,7 +8,14 @@ const userSchema = new mongoose.Schema({
   token: { type: String, required : false},
   posts : {type: Array , default : null},
   friends : {type: Array , default : null},
-  scores : {type: Array , default : null}
+  scores : [
+   { theme : {type :String},
+    exercise_type :{type:String},
+    score : {type :Number},
+    total : {type : Number}
+   }
+  ]
+  
 });
 
 module.exports = userSchema

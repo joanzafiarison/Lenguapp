@@ -1,69 +1,66 @@
-import React from "react"
+import React , {useState,useContext,useEffect} from "react"
 import axios from "axios"
+import {withContext} from "../Services/ContextWrapper"
 
 
-export default class TrainContainer extends React.Component {
-    state = {
-        //["AndYouSay","Words","Sentences"],
-        type :"Words",
-        content : {},
-        exercise_id : "6161a9798b8178d949a87657",
-        focus : "",
-        selected: [],
-        cursor : 0,
-        result : ""
-    };
-    componentWillMount() {
-        console.log("component will mount")
-        axios.get(`http://localhost:5000/exercises/${this.state.exercise_id}`).then((response) => {
-            this.setState({content : response.data[0]})
-        })
-    }
-
+ function TrainInstance (props) {
+     
+     const [content,setContent] = useState({})
+     const [selected,setSelected] = useState([])
+     const [focus,setFocus] = useState("")
+     const [cursor,setCursor] = useState(0)
+     const [result,setResult] = useState("")
+     
+     
+    useEffect( () => {
+        console.log("useEffect")
+        axios.get(`http://localhost:5000/exercises/${props.exercise_id}`)
+            .then((response) => setContent(response.data[0]))
+    },[props.exercise_id != ""])
     
-    shouldComponentUpdate(nextState){
-        console.log("next state")
-        console.log(nextState)
-        return nextState != this.state
-    }
-  
-    validate(){
-        this.setState({
-            cursor : this.state.cursor +1 , 
-            selected : [...this.state.selected,{item : this.state.content.words[this.state.cursor],chosen : this.state.focus}],
-            focus : ""
-        }, () => {
-            if(this.state.cursor === 4){
-                 axios.post("http://localhost:5000/scores",{content : this.state.selected})
-                    .then((res) => this.setState({result : res.data}))
+    
+    async function validate(){
+            setCursor(cursor +1)
+            setSelected([...selected,{item : content.words[cursor],chosen : focus}])
+            setFocus("")
+            console.log("validate")
+            console.log(cursor)
+            if(cursor === 3){
+                await axios.post("http://localhost:5000/scores",
+                    {
+                        content : selected,
+                        user_id: props.context.user_id,
+                        type:content.type,
+                        theme : content.theme
+                    })
+                    .then((res) => setResult(res.data))
             }
-        })
+            
     }
-    
-
-    render () {
-        console.log("render")
-        const {words} = this.state.content
-        console.log("focus "+this.state.focus)
-        console.log(this.state.selected)
-        console.log(this.state.result)
+        console.log("PROPS",props)
+        const {words} = content
+        console.log("focus "+focus)
+        console.log("selected",selected)
+        console.log("result",result)
+        console.log("content",content)
+        console.log("cursor",cursor)
         return(
             <div id ="train_container" className="mainElement">
                 <div className="train_meta">
-                    <p> N°{this.state.cursor + 1}</p>
-                    <p> THEME : {this.state.content.theme}</p>
+                    <p> N°{cursor + 1}</p>
+                    <p> THEME : {content.theme}</p>
                 </div>
                 
-                {this.state.cursor < 4 ?
+                {cursor < 4 ?
                     <div className="train_content">
                     {words == null ? 
                             <span>loading...</span> 
                             :
                             <div className="words">
-                                <h2>{words[this.state.cursor].word}</h2>
+                                <h2>{words[cursor].word}</h2>
                                 <ul>
-                                    {words[this.state.cursor].words.map((wd)=>(
-                                        <button className={ this.state.focus == wd ? 'choice focus' : 'choice'} key = {wd} onClick= {()=> this.setState({focus :  wd}) }>{wd}</button>
+                                    {words[cursor].words.map((wd)=>(
+                                        <button className={focus == wd ? 'choice focus' : 'choice'} key = {wd} onClick= {()=> setFocus(wd) }>{wd}</button>
                                     ))}
                                 </ul>
                             </div>
@@ -71,19 +68,20 @@ export default class TrainContainer extends React.Component {
                     </div>
                     :
                     <div className="response_box">
-                       { this.state.result != "" ?
+                       { result != "" ?
                            <p>Réponse en cours d'envoi ..</p>
                            :
-                           <p>{this.state.result}</p>
+                           <p>{result}</p>
                        }
                     </div>
                 }
                 <div className="right_side">
-                    <button className="btn" disabled = {this.state.focus == "" ? true : false} onClick = {() => this.validate()}>suivant !</button>    
+                    <button className="btn" disabled = {focus == "" ? true : false} onClick = {() => validate()}>suivant !</button>    
                 </div> 
                
 
             </div>
         )
-    };
 }
+
+export default withContext(TrainInstance)

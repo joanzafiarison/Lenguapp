@@ -18,6 +18,9 @@ const Dico = db.model("Dictionnary",DicoSchema)
 const SentenceSchema = require("../models/sentences")
 const Sentence = db.model("Sentences",SentenceSchema)
 
+const UserSchema = require("../models/user")
+const User = db.model("Users",UserSchema)
+
 /*EXERCISES*/ 
 //exercices , make exercise set
 router.get("/exercises/:exerciseId", async function (req,res){
@@ -144,8 +147,8 @@ router.post("/sentences/create", async (req,res) => {
     res.send(result)
 })
 
-router.post("/scores" , async (req,res) => {
-    const {content} = req.body
+router.post("/scores/" , async (req,res) => {
+    const {content,user_id,type,theme} = req.body
     console.log("scores in request")
     let total = content.length
     let score = 0
@@ -154,6 +157,36 @@ router.post("/scores" , async (req,res) => {
             score += 1
         }
     }
+    let score_item = {
+        score : score,
+        total :total,
+        exercise_type : type,
+        theme :theme
+    }
+    console.log("score in route",score_item)
+
+    try {
+        current_user = await User.find({_id : user_id}) 
+        if(current_user.length == 1) {
+            User.updateOne(
+                {_id : user_id},
+                {
+                    $set : {
+                        $push : {
+                            scores : score_item
+                        }
+                    }
+                }
+            )
+            .then((res) => console.log(res))
+            .catch((e)=> console.log(e))
+        }
+    }
+    catch (e){
+        console.log(e)
+    }
+
+    
     //calcul {
     /*item: { word: 'décreter', words: [Array], solution: 'decree' },
     chosen: 'order'

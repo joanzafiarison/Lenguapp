@@ -29,7 +29,12 @@ import { withContext } from "../Services/ContextWrapper"
                     {userInfo.scores != null ?
                         <ul>
                         {userInfo.scores.map((score)=>(
-                                <li>{score.score}/{score.total}</li>
+                            <ul>
+                                <li>score : {score.score}/{score.total}</li>
+                                <li>theme : {score.theme}</li>
+                                <li>langage : anglais </li>
+                                <li>type :  {score.exercise_type}</li>
+                            </ul>
                          ))}
                          </ul>
                         :

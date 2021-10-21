@@ -7,6 +7,7 @@ import {
 import Header from "./Components/Header";
 import SearchResult from "./Components/SearchResult"
 import Train from "./Container/Train";
+import TrainPage from './Container/TrainPage'
 import SignUp from "./Container/SignUp"; 
 import Login from "./Container/Login";
 import UserProfile from "./Container/UserProfile";
@@ -34,7 +35,10 @@ export default function App() {
             <UserProfile />
           </Route>
           <Route path="/train">
-            <Train/>
+            <Train exercise_id="6161a9798b8178d949a87657"/>
+          </Route>
+          <Route path="/train_page">
+            <TrainPage/>
           </Route>
           <Route path="/courses">
             <Learn/>

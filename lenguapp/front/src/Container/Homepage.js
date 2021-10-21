@@ -4,10 +4,20 @@ export default class HomePage extends React.Component{
     render() {
         return(
             <>
-                <p>Home Page</p>
-                <p>HERO</p>
-                <p>FEATURE ONE</p>
-                <p>FEATURE TWO</p>
+                <div id="hero">
+                    <p>Learn,SHare,Practice</p>
+                </div>
+                
+                <div className="feature">
+                    <p>Titre</p>
+                    <p>Contenu</p>
+                </div>
+
+                <div className="feature">
+                    <p>Titre</p>
+                    <p>Contenu</p>
+                </div>
+                
                 <p>TRY</p>
                 <p>CONNECT</p>
             </>
