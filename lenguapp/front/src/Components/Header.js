@@ -43,7 +43,7 @@ import {withContext} from "../Services/ContextWrapper"
                     </div>
                     <Link to ="/signin">
                         <figure className="icon_container">
-                            <img src={connected ? "profil.png" : "question_mark.png"}/>
+                            <img src={connected ? "img/profil.png" : "img/question_mark.png"}/>
                             <p>{props.context.username}</p>
                         </figure>
                     </Link>

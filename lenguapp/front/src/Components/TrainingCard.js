@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router-dom"
 
 export default function TrainingCard (props) {
     return(
@@ -8,6 +9,9 @@ export default function TrainingCard (props) {
                 <p>{props.type}</p>
                 <p>{props.language}</p>
             </div>
+            <Link to={{ pathname: '/train/item', state: { exercise_id: props.exercise_id }}}>
+                <button>S'entrainer</button>
+            </Link>
         </div>
     )
 }

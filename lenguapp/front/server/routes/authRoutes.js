@@ -34,9 +34,7 @@ router.post("/tanks", async(req,res) => {
 /*USER ROUTES*/
 router.post("/login", async(req,res) => {
     //if first connexion no cookie , give him cookie
-    console.log("attemp to connect")
-    console.log(req.body)
-    //get params
+    
     const {password,email} = req.body
     msg = "password and email required"
     if( password && email){

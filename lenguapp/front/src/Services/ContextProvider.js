@@ -9,7 +9,8 @@ export default function ContextProvider(props){
             mail :"bendoMail.fr",
             user_id :"615ebf483cf6924a6dfda98e",
             last_expiration_time : "051651561",
-            token :"516516511fhlnk"
+            token :"516516511fhlnk",
+            authentificated : "true"
         }
 
     

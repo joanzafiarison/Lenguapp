@@ -1,14 +1,14 @@
 import React , {useState,useContext,useEffect} from "react"
 import axios from "axios"
-import TrainCard from "../Components/TrainingCard"
+import LearningCard from "../Components/LearningCard"
 import {withContext} from "../Services/ContextWrapper"
 
-function TrainPage (props) {
-    const [exercises,setExercises] = useState([])
+function LearnPage (props) {
+    const [courses,setCourses] = useState([])
 
     useEffect( () => {
-        axios.get("http://localhost:5000/exercises")
-             .then((res) => setExercises(res.data))
+        axios.get("http://localhost:5000/courses")
+             .then((res) => setCourses(res.data))
     })
 
     return (
@@ -28,9 +28,9 @@ function TrainPage (props) {
                 </select>
             </div>
             <div id="inline_search">
-                {exercises != null ?
-                    exercises.map((exercise) => (
-                        <TrainCard type={exercise.type} theme={exercise.theme} language="anglais" exercise_id={exercise._id}/>
+                {courses != null ?
+                    courses.map((course) => (
+                        <LearningCard theme={course.theme} name={course.name} language={course.language} course_id={course._id}/>
                     ))
                     :
                     <p>Pas d'exercices crées pour le moment</p>
@@ -41,4 +41,4 @@ function TrainPage (props) {
 }
 
 
-export default withContext(TrainPage)
+export default withContext(LearnPage)

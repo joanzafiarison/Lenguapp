@@ -74,6 +74,18 @@ router.post("/course/", async function (req,res){
    res.send(operation)
 })
 
+router.get("/course/:course_id", async(req,res) => {
+    const {course_id} = req.params
+    let result = {}
+    try {
+        result = await Course.findOne({_id : course_id})
+    }
+    catch (e) {
+        console.log(e)
+    }
+
+    res.send(result)
+})
 //search the traduction for a word
 router.post("/dico/", async function (req,res){
     const {word,lang} = req.body
