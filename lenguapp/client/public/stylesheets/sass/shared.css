@@ -1,0 +1,9 @@
+body {
+  --bg-color: $color-red;
+}
+
+p {
+  color: var(--bg-color);
+}
+
+/*# sourceMappingURL=shared.css.map */

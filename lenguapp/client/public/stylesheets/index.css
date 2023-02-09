@@ -1,0 +1,251 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+body {
+  font-size: "62.5%";
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 20vh;
+  background-color: #CDDA40;
+}
+
+.icon_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav > ul {
+  display: flex;
+  width: 40vw;
+  justify-content: space-around;
+}
+@media screen and (max-width: 768px) {
+  nav > ul {
+    display: none;
+  }
+}
+
+#admin {
+  width: 15%;
+  height: 30%;
+  flex: 1;
+}
+#admin .account-big {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+#admin .account-big figure {
+  width: 1.2rem;
+  height: 1rem;
+  background-color: yellow;
+  margin: 0.1em;
+}
+#admin .hamburger {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  #admin .hamburger {
+    display: flex;
+    justify-content: flex-end;
+    background-color: red;
+  }
+  #admin .hamburger figure {
+    margin-right: 20px;
+    width: 25px;
+  }
+  #admin .hamburger figure img {
+    width: 100%;
+  }
+  #admin .account-big {
+    display: none;
+  }
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.CTA {
+  background-color: #3C3A82;
+  border-radius: 10%;
+  border: 1px solid black;
+  color: white;
+  height: 30px;
+  margin: 30px;
+}
+
+.download {
+  display: flex;
+  background-color: #f2bf60;
+  height: 300px;
+  width: 45%;
+}
+.download figure {
+  background-color: blue;
+  height: 100%;
+  width: 50%;
+}
+.download .proposition {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D1F1F8;
+  height: 85vh;
+  width: 100vw;
+}
+#hero div .hero_word {
+  font-size: 60px;
+  margin: 0px;
+  z-index: 10;
+  position: relative;
+}
+#hero div span {
+  color: #5998C5;
+}
+#hero .f_word {
+  font-size: 25px;
+  color: green;
+  border-radius: 15%;
+  z-index: 4;
+}
+
+#hero > h1 {
+  font-size: 4em;
+  font-weight: bold;
+}
+
+#presentation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero_pres {
+  background-color: #5998C5;
+  width: 50%;
+  padding: 0.8em;
+  margin: 1.2em;
+}
+
+.mainElement {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  margin: 1em;
+  padding: 1em;
+  box-shadow: 0 0 0 10px black, 0 0 0 26px #f2bf60;
+}
+
+/*TRAIN*/
+.train_meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.words > h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.words > ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.choice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 19px;
+  width: 260px;
+  height: 60px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.focus {
+  background-color: green;
+}
+
+.right_side {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  width: 80px;
+  height: 26px;
+}
+
+.training_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 10vw;
+  height: 50vh;
+  background-color: yellow;
+  margin: 3vh;
+}
+
+#search {
+  display: flex;
+}
+
+#inline_search {
+  display: flex;
+  margin: 100px;
+}
+
+.progressBar {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
+
+.step {
+  width: 40px;
+  height: 15px;
+  background-color: grey;
+}
+
+.actual {
+  background-color: green;
+}
+
+.learn_meta {
+  display: flex;
+  justify-content: space-around;
+}
+
+.icon_example {
+  width: 20px;
+}
+
+/*# sourceMappingURL=index.css.map */
