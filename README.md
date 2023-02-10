@@ -1,8 +1,12 @@
 # Lenguapp
 Application pour apprendre une langue en s'amusant
 
-Go inside lenguapp and do npm i to install dependencies
+I - Installation
+Faire "npm install" pour installer le client dans /client et le server à la racine.
 
-Then to start client go on front folder and do "npm run start-client" 
+II - Environnement
+Cette application est construite avec React et MONGO DB, vous pouvez utiliser soit en local ou utiliser une instance de mongo DB sur mongo Atlas.
+Après configuration il vous suffit d'ajouter MONGO_URI dans .env
 
-Then to start server go on server folder  and do "npm start"
+II- Lancement
+Faire "npm start
