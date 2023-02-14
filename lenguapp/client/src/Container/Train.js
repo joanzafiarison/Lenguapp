@@ -3,18 +3,72 @@ import axios from "axios"
 import {withContext} from "../Services/ContextWrapper"
 import { useLocation } from 'react-router-dom'
 
+
+const STATE = {
+    ENTERING : 'entering',
+    ENTERED : 'entered',
+    EXITING : 'exiting',
+    EXITED : 'exited'
+}
+//custom hook with useEffect/useState hook
+function useTransitionState(duration = 1000){
+
+    const [state, setState] = useState();
+
+    useEffect(()=>{
+        let timerId;
+        
+        if (state === STATE.ENTERING){
+            console.log("switch to enter")
+            timerId = setTimeout(()=>setState(STATE.ENTERED),duration);
+        }
+        else if (state === STATE.EXITING){
+            console.log("switch to  end")
+            timerId = setTimeout(()=>setState(STATE.EXITED),duration)
+        }
+        
+        return () => {
+            timerId && clearTimeout(timerId)
+        }
+        
+    });
+    return [state,setState]
+}
+
+//STATE TOGGLER
+function useTransitionControl(duration){
+    const [state,setState] = useTransitionState(duration);
+
+    const enter = () => {
+        if(state !== STATE.EXITING){
+            setState(STATE.ENTERING);
+        }
+    };
+    const exit =() => {
+        if(state !== STATE.ENTERING){
+            setState(STATE.EXITING)
+        }
+    };
+
+    return [state,enter,exit];
+}
+
  function TrainInstance (props) {
-     console.log("PROPS",props)
+
      const [content,setContent] = useState({})
      const [selected,setSelected] = useState([])
      const [focus,setFocus] = useState("")
      const [cursor,setCursor] = useState(0)
      const [result,setResult] = useState("")
+     const [state,enter,exit] = useTransitionControl(1500);
      const location = useLocation()
      const {exercise_id} = location.state
      
+    console.log("etat",state)
+  
+
     useEffect( () => {
-        console.log("useEffect")
+        console.log("useEffect load exercises")
         axios.get(`http://localhost:5000/exercises/${exercise_id}`)
             .then((response) => setContent(response.data[0]))
     },[])
@@ -26,7 +80,8 @@ import { useLocation } from 'react-router-dom'
                         content : selected,
                         user_id: props.context.user_id,
                         type:content.type,
-                        theme : content.theme
+                        theme : content.theme,
+                        language: content.language
                     })
                     .then((res) =>{
                          setResult(res.data)
@@ -37,36 +92,43 @@ import { useLocation } from 'react-router-dom'
     
     async function validate(){
             setCursor(cursor +1)
-            setSelected([...selected,{item : content.words[cursor],chosen : focus}])
-            setFocus("")
+            setSelected([...selected,{item : content.content[cursor],chosen : focus}])
+            setFocus("");
+            enter();
             console.log("validate")
             console.log(cursor)
             
     }
         //console.log("PROPS",props)
-        const {words} = content
         //console.log("focus "+focus)
-        console.log("RENDER")
-        console.log("selected",selected)
-        console.log("cursor",cursor)
-        console.log("result",result)
-        console.log("PROPS",props)
+
         return(
-            <div id ="train_container" className="mainElement">
+            <div id ="train_container" className={state == "entering" ? "layoutTransition":""}>
+                <div className="progress_bar">
+                    <div className="advancement"></div>
+                </div>
                 <div className="train_meta">
-                    <p> N°{cursor + 1}</p>
                     <p> THEME : {content.theme}</p>
                 </div>
                 
                 {cursor < 4 ?
                     <div className="train_content">
-                    {words == null ? 
+                    {content.content == null ? 
                             <span>loading...</span> 
                             :
                             <div className="words">
-                                <h2>{words[cursor].word}</h2>
+                                <h2>{content.content[cursor].word}</h2>
+                                <figure>
+                                    <audio
+                                        controls
+                                        src="https://d1qx7pbj0dvboc.cloudfront.net/rate.mp3">
+                                            <a href="https://d1qx7pbj0dvboc.cloudfront.net/rate.mp3">
+                                                Download audio
+                                            </a>
+                                    </audio>
+                                </figure>
                                 <ul>
-                                    {words[cursor].words.map((wd)=>(
+                                    {content.content[cursor].choices.map((wd)=>(
                                         <button className={focus === wd ? 'choice focus' : 'choice'} key = {wd} onClick= {()=> setFocus(wd) }>{wd}</button>
                                     ))}
                                 </ul>
@@ -85,7 +147,7 @@ import { useLocation } from 'react-router-dom'
                 <div className="right_side">
                     <button className="btn" disabled = {focus === "" ? true : false} onClick = {() => validate()}>suivant !</button>    
                 </div> 
-               
+               <p>Lifecycle :{state}</p>
 
             </div>
         )

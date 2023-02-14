@@ -1,6 +1,6 @@
 import React , {useState,useContext,useEffect} from "react"
 import axios from "axios"
-import TrainCard from "../Components/TrainingCard"
+import FlashCard from "../Components/FlashCard"
 import {withContext} from "../Services/ContextWrapper"
 
 function TrainPage (props) {
@@ -51,7 +51,7 @@ function TrainPage (props) {
                 <div id="inline_search">
                     {exercises != null ?
                         exercises.map((exercise) => (
-                            <TrainCard type={exercise.type} theme={exercise.theme} language="anglais" exercise_id={exercise._id}/>
+                            <FlashCard type={exercise.type} theme={exercise.theme} language={exercise.language} exercise_id={exercise._id}/>
                         ))
                         :
                         <p>Pas d'exercices crées pour le moment</p>

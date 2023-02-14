@@ -1,0 +1,62 @@
+[
+    {
+        "type" : "words",
+        "language" : "malagasy",
+        "theme" : "food",
+        "level" : "beginner",
+        "content" : [
+            {
+                "word":"rano",
+                "translation":"eau",
+                "phonetic":"rano",
+                "path":""
+            },
+            {
+                "word":"toaka",
+                "translation":"alcool",
+                "phonetic":"/tôkə/",
+                "path":""
+            },
+            {
+                "word":"mazoto mihinana",
+                "translation":"Bon appétit",
+                "phonetic":"",
+                "path":"",
+                "composition":"courage manger"
+            },
+            {
+                "word":"fady",
+                "translation":"tabou",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"ahosy",
+                "translation":"chèvre",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"kisoa",
+                "translation":"porc",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"Zao voky",
+                "translation":"Je suis rasasié",
+                "phonetic":"",
+                "path":"",
+                "composition":"je rasasié"
+            },
+            {
+                "word":"Zao mosary",
+                "translation":"J'ai faim'",
+                "phonetic":"",
+                "path":"",
+                "composition":"je faim"
+            }
+
+        ]
+    }
+]

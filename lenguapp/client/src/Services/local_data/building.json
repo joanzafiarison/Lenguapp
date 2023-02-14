@@ -1,0 +1,92 @@
+[
+    {
+        "type" : "building",
+        "language" : "malagasy",
+        "theme" : "negation",
+        "level" : "beginner",
+        "content" : [
+            {
+                "word":"tsy hazoko",
+                "structure":"neg + Vb",
+                "translation":"je ne comprends",
+                "phonetic":"",
+                "path":"",
+                "composition":"pas saisir"
+            },
+            {
+                "word":"tsy mety",
+                "structure":"neg + Vb",
+                "translation":"on ne peux pas",
+                "phonetic":"",
+                "path":"",
+                "composition":"pas pouvoir"
+            },
+            {
+                "word":"tsy manahy",
+                "structure":"pas d'importance",
+                "translation":"neg + N",
+                "phonetic":"",
+                "path":"",
+                "composition":"pas importance"
+            },
+            {
+                "word":"tsy nandeha",
+                "structure":"neg + Vbp",
+                "translation":"n'est pas allé",
+                "phonetic":"",
+                "path":"",
+                "composition":"pas allé"
+            },
+            {
+                "word":"tsy mandeha",
+                "structure":"neg + Vb",
+                "translation":"ne va pas",
+                "phonetic":"",
+                "path":"pas aller"
+            }
+
+        ],
+        "variations":[
+            {
+                "content":"tsy mihinana",
+                "choices":[
+                    "ne bois pas",
+                    "je mange bien",
+                    "ne dors pas",
+                    "ne mange pas"
+                ],
+                "solution":"ne mange pas"
+            },
+            {
+                "content":"tsy nigiaka",
+                "choices":[
+                    "n'a pas mangé",
+                    "n'a pas bu",
+                    "n'arrive pas à manger",
+                    "ne sors pas"
+                ],
+                "solution":"n'a pas bu"
+            },
+            {
+                "content":"tsy ratsy",
+                "choices":[
+                    "n'est pas bien'",
+                    "n'arrive pas",
+                    "il dormait",
+                    "ne croit pas"
+                ],
+                "solution":"n'est pas bien"
+            },
+            {
+                "content":"tsy nahita",
+                "choices":[
+                    "n'est pas venu",
+                    "je mangeais",
+                    "n'a pas vu",
+                    "a dormi"
+                ],
+                "solution":"n'a pas vu"
+            }
+        ]
+    }
+]

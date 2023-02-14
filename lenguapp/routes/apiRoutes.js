@@ -34,10 +34,18 @@ router.get("/exercises/:exerciseId", async function (req,res){
    res.send(exercise)
 })
 //get exercises
-router.get("/exercises/", async function (req,res){
-    let exercise = []
+router.post("/exercises/", async function (req,res){
+    let exercise = [];
+    const {theme,type,level,language} = req.body;
+    console.log(req.body);
    try {
-    exercise = await Exercise.find()
+    exercise = await Exercise.find({
+        language : language,
+        theme : theme,
+        level : level,
+        type : type
+    })
+    console.log(exercise)
    }
     catch(e) {
         console.log(e)
@@ -45,7 +53,7 @@ router.get("/exercises/", async function (req,res){
    res.send(exercise)
 })
 //get courses OK
-router.get("/courses/", async function (req,res){
+router.post("/courses/", async function (req,res){
     let courses = []
    try {
     courses = await Course.find()

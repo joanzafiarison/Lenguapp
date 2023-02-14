@@ -2,10 +2,35 @@ import React from "react"
 import {Link} from "react-router-dom"
 
 
-
-export default function TrainingCard (props) {
+const colors = {
+    "blue":"#3663A7",
+    "yellow":"#FFC857",
+    "red":"#C5283D",
+    "brown":"#481D24",
+    "green":"#2A7221"
+}
+const contentTypes =  {
+    "words" :{
+        "color":"blue"
+    },
+    "andyousay":{
+        "color":"yellow"
+    },
+    "building" : {
+        "color":"red"
+    },
+    "guess" :{
+        "color":"brown"
+    },
+    "game": {
+        "color":"green"
+    }
+}
+//theme,number,type[and you say, words, building],language
+export default function FlashCard (props) {
+    const colorValue = contentTypes[props.type].color;
     return(
-        <div className="training_card">
+        <div className="training_card" style={{backgroundColor:colors.colorValue}}>
             <Link to={{ pathname: '/train/item', state: { exercise_id: props.exercise_id }}}>
                 <div className="training_meta">
                     <figure>

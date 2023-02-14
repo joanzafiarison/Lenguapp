@@ -1,0 +1,64 @@
+[
+    {
+        "type" : "words",
+        "language" : "malagasy",
+        "theme" : "food",
+        "level" : "beginner",
+        "content" : [
+            {
+                "word":"pain",
+                "choices":[
+                   "rano","fotsy","pamaraka","mofo" 
+                ],
+                "solution":"mofo"
+            },
+            {
+                "word":"eau",
+                "choices":[
+                   "afo","maloto","ranomasina","dimy" 
+                ],
+                "solution":"mofo"
+            },
+            {
+                "word":"Je m'apelle ...",
+                "choices":[
+                    "za mila ...",
+                    "ino ty ...",
+                    "... ty anarako",
+                    "aotriny ny ..."
+                ],
+                "solution": "... ty anarako"
+            },
+            {
+                "word":"Brochette",
+                "choices":[
+                    "maskita",
+                    "balahazo",
+                    "ronono",
+                    "rano"
+                ],
+                "solution": "maskita"
+            },
+            {
+                "word":"J'ai faim",
+                "choices":[
+                    "mosary aho",
+                    "alo andeha",
+                    "mihinana",
+                    "mazoto mihinana"
+                ],
+                "solution": "maskita"
+            },
+            {
+                "word":"Bon appétit",
+                "choices":[
+                    "mandroso",
+                    "aiza ny rano",
+                    "mangala",
+                    "mazoto mihinana"
+                ],
+                "solution": "maskita"
+            }
+        ]
+    }
+]

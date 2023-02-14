@@ -1,0 +1,50 @@
+[
+    {
+        "type" : "and_you_say",
+        "language" : "malagasy",
+        "theme" : "greeting",
+        "level" : "beginner",
+        "content" : [
+            {
+                "content":"Ino ty anaranao ?",
+                "choices":[
+                    "... ty anarako",
+                    "misaotra anoa",
+                    "aiza ny ...",
+                    "za tsy maintsy mandeha"
+                ],
+                "solution":"... ty anarako"
+            },
+            {
+                "content":"manahoana tompoko",
+                "choices":[
+                    "Ino",
+                    "aiza anao?",
+                    "manahaona tompoko",
+                    "tena milay be"
+                ],
+                "solution":"manahoana tompoko"
+            },
+            {
+                "content":"aotriny ny manga ?",
+                "choices":[
+                    " ... ariary",
+                    "manao ahona",
+                    "aiza ny tsena?",
+                    "magneva anao"
+                ],
+                "solution":"... ariary"
+            },
+            {
+                "content":"aiza anao mipetraka ?",
+                "choices":[
+                    "telo polo",
+                    "zaho mipetraka ...",
+                    "aza mandeha ato",
+                    "tiako ambanivolo"
+                ],
+                "solution":"zaho mipetraka ..."
+            }
+        ]
+    }
+]
