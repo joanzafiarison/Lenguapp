@@ -218,6 +218,8 @@ margin:1.2em
 
 #train_container {
   display:flex;
+  position:relative;
+  z-index:2;
   flex-direction: column;
   align-items: center;
   width: 40vw;
@@ -267,6 +269,20 @@ margin:1.2em
   background-color: green;
 }
 
+.success_overlay{
+  position:absolute;
+  z-index:10;
+  top:33%;
+  height:45%;
+  width:80%;
+  display: flex;
+  flex-direction :'column';
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius:10px;
+}
 
 .right_side {
   display:flex;
@@ -288,7 +304,6 @@ margin:1.2em
 
 .advancement{
   background-color: #3298C3;
-  width:50%;
   height:100%;
   border-radius:15px;
 }

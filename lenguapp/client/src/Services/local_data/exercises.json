@@ -15,7 +15,7 @@
             {
                 "word":"eau",
                 "choices":[
-                   "afo","maloto","ranomasina","dimy" 
+                   "afo","maloto","ranomasina","rano" 
                 ],
                 "solution":"mofo"
             },
@@ -57,7 +57,70 @@
                     "mangala",
                     "mazoto mihinana"
                 ],
+                "solution": "mazoto mihinana"
+            }
+        ]
+    },
+    {
+        "type" : "words",
+        "language" : "malagasy",
+        "dialecte":"sakalava",
+        "theme" : "food",
+        "level" : "beginner",
+        "content" : [
+            {
+                "word":"pain",
+                "choices":[
+                   "rano","fotsy","nama","mofo" 
+                ],
+                "solution":"mofo"
+            },
+            {
+                "word":"eau",
+                "choices":[
+                   "afo","maloto","ranomasina","dimy" 
+                ],
+                "solution":"mofo"
+            },
+            {
+                "word":"Je m'apelle ...",
+                "choices":[
+                    "za mila ...",
+                    "ino ty ...",
+                    "... ty anarako",
+                    "aotriny ny ..."
+                ],
+                "solution": "... ty anarako"
+            },
+            {
+                "word":"Brochette",
+                "choices":[
+                    "maskita",
+                    "balahazo",
+                    "ronono",
+                    "rano"
+                ],
                 "solution": "maskita"
+            },
+            {
+                "word":"J'ai faim",
+                "choices":[
+                    "za mosary ",
+                    "alo andeha",
+                    "mihinana",
+                    "mazoto mihinana"
+                ],
+                "solution": "za mosary "
+            },
+            {
+                "word":"Bon appétit",
+                "choices":[
+                    "mandroso",
+                    "aiza ny rano",
+                    "mangala",
+                    "mazoto mihinana"
+                ],
+                "solution": "mazoto mihinana"
             }
         ]
     }

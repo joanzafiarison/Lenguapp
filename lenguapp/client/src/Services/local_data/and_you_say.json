@@ -18,7 +18,7 @@
             {
                 "content":"manahoana tompoko",
                 "choices":[
-                    "Ino",
+                    "Ino?",
                     "aiza anao?",
                     "manahaona tompoko",
                     "tena milay be"
@@ -42,6 +42,104 @@
                     "zaho mipetraka ...",
                     "aza mandeha ato",
                     "tiako ambanivolo"
+                ],
+                "solution":"zaho mipetraka ..."
+            }
+        ]
+    },
+    {
+        "type" : "and_you_say",
+        "language" : "malagasy",
+        "dialecte":"antankarana",
+        "theme" : "greeting",
+        "level" : "beginner",
+        "content" : [
+            {
+                "content":"Ino ty anaranao ?",
+                "choices":[
+                    "... ty anarako",
+                    "misaotra anoa",
+                    "aiza ny ...",
+                    "za tsy maintsy maingana"
+                ],
+                "solution":"... ty anarako"
+            },
+            {
+                "content":"manakory",
+                "choices":[
+                    "Ino?",
+                    "aiza anao?",
+                    "tsara",
+                    "tena tsara"
+                ],
+                "solution":"tsara"
+            },
+            {
+                "content":"hotrino ny manga ?",
+                "choices":[
+                    " ... ariary",
+                    "manakory",
+                    "aiza ny tsena?",
+                    "magneva anao"
+                ],
+                "solution":"... ariary"
+            },
+            {
+                "content":"aiza anao mipetraka ?",
+                "choices":[
+                    "telo polo",
+                    "zaho mipetraka ...",
+                    "aza mandeha ato",
+                    "tiako ambilo"
+                ],
+                "solution":"zaho mipetraka ..."
+            }
+        ]
+    },
+    {
+        "type" : "and_you_say",
+        "language" : "malagasy",
+        "dialecte":"betsimisaraka",
+        "theme" : "greeting",
+        "level" : "beginner",
+        "content" : [
+            {
+                "content":"Ino ty anaranao ?",
+                "choices":[
+                    "... ty anarako",
+                    "misaotra anoa",
+                    "aiza ny ...",
+                    "za tsy maintsy mandeha"
+                ],
+                "solution":"... ty anarako"
+            },
+            {
+                "content":"mbola tsara",
+                "choices":[
+                    "Ino?",
+                    "aiza anao?",
+                    "mbola tsara",
+                    "tena tsara"
+                ],
+                "solution":"mbola tsara"
+            },
+            {
+                "content":"hotrino ny manga ?",
+                "choices":[
+                    " ... ariary",
+                    "mbola tsara",
+                    "aiza ny tsena?",
+                    "magneva anao"
+                ],
+                "solution":"... ariary"
+            },
+            {
+                "content":"aiza anao mipetraka ?",
+                "choices":[
+                    "telo polo",
+                    "zaho mipetraka ...",
+                    "aza mandeha ato",
+                    "tiako ambilo"
                 ],
                 "solution":"zaho mipetraka ..."
             }

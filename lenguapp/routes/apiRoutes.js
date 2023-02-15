@@ -211,7 +211,10 @@ router.post("/scores/" , async (req,res) => {
     /*item: { word: 'décreter', words: [Array], solution: 'decree' },
     chosen: 'order'
   },*/
-    res.send(`vous avez trouvé ${score} mots sur ${total}`)
+    res.send({
+        score:score,
+        total:total
+    })
 
 })
 module.exports = router

@@ -43,20 +43,182 @@
                 "path":""
             },
             {
-                "word":"Zao voky",
+                "word":"Za voky",
                 "translation":"Je suis rasasié",
                 "phonetic":"",
                 "path":"",
                 "composition":"je rasasié"
             },
             {
-                "word":"Zao mosary",
+                "word":"Za mosary",
                 "translation":"J'ai faim'",
                 "phonetic":"",
                 "path":"",
                 "composition":"je faim"
             }
 
+        ]
+    },
+        
+    {
+        "type" : "words",
+        "language" : "malagasy",
+        "dialecte":"antankarana",
+        "theme" : "food",
+        "level" : "beginner",
+        "content" : [
+            {
+                "word":"rano",
+                "translation":"eau",
+                "phonetic":"rano",
+                "path":""
+            },
+            {
+                "word":"toaka",
+                "translation":"alcool",
+                "phonetic":"/tôkə/",
+                "path":""
+            },
+            {
+                "word":"mazoto mihinana",
+                "translation":"Bon appétit",
+                "phonetic":"",
+                "path":"",
+                "composition":"courage manger"
+            },
+            {
+                "word":"fady",
+                "translation":"tabou",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"baingy",
+                "translation":"chèvre",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"kisao",
+                "translation":"porc",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"Za vintsiny",
+                "translation":"Je suis rasasié",
+                "phonetic":"",
+                "path":"",
+                "composition":"je rasasié"
+            },
+            {
+                "word":"Za mosary",
+                "translation":"J'ai faim'",
+                "phonetic":"",
+                "path":"",
+                "composition":"je faim"
+            }
+
+        ]
+    },
+    {
+        "type" : "words",
+        "language" : "malagasy",
+        "dialecte":"betsimisaraka",
+        "theme" : "food",
+        "level" : "beginner",
+        "content" : [
+            {
+                "word":"rano",
+                "translation":"eau",
+                "phonetic":"rano",
+                "path":""
+            },
+            {
+                "word":"toaka",
+                "translation":"alcool",
+                "phonetic":"/tôkə/",
+                "path":""
+            },
+            {
+                "word":"mazoto mihinana",
+                "translation":"Bon appétit",
+                "phonetic":"",
+                "path":"",
+                "composition":"courage manger"
+            },
+            {
+                "word":"fady",
+                "translation":"tabou",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"baingy",
+                "translation":"chèvre",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"lambo",
+                "translation":"porc",
+                "phonetic":"",
+                "path":""
+            },
+            {
+                "word":"Za voky",
+                "translation":"Je suis rasasié",
+                "phonetic":"",
+                "path":"",
+                "composition":"je rasasié"
+            },
+            {
+                "word":"Za mosary",
+                "translation":"J'ai faim'",
+                "phonetic":"",
+                "path":"",
+                "composition":"je faim"
+            }
+
+        ]
+    },
+    {
+        "type" : "words",
+        "language" : "malagasy",
+        "dialecte":"vezo",
+        "theme" : "food",
+        "level" : "beginner",
+        "content" : [
+            {
+                "word":"vary",
+                "translation":"riz",
+                "phonetic":"vari",
+                "path":""
+            },
+            {
+                "word":"masake",
+                "translation":"mûr/oser",
+                "phonetic":"masake",
+                "path":""
+            },
+            {
+                "word":"kida",
+                "translation":"banane",
+                "phonetic":"kida",
+                "path":""
+            },
+            {
+                "word":"laoke",
+                "translation":"plat",
+                "phonetic":"loke",
+                "path":""
+            },
+            {
+                "word":"fia",
+                "translation":"poisson",
+                "phonetic":"fia",
+                "path":""
+            }
         ]
     }
 ]

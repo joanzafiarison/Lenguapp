@@ -56,26 +56,34 @@ function useTransitionControl(duration){
  function TrainInstance (props) {
 
      const [content,setContent] = useState({})
+     const [count,setCount] = useState(0)
      const [selected,setSelected] = useState([])
      const [focus,setFocus] = useState("")
      const [cursor,setCursor] = useState(0)
-     const [result,setResult] = useState("")
-     const [state,enter,exit] = useTransitionControl(1500);
+     const [result,setResult] = useState({})
+     const [state,enter,exit] = useTransitionControl(2000);
+     const [success,setSuccess] = useState(false);
      const location = useLocation()
      const {exercise_id} = location.state
-     
-    console.log("etat",state)
-  
+
+     let state_ = {
+        content :content,
+        count : count, 
+        cursor :cursor,
+        result :result
+    }
+    console.log("state general",state_)
 
     useEffect( () => {
-        console.log("useEffect load exercises")
+
         axios.get(`http://localhost:5000/exercises/${exercise_id}`)
             .then((response) => setContent(response.data[0]))
+    
     },[])
 
     useEffect( () => {
-        console.log("submit score")
-         axios.post("http://localhost:5000/scores",
+        if(cursor > 0){
+            axios.post("http://localhost:5000/scores",
                     {
                         content : selected,
                         user_id: props.context.user_id,
@@ -84,17 +92,32 @@ function useTransitionControl(duration){
                         language: content.language
                     })
                     .then((res) =>{
-                         setResult(res.data)
-                         console.log(res.data)
+                        setResult(res.data)
                         })
-    },[cursor === 4])
+        }
+         
+    },[cursor === count])
+
+
+    useEffect(()=>{
+        if(content.content != undefined){
+            console.log("setting count ",content.content.length)
+            setCount(content.content.length);
+        }
+    },[content])
     
     
     async function validate(){
-            setCursor(cursor +1)
-            setSelected([...selected,{item : content.content[cursor],chosen : focus}])
+        
+            let valid = focus == content.content[cursor].solution;
+            setSuccess(valid);
+            setCursor(cursor +1);
+            setSelected([...selected,{item : content.content[cursor],chosen : focus}]);
+            
+            //setSuccess(content.solution === result.chosen)
             setFocus("");
             enter();
+            exit();
             console.log("validate")
             console.log(cursor)
             
@@ -102,19 +125,19 @@ function useTransitionControl(duration){
         //console.log("PROPS",props)
         //console.log("focus "+focus)
 
+ 
         return(
             <div id ="train_container" className={state == "entering" ? "layoutTransition":""}>
                 <div className="progress_bar">
-                    <div className="advancement"></div>
+                    <div className="advancement" style={{width:`${(cursor/count)*100}%`}}></div>
                 </div>
                 <div className="train_meta">
-                    <p> THEME : {content.theme}</p>
-                </div>
-                
-                {cursor < 4 ?
+                        <p> THEME : {content.theme}</p>
+                </div> 
+                {cursor < count ?
                     <div className="train_content">
                     {content.content == null ? 
-                            <span>loading...</span> 
+                            <span>Ce contenu est vide</span> 
                             :
                             <div className="words">
                                 <h2>{content.content[cursor].word}</h2>
@@ -140,7 +163,11 @@ function useTransitionControl(duration){
                        { result == "" ?
                            <p>Réponse en cours d'envoi ..</p>
                            :
-                           <p>{result}</p>
+                           <div>
+                                <p>Vous avez trouvé {result.score}/{result.total} mots</p>
+                                <p>{Math.round(result.score/result.total*100)}%</p>
+                            </div>
+                           
                        }
                     </div>
                 }
@@ -148,6 +175,12 @@ function useTransitionControl(duration){
                     <button className="btn" disabled = {focus === "" ? true : false} onClick = {() => validate()}>suivant !</button>    
                 </div> 
                <p>Lifecycle :{state}</p>
+               <div className="success_overlay" style={{display: state == "exiting" ? "flex" : "none"}}>
+                    <p>Bravo</p>
+                    <div className="tick" style={{width:50,height:50,backgroundColor: success ? "green" :"red"}}>
+
+                    </div>
+               </div>
 
             </div>
         )
