@@ -35,7 +35,7 @@ function CreateCourse(){
             </div>
             <div className="stepContent" style={{height:"300px",width:"200px",margin:150,backgroundColor:"cyan"}}>
                 <p>Board {steps[step].text}</p>
-                <button  onClick={()=>SetStep(step+1)} style={{backgroundColor:"green"}}>Valider</button>
+                <button  onClick={()=>{if(step<3){SetStep(step+1)}}} style={{backgroundColor:"green"}}>Valider</button>
             </div>
             
         </div>
