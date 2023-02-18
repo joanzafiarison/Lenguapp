@@ -1,30 +1,13 @@
-import React from "react"
-import {Link} from "react-router-dom"
+import React from "react";
+import {Link} from "react-router-dom";
+import {colors,contentTypes} from "../utils/colors";
 
 
-const colors = {
-    "blue":"#3663A7",
-    "yellow":"#FFC857",
-    "red":"#C5283D",
-    "brown":"#481D24",
-    "green":"#2A7221"
-}
-const contentTypes =  {
-    "words" :{
-        "color":"blue"
-    },
-    "andyousay":{
-        "color":"yellow"
-    },
-    "building" : {
-        "color":"red"
-    },
-    "guess" :{
-        "color":"brown"
-    },
-    "game": {
-        "color":"green"
-    }
+const flags ={
+    "jp":"img/flags/jp_flag.png",
+    "french":"img/flags/fr_flag.png",
+    "malagasy":"img/flags/mg_flag.png",
+    "english":"img/flags/uk_flag.webp"
 }
 //theme,number,type[and you say, words, building],language
 export default function FlashCard (props) {
@@ -33,8 +16,8 @@ export default function FlashCard (props) {
         <div className="training_card" style={{backgroundColor:colors.colorValue}}>
             <Link to={{ pathname: '/train/item', state: { exercise_id: props.exercise_id }}}>
                 <div className="training_meta">
-                    <figure>
-                        <img src="" alt="flag"/>
+                    <figure style={{width:20,margin:0}}>
+                        <img src={flags[props.language]} alt="flag" style={{width:"100%"}}/>
                     </figure>
                     <h2>{props.theme}</h2>
                     <div className="bullet"></div>
@@ -43,7 +26,6 @@ export default function FlashCard (props) {
                 <div className="stars"></div>
                 <div className="training_card_content">
                     <p>{props.type}</p>
-                    <p>{props.language}</p>
                 </div>
                 <p>Tags</p>
                 <ul>

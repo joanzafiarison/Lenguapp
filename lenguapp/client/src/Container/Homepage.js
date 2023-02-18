@@ -48,7 +48,9 @@ export default function HomePage (){
                 </div>
                 
 
-                
+                <h1 class="text-3xl font-bold underline">
+                    Hello world!
+                </h1>
                 <HeroStatement title="Learn with your goal in sight" statement="Travel the world, prepare for new jobs ,
  make new friends with interesting people form all around the world" button="Lets go" orientation/>
 

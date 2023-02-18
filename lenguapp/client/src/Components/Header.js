@@ -76,7 +76,7 @@ import {withContext} from "../Services/ContextWrapper"
                         <figure onClick={()=>setOpened(!opened)}>
                             <img src="img/hamburger.png"/>
                         </figure>
-                        <ul style={{display:opened?"block":"none"}}>
+                        <ul className="menu" style={{display:opened?"block":"none"}}>
                             <li style={{fontSize:"0.8rem"}}>
                                 <Link to="/train">Train</Link>
                             </li>

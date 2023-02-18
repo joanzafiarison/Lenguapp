@@ -6,6 +6,7 @@ import {withContext} from "../Services/ContextWrapper"
 
 
 
+
 function LearnPage (props) {
     const [text,setText] = useState("");
     const [urlToContent,setUrl]= useState("http://localhost:5000/exercises")

@@ -2,6 +2,7 @@ import React , {useState,useContext,useEffect} from "react"
 import axios from "axios"
 import {withContext} from "../Services/ContextWrapper"
 import { useLocation } from 'react-router-dom'
+import {colors} from "../utils/colors"
 
 
 const STATE = {
@@ -176,8 +177,8 @@ function useTransitionControl(duration){
                 </div> 
                <p>Lifecycle :{state}</p>
                <div className="success_overlay" style={{display: state == "exiting" ? "flex" : "none"}}>
-                    <p>Bravo</p>
-                    <div className="tick" style={{width:50,height:50,backgroundColor: success ? "green" :"red"}}>
+                    <p>{success? "Bravo !" :"C'est pas ça !"}</p>
+                    <div className="tick" style={{width:50,height:50,backgroundColor: success ? colors.green : colors.red}}>
 
                     </div>
                </div>

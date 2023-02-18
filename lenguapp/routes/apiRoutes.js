@@ -1,8 +1,10 @@
 const express= require("express")
 const router = express.Router()
-const fs = require('fs');
 
-const api = require("../services/apiConnect")
+
+const api = require("../services/apiConnect");
+
+const {pipeFile} = require("../services/file_module");
 
 
 const db = require("../config/database")
@@ -20,6 +22,11 @@ const Sentence = db.model("Sentences",SentenceSchema)
 
 const UserSchema = require("../models/user")
 const User = db.model("Users",UserSchema)
+
+
+
+
+
 
 /*EXERCISES*/ 
 //exercices , make exercise set
@@ -217,4 +224,18 @@ router.post("/scores/" , async (req,res) => {
     })
 
 })
+
+
+
+router.get('/resources', (req,res)=>{
+    // add query parameter for resource for example profile.png
+    // then check user directory and send 
+    
+    /*
+    let audio = fs.readFileSync("resources/audio/mg_5.aac")
+    console.log(audio)
+    res.send("audio");*/
+    pipeFile(req,res,"resources/audio/eng/eng_subvenir.mp3")
+
+    })
 module.exports = router
