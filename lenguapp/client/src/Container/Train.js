@@ -79,8 +79,14 @@ function useTransitionControl(duration){
 
         axios.get(`http://localhost:5000/exercises/${exercise_id}`)
             .then((response) => setContent(response.data[0]))
+
+        //mettre directement le lien dans le composant audio
+        axios.get("http://localhost:5000/resources")
+            .then((response)=>console.log("audio",response))
     
     },[])
+
+
 
     useEffect( () => {
         if(cursor > 0){
@@ -145,8 +151,8 @@ function useTransitionControl(duration){
                                 <figure>
                                     <audio
                                         controls
-                                        src="https://d1qx7pbj0dvboc.cloudfront.net/rate.mp3">
-                                            <a href="https://d1qx7pbj0dvboc.cloudfront.net/rate.mp3">
+                                        src="http://localhost:5000/resources">
+                                            <a href="http://localhost:5000/resources">
                                                 Download audio
                                             </a>
                                     </audio>
