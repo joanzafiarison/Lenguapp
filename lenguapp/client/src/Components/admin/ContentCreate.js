@@ -24,6 +24,7 @@ const mockData = [
 ]
 function ContentCreate(){
     const {step} = useCourse();
+    const dispatch =useCourseDispatch()
     const [elements,setElements] = useState([])
     const [focus,setFocus] = useState({})
     useEffect(()=>{
@@ -55,6 +56,7 @@ function ContentCreate(){
             <div className="word_overlay" style={{display : overlay? "flex":"none"}}>
                 <h1>{focus.element}</h1>
             </div>
+            <button onClick={()=>{dispatch({step : step+1,type:'nextStep'})}}>Suivant</button>
         </div>
     )
 }

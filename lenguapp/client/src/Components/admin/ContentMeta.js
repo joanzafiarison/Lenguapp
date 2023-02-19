@@ -41,7 +41,13 @@ function ContentMeta(){
                 <p>
                    Nom : <input type="text"name="name" onChange={(e)=>metaHandler(e)}></input>
                 </p>
-                <select defaultValue="fr" name="language" onChange={(e)=>metaHandler(e)}>
+                <select defaultValue="fr" name="language_src" onChange={(e)=>metaHandler(e)}>
+                    <option value="fr">Français</option>
+                    <option value="eng">Anglais</option>
+                    <option value="jp">Japonais</option>
+                    <option value="mg">Malgache</option>
+                </select>
+                <select defaultValue="fr" name="language_dest" onChange={(e)=>metaHandler(e)}>
                     <option value="fr">Français</option>
                     <option value="eng">Anglais</option>
                     <option value="jp">Japonais</option>
