@@ -1,5 +1,8 @@
-import React ,{useState,useEffect} from "react";
-
+import React ,{useState,useEffect,createContext} from "react";
+import ContentMeta from "../Components/admin/ContentMeta";
+import  {CourseProvider} from "../Services/CourseContextProvider";
+import FlowBar from "../Components/admin/FlowBar";
+import ContentSwitcher from "../Components/admin/ContentSwitcher";
 const steps = [
     {
         "name":"meta",
@@ -20,23 +23,20 @@ const steps = [
     }
 ]
 
+
 function CreateCourse(){
     const [step,SetStep] = useState(0);
+    const [courseData,setCourseData] = useState({})
     return(
         <div style={{display:"flex",margin:30,flexDirection:"column",alignItems:"center"}}>
             <h1>Create Course</h1>
-            <div className="steps" style={{display:"flex",width:"100vw",justifyContent:"space-around"}}>
-                {steps.map(((st,k)=>(
-                    <div className="step" style={{display:"flex",justifyContent:"space-between",width:"80px"}}>
-                        <div key={step} style={{backgroundColor:step==k?"blue":"grey"}}>{k+1}</div>
-                        <p>{st.text}</p>
-                    </div>
-                )))}
-            </div>
-            <div className="stepContent" style={{height:"300px",width:"200px",margin:150,backgroundColor:"cyan"}}>
-                <p>Board {steps[step].text}</p>
-                <button  onClick={()=>{if(step<3){SetStep(step+1)}}} style={{backgroundColor:"green"}}>Valider</button>
-            </div>
+            <CourseProvider>
+                <FlowBar/>
+                <div className="stepContent" style={{height:"300px",width:"200px",margin:150,backgroundColor:"cyan"}}>
+                    <ContentSwitcher/>
+                </div>
+                
+            </CourseProvider>
             
         </div>
     )
