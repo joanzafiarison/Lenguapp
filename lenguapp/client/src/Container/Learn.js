@@ -2,7 +2,6 @@ import React , {useEffect, useState } from "react"
 import {withContext} from "../Services/ContextWrapper"
 import axios from "axios"
 import {useLocation} from "react-router-dom"
-import HtmlParser from "react-html-parser"
 
  function Learn (props) {
     const [step,setStep] = useState(0)
@@ -41,7 +40,6 @@ import HtmlParser from "react-html-parser"
             {course.content != null ?
                 <>  
                      <h2>{course.content[step].title}</h2>
-                     {HtmlParser(course.content[step].content)}
                 </>
                 :
                 null
