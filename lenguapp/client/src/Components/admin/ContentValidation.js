@@ -1,19 +1,46 @@
 import React ,{useState} from "react";
 import {useCourseDispatch,useCourse} from "../../Services/CourseContextProvider";  
 
-const MockData = ["",""]
+
 function ContentValidation(){
-    const {step}= useCourse();
+    const {step, content, options}= useCourse();
+    console.log("contenu ",useCourse());
     const dispatch = useCourseDispatch();
+
+    function handleSubmit(e){
+        e.preventDefault(); 
+        dispatch(
+            {
+                step : step+1,
+                type:'nextStep'
+            }
+        )
+        dispatch(
+            {   
+                options : options,
+                type:'updateMeta'
+            }
+        )
+
+        dispatch(
+            {   
+                content : content,
+                type:'added'
+            }
+        )
+    }
+
     return(
         <div className="centered">
-            <h1>ContentValidation</h1>
-            {MockData.map(el=>(
-                <div style={{backgroundColor:"blue"}}>
-                    Element de l'exercice cours
+            <h1>Récapitulatif</h1>
+            {content.map(el=>(
+                <div style={{backgroundColor:"grey", display:"flex", justifyContent:"space-around"}}>
+                    <p>{el.element}</p>
+                    <p>{el.traduction}</p>
+                    <p>{el.id}</p>
                 </div>
             ))}
-            <button onClick={()=>{dispatch({step : step+1,type:'nextStep'})}}>Suivant</button>
+            <button onClick={handleSubmit}>Suivant</button>
         </div>
     )
 }

@@ -1,3 +1,5 @@
+"use strict";
+
 import React ,{useState,useEffect,createContext} from "react";
 import ContentMeta from "../Components/admin/ContentMeta";
 import  {CourseProvider} from "../Services/CourseContextProvider";
@@ -32,7 +34,7 @@ function CreateCourse(){
             <h1>Create Course</h1>
             <CourseProvider>
                 <FlowBar/>
-                <div className="stepContent" style={{height:"300px",width:"200px",margin:150,backgroundColor:"cyan"}}>
+                <div className="stepContent" style={{height:"300px",width:"200px",margin:150,boxShadow:"1px 3x 2px",padding:"10px",borderRadius:"5px"}}>
                     <ContentSwitcher/>
                 </div>
                 

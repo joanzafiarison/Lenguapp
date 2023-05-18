@@ -35,16 +35,26 @@ function courseReducer(course,action){
     console.log("in courseReducer",action.type)
     switch(action.type){
         case 'added' : {
-            return [...course,{
-                id : action.id,
-                text : action.text
-            }];
+            console.log("action added",action)
+            return {
+                ...course,
+                content : action.content
+            }
         }
         case 'updateMeta' : {
-            console.log(action)
-            return [...course,{
-                name : action.name,
-            }];
+            console.log(action);
+            console.log("cours",course);
+            return {
+                ...course,
+                options : {
+                 "name" : action.options.name,
+                "lang_src" : action.options.language_src,
+                "lang_dest" : action.options.language_dest,
+                "theme" : action.options.theme,
+                "level" : action.options.level,
+                "type": action.options.type
+              }
+            };
         }
         case 'nextStep':{
             return {step : action.step} 
@@ -57,8 +67,10 @@ function courseReducer(course,action){
 
 
 const initialCourse = {
-    "step" :0
-};
+    "step" :0,
+    "options":{},
+    "content":[]
+  }
 /*
   { id: 0, text: 'Philosopher’s Path', done: true },
   { id: 1, text: 'Visit the temple', done: false },

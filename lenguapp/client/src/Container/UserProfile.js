@@ -6,9 +6,9 @@ import { withContext } from "../Services/ContextWrapper"
  function UserProfile(props){
     const [userInfo,setUserInfo] = useState({})
         
-    
+    console.log("context",props.context)
     useEffect( () => {
-        axios.get(`http://localhost:5000/user/${props.context.user_id}`).then( (resp) => {
+        axios.get(`http://localhost:5000/user/${props.context[0].user_id}`).then( (resp) => {
             setUserInfo(resp.data[0])
         })
         console.log("useEffect")

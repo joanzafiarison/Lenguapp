@@ -48,7 +48,7 @@ export default function HomePage (){
                 </div>
                 
 
-                <h1 class="text-3xl font-bold underline">
+                <h1 className="text-3xl font-bold underline">
                     Hello world!
                 </h1>
                 <HeroStatement title="Learn with your goal in sight" statement="Travel the world, prepare for new jobs ,

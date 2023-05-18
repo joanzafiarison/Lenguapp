@@ -1,7 +1,7 @@
+import React from "react";
 import {render, fireEvent, screen} from '@testing-library/react';
 import {randomNormal,range} from "d3";
-import expect from 'expect';
-import ScatterPlot  from '../Components/ScatterPlot.jsx';
+import ScatterPlot  from '../Components/ScatterPlot.js';
 
 
 describe('ScatterPlot',function(){
@@ -13,6 +13,8 @@ describe('ScatterPlot',function(){
         var scatterplot = render(
             <ScatterPlot/>
         );
+
+        
 
         expect(scatterplot.queryByTitle("h1")).toEqual("This is a random scatterplot");
 

@@ -577,6 +577,8 @@ margin:1.2em
 
 /*General*/ 
 
+/*OVERLAY*/
+
 .word_overlay {
   display:flex;
   flex-direction: column;
@@ -591,11 +593,93 @@ margin:1.2em
   
 }
 
+.preview_overlay {
+  flex-direction: column;
+  align-items:center;
+  position:absolute;
+  top:50%;
+  left:10%;
+  width:80vw;
+  margin:auto;
+  background-color: #88BEDC;
+}
+
+/**/
+
+/*SEARCH*/
+
+.searchResult {
+  width:250px;
+}
+
 .search_element {
   width:100%;
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
   height:80px;
   background-color: grey;
   font-size: 10px;
 }
 
+/**/
 
+.detail_button {
+  background-color: #3298C3;
+}
+
+.tag_button {
+  background-color: #84C36D;
+}
+
+.add_button {
+  background-color: #f2bf60;
+}
+
+button {
+  background-color: greenyellow;
+  padding:2px;
+  border-radius: 5px;
+  width:50px;
+}
+
+
+
+/*PUBLISH*/ 
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #433a3a transparent #3c3030 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lds-success {
+  background-color: green;
+  width: 30px;
+  height: 30px;
+}
+
+.lds-failed {
+  background-color: red;
+  width: 30px;
+  height: 30px;
+}
