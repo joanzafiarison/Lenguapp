@@ -8,9 +8,10 @@ import { withContext } from "../Services/ContextWrapper"
         
     console.log("context",props.context)
     useEffect( () => {
+        //Récupérer un cookie ou localstorage
         axios.get(`http://localhost:5000/user/${props.context[0].user_id}`).then( (resp) => {
             setUserInfo(resp.data[0])
-        })
+        }).catch((err) => console.log(err))
         console.log("useEffect")
     },[])
     

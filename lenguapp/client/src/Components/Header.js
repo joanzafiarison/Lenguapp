@@ -1,5 +1,5 @@
 import React , {useContext,useState} from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {withContext} from "../Services/ContextWrapper"
 
 
@@ -72,33 +72,33 @@ import {withContext} from "../Services/ContextWrapper"
                             <div onClick={()=>setAdmin(!isAdmin)} style={{backgroundColor:"black",width:"45%",height:"100%",borderRadius:20}} ></div>
                         </div>
                     </div>
-                    <div className='hamburger'>
+                    <div className={`hamburger ${opened ? 'hamburger_open' : ''}`}>
                         <figure onClick={()=>setOpened(!opened)}>
                             <img src="img/hamburger.png"/>
                         </figure>
-                        <ul className="menu" style={{display:opened?"block":"none"}}>
-                            <li style={{fontSize:"0.8rem"}}>
+                        <ul className={`menu ${opened ? "menu_open" : ""}`} style={{display:opened?"block":"none"}}>
+                            <li className="menu_link" >
                                 <Link to="/train">Train</Link>
                             </li>
-                            <li style={{fontSize:"0.8rem"}}>
+                            <li className="menu_link" >
                                 <Link to="/courses">Learn</Link>
                             </li>
-                            <li style={{fontSize:"0.8rem"}}>
+                            <li className="menu_link" >
                                 <Link to ="/user">Role</Link>
                             </li>
                             { isAdmin? 
                                 (   
                                     <>
-                                        <li style={{fontSize:"0.8rem"}}>
+                                        <li className="menu_link" >
                                             <Link to ="/dashboard/admin">Dashboard</Link>
                                         </li>
-                                        <li style={{fontSize:"0.8rem"}}>
+                                        <li className="menu_link" >
                                             <Link to ="/create">Create</Link>
                                         </li>
                                     </>
                                 ):
                                 (
-                                    <li style={{fontSize:"1rem"}}>
+                                    <li className="menu_link" >
                                     <Link to ="/dashboard/user">Dashboard</Link>
                                     </li>
                                 )

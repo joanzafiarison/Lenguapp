@@ -35,7 +35,7 @@ function ContentMeta(){
     const [hasDialecte,setDialect] =useState(false)
     const [errorMessage, setErrorMessage] = useState("");
     const dispatch = useCourseDispatch();
-    const {step} = useCourse();
+    const {step, setStep} = useCourse();
     console.log("course flow step",step)
 
     function metaHandler(e){
@@ -48,8 +48,8 @@ function ContentMeta(){
     function check_required_keys(data){
         const keys = [
             "name",
-            "language_dest",
-            "language_src",
+            "lang_dest",
+            "lang_src",
             "theme",
             "type",
             "level"
@@ -103,51 +103,67 @@ function ContentMeta(){
                 <p>
                    Nom : <input type="text"name="name" onChange={(e)=>metaHandler(e)}/>
                 </p>
-                <select defaultValue="fr" name="language_src" onChange={(e)=>metaHandler(e)}>
-                    {supportedLanguages.map(sp_lang => (
-                        <option value={sp_lang.lang}>{sp_lang.name}</option>
-                    ))}
-                </select>
-                <select defaultValue="fr" name="language_dest" onChange={(e)=>metaHandler(e)}>
-                    {supportedLanguages.filter(lg => lg.lang !== options.language_src ).map(sp_lang_ => (
-                        <option value={sp_lang_.lang}>{sp_lang_.name}</option>
-                    ))}
-                </select>
+                <p> Langue de départ 
+                    <select defaultValue="fr" name="lang_src" onChange={(e)=>metaHandler(e)}>
+                        {supportedLanguages.map(sp_lang => (
+                            <option value={sp_lang.lang}>{sp_lang.name}</option>
+                        ))}
+                    </select>
+                </p>
+                <p> Langue d'arrivée
+                    <select defaultValue="fr" name="lang_dest" onChange={(e)=>metaHandler(e)}>
+                        {supportedLanguages.filter(lg => lg.lang !== options.language_src ).map(sp_lang_ => (
+                            <option value={sp_lang_.lang}>{sp_lang_.name}</option>
+                        ))}
+                    </select>
+                </p>
                 <fieldset>
                     <legend>Cela concerne t-il un dialecte ?</legend>
-                    <div>
-                        <input type="radio" name="dialect" id="dialectok" value="oui" onClick={()=>setDialect(true)}/>
-                        <label for="dialectok">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="dialect" id="dialectnok" value="non" onClick={()=>setDialect(false)} />
-                        <label for="dialectnok">Non</label>
+                    <div style={{display : "flex"}}>
+                        <div>
+                            <input type="radio" name="dialect" id="dialectok" value="oui" onClick={()=>setDialect(true)}/>
+                            <label for="dialectok">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="dialect" id="dialectnok" value="non" onClick={()=>setDialect(false)} />
+                            <label for="dialectnok">Non</label>
+                        </div>
                     </div>
                 </fieldset>
-                <select  name="dialecte" onChange={(e)=>metaHandler(e)} style={{display: hasDialecte?"block":"none"}} >
-                    <option value="vezo">vezo</option>
-                    <option value="betsimisaraka">betsimisaraka</option>
-                    <option value="antankarana">antankarana</option>
-                    <option value="merina">Merina</option>
-                </select>
-                <select name="theme" onChange={(e)=>metaHandler(e)}>
-                    <option value="food">Nourriture</option>
-                    <option value="economics">Economie</option>
-                    <option value="daily">Quotidien</option>
-                    <option value="law">Droit</option>
-                </select>
-                <select name="level" onChange={(e)=>metaHandler(e)}>
-                    <option value="beginner">Débutant</option>
-                    <option value="intermediate">Intermédiaire</option>
-                    <option value="advanced">Avancée</option>
-                </select>
-                <select name="type" onChange={(e)=>metaHandler(e)}>
-                    <option value="words">Mots & Phrase</option>
-                    <option value="andyousay">And You Say</option>
-                    <option value="build">Grammaire</option>
-                </select>
-                <input type="submit" value="Allez"/>
-                <input type="submit" value="Retour"/>
+                <p style={{display: hasDialecte?"block":"none"}}>
+                    Dialecte :
+                    <select  name="dialecte" onChange={(e)=>metaHandler(e)}  >
+                        <option value="vezo">vezo</option>
+                        <option value="betsimisaraka">betsimisaraka</option>
+                        <option value="antankarana">antankarana</option>
+                        <option value="merina">Merina</option>
+                    </select>
+                </p>
+                <p>
+                    Thème : 
+                    <select name="theme" onChange={(e)=>metaHandler(e)}>
+                        <option value="food">Nourriture</option>
+                        <option value="economics">Economie</option>
+                        <option value="daily">Quotidien</option>
+                        <option value="law">Droit</option>
+                    </select>
+                </p>
+                <p> Niveau :
+                    <select name="level" onChange={(e)=>metaHandler(e)}>
+                        <option value="beginner">Débutant</option>
+                        <option value="intermediate">Intermédiaire</option>
+                        <option value="advanced">Avancée</option>
+                    </select>
+                </p>
+                <p> Type :
+                    <select name="type" onChange={(e)=>metaHandler(e)}>
+                        <option value="words">Mots & Phrase</option>
+                        <option value="andyousay">And You Say</option>
+                        <option value="build">Grammaire</option>
+                    </select>
+                </p>
+                <button className="detail_button"  onClick={() => console.log("page suivante")}>Suivant</button>
+                <button className="detail_button" onClick={() => console.log("page precedent")}>Retour</button>
             </form>
             {errorMessage !== ""?
                 <div style={{color:"red", position:"absolute",top:"50%", left:"60%",backgroundColor:"grey",width:200}}>

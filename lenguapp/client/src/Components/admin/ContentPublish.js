@@ -18,7 +18,7 @@ const status = [
     {
         "desc":"check the language",
         "step":"language",
-        "status":"failed"
+        "status":"succeed"
     },
     {
         "desc":"check new words",
@@ -38,27 +38,40 @@ function ContentPublish(){
 
     useEffect( () => {
         const fetchData = async () => {
-            return await axios.post("http://localhost:5000/publish",{options, content})
-                                .then(res=>console.log(res))
-                                .catch(console.log)
+            return await axios.post("http://localhost:5000/course",{options, content})
+                                //.then(res=>console.log(res))
+                                //.catch(console.log)
         }
 
         function levelOk () {
+            //fonction qui check si les mots sont bien du bon level
             let newStatus = [...status];
-            newStatus[0].status = "succeed";
-            setTimeout(() => setStatus(newStatus),3000)
+            setTimeout(() => {
+                newStatus[0].status = options.level === "beginner" ? "succeed" : "failed";                
+                setStatus(newStatus)
+            },3000)
+
         }
 
         function themeOk () {
+            // fonction qui check si les mots sont bien du bon thème
             let newStatus = [...status];
-            newStatus[1].status = "succeed";
-            setTimeout(() => setStatus(newStatus),8000)
+            
+            setTimeout(() => {
+                newStatus[1].status = options.theme == "economics" ? "succeed" :"failed";
+                setStatus(newStatus)
+            },8000)
         }
 
         function publishedOk () {
             let newStatus = [...status];
-            newStatus[4].status = "failed";
-            setTimeout(() => setStatus(newStatus),10000)
+            //publication des données et vérifier si les données sont corrects
+            setTimeout(async () => {
+                let resp = await fetchData()
+                console.log("publish request",resp);
+                newStatus[4].status = resp.data.status === "ok" ? "succeed" : "failed";
+                setStatus(newStatus)
+            },10000)
         }
         levelOk()
         themeOk()
@@ -70,6 +83,9 @@ function ContentPublish(){
     return(
         <div className="centered">
             <h1>Publication du contenu</h1>
+            <div>
+                <h2>{options.name}</h2>
+            </div>
             <div>
                 <ul>
                     {status_.map(stat=>(

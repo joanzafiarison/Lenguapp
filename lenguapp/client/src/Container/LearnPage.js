@@ -3,31 +3,71 @@ import axios from "axios"
 import FlashCard from "../Components/FlashCard";
 import {withContext} from "../Services/ContextWrapper"
 
-
-
+// MONGO --> va rechercher les thèmes existants / avec leur difficultés  
+// endpoint /meta ... actualisé tous les X temps (perf)
+const meta_language = {
+    "malagasy" : {
+        "themes" : [
+            {
+                "name" : "food",
+                "level" : ["beginner", "intermediate"],
+                "type" : ["AndYouSay","words"]
+            }
+        ]
+    },
+    "japanese" : {
+        "themes" : [
+            {
+                "name" : "greeting",
+                "level" : ["beginner", "intermediate"],
+                "type" : ["AndYouSay","words"]
+            }
+        ]
+    },
+    "english" : {
+        "themes" : [
+            {
+                "name" : "economics",
+                "level" : ["beginner"],
+                "type" : ["AndYouSay","words"]
+            },
+            {
+                "name" : "law",
+                "level" : ["beginner"],
+                "type" : ["AndYouSay","words"]
+            },
+        ]
+    },
+    "french" : {
+        "themes" : [
+            {
+                "name" : "greeting",
+                "level" : ["beginner", "intermediate"],
+                "type" : ["AndYouSay","words"]
+            }
+        ]
+    },
+}
 
 
 function LearnPage (props) {
     const [text,setText] = useState("");
-    const [urlToContent,setUrl]= useState("http://localhost:5000/exercises")
     const [params,setParams] = useState({
         "contentType" : "words",
-        "language" : "malagasy",
-        "theme" :"food",
+        "language" : "english",
+        "theme":"law",
         "level" : "beginner"
     });
 
     const [content,setContent] = useState([]);
-
-    console.log("route",props.history.location.pathname);
     
-    const routeName = props.history.location.pathname;
+    //const routeName = props.history.location.pathname;
+    
 
     function handleOption(e,option){
-        console.log("handle",e.target.value)
         switch(option){
-            case "type":
-                setParams({...params,type: e.target.value});
+            case "contentType":
+                setParams({...params,contentType: e.target.value});
                 break;
             case "language":
                 setParams({...params,language:e.target.value});
@@ -46,14 +86,16 @@ function LearnPage (props) {
 
     async function handleSubmit(e){
         e.preventDefault();
-        let newContent = await getContent();
-        setContent(newContent.data);
+        let newContent = await getContent("http://localhost:5000/exercises");
+        if (newContent.data) {
+            setContent(newContent.data);
+        }
     }
 
 
 
-    async function getContent(){
-        console.log(params);
+    async function getContent(urlToContent){
+        console.log("params ",params)
         return await axios.post(urlToContent, {
             type : params.contentType,
             language : params.language,
@@ -64,24 +106,19 @@ function LearnPage (props) {
     }
 
     useEffect( async () => {
-        console.log("useEffect content");
 
-        if(routeName === "/courses"){
-            setUrl("http://localhost:5000/courses");
-        } 
-        //ajouter les arguments type=words
-        if(routeName === "/train"){
-            setUrl("http://localhost:5000/exercises");
-        }
-        let contentData = await getContent(urlToContent);
+        let contentData = await getContent("http://localhost:5000/exercises");
         console.log("data",contentData.data)
-        setContent(contentData.data)
-    },[])
-    /*
-    useEffect(()=>{
-        console.log("param effect",params);
+        if (contentData.data) {
+            setContent(contentData.data)
+        }
+        else {
+            console.log("no data found")
+        }
 
-    },[params])*/
+        //load meta
+    },[])
+  
     return (
      <div className="SearchContainer">
         <div id="searchbar">
@@ -106,6 +143,7 @@ function LearnPage (props) {
                     <h3>Theme</h3>
                     <select name="theme" id="theme" onChange={(e)=>handleOption(e,"theme")}>
                         <option value="law">Droit</option>
+                        <option value="greeting">Rencontre</option>
                         <option value="economics">Economie</option>
                         <option value="Tourisme">Tourisme</option>
                         <option value="food">Nourriture</option>
@@ -121,10 +159,10 @@ function LearnPage (props) {
                 </div>
                 <div>
                     <h3>Type</h3>
-                    <select name="type" id="type" onChange={(e)=>handleOption(e,"type")}>
+                    <select name="type" id="type" onChange={(e)=>handleOption(e,"contentType")}>
                         <option value="words">Mots & Phrases</option>
                         <option value="building">Construction</option>
-                        <option value="and-you-say">And you say ...</option>
+                        <option value="and_you_say">And you say ...</option>
                         <option value="Pendu">Pendu</option>
                         <option value="Jeu">Jeu</option>
                     </select>
@@ -134,7 +172,7 @@ function LearnPage (props) {
                     <div id="inline_search">
                         {content != null ?
                             content.map((exercise) => (
-                                <FlashCard type={exercise.type} theme={exercise.theme} language={exercise.language} exercise_id={exercise._id}/>
+                                <FlashCard type={exercise.type} theme={exercise.theme} language={exercise.language} exercise_id={exercise._id} key={exercise._id}/>
                             ))
                             :
                             <p>Pas d'exercices crées pour le moment</p>

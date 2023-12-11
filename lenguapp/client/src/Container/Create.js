@@ -27,14 +27,13 @@ const steps = [
 
 
 function CreateCourse(){
-    const [step,SetStep] = useState(0);
     const [courseData,setCourseData] = useState({})
     return(
         <div style={{display:"flex",margin:30,flexDirection:"column",alignItems:"center"}}>
             <h1>Create Course</h1>
             <CourseProvider>
                 <FlowBar/>
-                <div className="stepContent" style={{height:"300px",width:"200px",margin:150,boxShadow:"1px 3x 2px",padding:"10px",borderRadius:"5px"}}>
+                <div className="stepContent">
                     <ContentSwitcher/>
                 </div>
                 

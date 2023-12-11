@@ -58,14 +58,15 @@ function useTransitionControl(duration){
 
      const [content,setContent] = useState({})
      const [count,setCount] = useState(0)
+     const [solution, setSolution] = useState("")
      const [selected,setSelected] = useState([])
      const [focus,setFocus] = useState("")
      const [cursor,setCursor] = useState(0)
      const [result,setResult] = useState({})
      const [state,enter,exit] = useTransitionControl(2000);
      const [success,setSuccess] = useState(false);
-     const location = useLocation()
-     const {exercise_id} = location.state
+     const location = useLocation();
+     const {exercise_id} = location.state;
 
      let state_ = {
         content :content,
@@ -107,7 +108,7 @@ function useTransitionControl(duration){
 
 
     useEffect(()=>{
-        if(content.content != undefined){
+        if(content.content !== undefined){
             console.log("setting count ",content.content.length)
             setCount(content.content.length);
         }
@@ -116,7 +117,7 @@ function useTransitionControl(duration){
     
     async function validate(){
         
-            let valid = focus == content.content[cursor].solution;
+            let valid = focus === content.content[cursor].solution;
             setSuccess(valid);
             setCursor(cursor +1);
             setSelected([...selected,{item : content.content[cursor],chosen : focus}]);
@@ -124,9 +125,8 @@ function useTransitionControl(duration){
             //setSuccess(content.solution === result.chosen)
             setFocus("");
             enter();
+            setSolution(content.content[cursor].solution)
             exit();
-            console.log("validate")
-            console.log(cursor)
             
     }
         //console.log("PROPS",props)
@@ -139,15 +139,15 @@ function useTransitionControl(duration){
                     <div className="advancement" style={{width:`${(cursor/count)*100}%`}}></div>
                 </div>
                 <div className="train_meta">
-                        <p> THEME : {content.theme}</p>
+                        <p style={{fontSize :12}}> {content.theme}</p>
                 </div> 
                 {cursor < count ?
                     <div className="train_content">
-                    {content.content == null ? 
+                    {content.content === null ? 
                             <span>Ce contenu est vide</span> 
                             :
                             <div className="words">
-                                <h2>{content.content[cursor].word}</h2>
+                                <h2 style={{fontSize:22, margin :'0.8rem'}}>{content.content[cursor].word}</h2>
                                 <figure>
                                     <audio
                                         controls
@@ -167,7 +167,7 @@ function useTransitionControl(duration){
                     </div>
                     :
                     <div className="response_box">
-                       { result == "" ?
+                       { result === "" ?
                            <p>Réponse en cours d'envoi ..</p>
                            :
                            <div>
@@ -182,12 +182,14 @@ function useTransitionControl(duration){
                     <button className="btn" disabled = {focus === "" ? true : false} onClick = {() => validate()}>suivant !</button>    
                 </div> 
                <p>Lifecycle :{state}</p>
-               <div className="success_overlay" style={{display: state == "exiting" ? "flex" : "none"}}>
-                    <p>{success? "Bravo !" :"C'est pas ça !"}</p>
+               {content.content && 
+               <div className="success_overlay" style={{display: state === "exiting" ? "flex" : "none"}}>
+                    <p>{success? "Bravo !" :"la réponse était : "+solution}</p>
                     <div className="tick" style={{width:50,height:50,backgroundColor: success ? colors.green : colors.red}}>
 
                     </div>
                </div>
+                }
 
             </div>
         )

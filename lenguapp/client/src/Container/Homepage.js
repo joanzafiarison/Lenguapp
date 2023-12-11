@@ -32,6 +32,7 @@ const language = [
 ]
 
 export default function HomePage (){
+    console.log("render page home")
         return(
             <>
                 <div id="hero" style={{position:"relative",marginBottom:80}}>

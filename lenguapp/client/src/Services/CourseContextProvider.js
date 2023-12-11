@@ -48,8 +48,8 @@ function courseReducer(course,action){
                 ...course,
                 options : {
                  "name" : action.options.name,
-                "lang_src" : action.options.language_src,
-                "lang_dest" : action.options.language_dest,
+                "lang_src" : action.options.lang_src,
+                "lang_dest" : action.options.lang_dest,
                 "theme" : action.options.theme,
                 "level" : action.options.level,
                 "type": action.options.type

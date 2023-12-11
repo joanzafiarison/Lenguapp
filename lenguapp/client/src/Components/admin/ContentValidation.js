@@ -32,14 +32,18 @@ function ContentValidation(){
 
     return(
         <div className="centered">
-            <h1>Récapitulatif</h1>
-            {content.map(el=>(
-                <div style={{backgroundColor:"grey", display:"flex", justifyContent:"space-around"}}>
-                    <p>{el.element}</p>
-                    <p>{el.traduction}</p>
-                    <p>{el.id}</p>
-                </div>
-            ))}
+            <h1>{options.name}</h1>
+            <p>{options.level}</p>
+            <p>De {options.lang_src} à {options.lang_dest}</p>
+            <p>{content.length} mots ou phrases</p>
+            
+            <div style={{flexDirection : "row"}}>
+                {content.map(el=>(
+                    <div style={{backgroundColor:"grey", display:"flex", justifyContent:"space-around", borderRadius :5, padding : 5, minWidth :50}}>
+                        <p>{el.element}</p>
+                    </div>
+                ))}
+            </div>
             <button onClick={handleSubmit}>Suivant</button>
         </div>
     )

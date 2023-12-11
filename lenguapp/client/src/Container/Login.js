@@ -1,6 +1,7 @@
 import React, { useEffect,useState}from "react";
-import { Redirect,Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {login} from "../Services/auth";
+
 
 
 export default function Login () {
@@ -8,33 +9,31 @@ export default function Login () {
             const [password,setPassword] = useState("");
             const [overlay,setOverlay] = useState(false);
             const [alertText,setAlertText]=useState("");
+
+            // history = useHistory();
             //ben, mail@mail.com, b
             function connect (e){
                 e.preventDefault()
                 const {email,password} = e.target
                 login(email.value,password.value)
                 .then((res)=>{
-                    if(res.session != undefined || res.data.username != undefined){
-                        localStorage.setItem("session", res.session);
-                        localStorage.setItem("username", res.data.username);
-                        console.log("bon user");
+                    if(res.data.message =="auth_ok"){
+                        localStorage.setItem("auth_token", res.headers.Authorization)
                         setAlertText("Redirection");
                         setOverlay(true);
                     }
                     else{
                         setAlertText("Mauvais mot de passe");
                         setOverlay(true);
-                        //return Redirect("/");
                     }
-                    console.log("status",res.data.status);
-                    localStorage.setItem("status", res.data.status);
+                    console.log("status",res.status);
                 })
-                .then(()=>Redirect("/"))
+                .then(()=>console.log("push"))
                 .catch( (e) =>console.log(e))
             }
 
             return(
-            <div style={{display:"flex",border:"1px solid black",width:"100%"}}>
+            <div style={{display:"flex",border:"1px solid black",width:"100%", padding :"1rem"}}>
                 <div className="feature_login">
                     <figure>
                         <img src="" alt="feature"/>

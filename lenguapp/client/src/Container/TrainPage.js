@@ -5,6 +5,7 @@ import {withContext} from "../Services/ContextWrapper"
 
 function TrainPage (props) {
     const [exercises,setExercises] = useState([])
+    console.log("exercises", exercises)
 
     useEffect( () => {
         axios.get("http://localhost:5000/exercises")
@@ -25,6 +26,7 @@ function TrainPage (props) {
                     <div>
                         <h3>Langue</h3>
                         <select name="language" id="language">
+                            <option value='mg'>Madagascar</option>
                             <option value="eng">Anglais</option>
                             <option value="fr">Français</option>
                             <option value="de">Allemand</option>
@@ -33,6 +35,8 @@ function TrainPage (props) {
                     <div>
                         <h3>Theme</h3>
                         <select name="theme" id="theme">
+                            <option value="presentation">Présentation</option>
+                            <option value="food">Nourriture</option>
                             <option value="law">Droit</option>
                             <option value="eco">Economie</option>
                             <option value="Tourisme">Tourisme</option>

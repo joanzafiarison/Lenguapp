@@ -2,7 +2,7 @@ import {Redirect,Route} from "react-router-dom"
 import {withContext} from "./ContextWrapper"
 
 function ProtectedRoute (props) {
-    
+    console.log("in protected route ",this.state)
       
       return (
         <Route 
