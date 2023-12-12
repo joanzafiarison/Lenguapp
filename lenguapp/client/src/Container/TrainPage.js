@@ -1,7 +1,6 @@
 import React , {useState,useContext,useEffect} from "react"
 import axios from "axios"
 import FlashCard from "../Components/FlashCard"
-import {withContext} from "../Services/ContextWrapper"
 
 function TrainPage (props) {
     const [exercises,setExercises] = useState([])
@@ -10,6 +9,7 @@ function TrainPage (props) {
     useEffect( () => {
         axios.get("http://localhost:5000/exercises")
              .then((res) => setExercises(res.data))
+             .catch((err)=>alert(JSON.stringify(err)))
     })
 
     return (
@@ -67,4 +67,4 @@ function TrainPage (props) {
 }
 
 
-export default withContext(TrainPage)
+export default TrainPage

@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import AppRouter from './Router';
 
 test('renders learn react link', () => {
-  render(<App />);
+  render(<AppRouter />);
   const logoElement = screen.getByText(/Kozé/i);
   expect(logoElement.textContent).toBe("Kozé")
 });

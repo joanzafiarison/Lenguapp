@@ -1,7 +1,7 @@
 import React , {useState,useContext,useEffect} from "react"
 import axios from "axios"
+import Sidebar from "../Components/Sidebar";
 import FlashCard from "../Components/FlashCard";
-import {withContext} from "../Services/ContextWrapper"
 
 // MONGO --> va rechercher les thèmes existants / avec leur difficultés  
 // endpoint /meta ... actualisé tous les X temps (perf)
@@ -184,4 +184,4 @@ function LearnPage (props) {
 }
 
 
-export default withContext(LearnPage)
+export default LearnPage

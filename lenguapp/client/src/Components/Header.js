@@ -1,12 +1,13 @@
 import React , {useContext,useState} from 'react';
 import { Link } from "react-router-dom";
-import {withContext} from "../Services/ContextWrapper"
+import { useAppData } from "../Services/ContextProvider";
 
 
 //Context User ou Admin 
 //context Contient aussi session user & cookie
  function Header (props){
         //test only
+        const { user } = useAppData();
         const [isAdmin,setAdmin] = useState(true);
         const [opened,setOpened] = useState(false);
         let options = {
@@ -66,7 +67,7 @@ import {withContext} from "../Services/ContextWrapper"
                             </Link>
                         </figure>
                         
-                        <p style={{fontSize:"0.8rem"}}>{props.context.username}</p>
+                        <p style={{fontSize:"0.8rem"}}>{user.username}</p>
 
                         <div className='switch' style={{backgroundColor: isAdmin? "green":"grey",width:"2em",height:"1em",display:"flex",justifyContent: isAdmin? "flex-start":"flex-end"}}>
                             <div onClick={()=>setAdmin(!isAdmin)} style={{backgroundColor:"black",width:"45%",height:"100%",borderRadius:20}} ></div>
@@ -110,4 +111,4 @@ import {withContext} from "../Services/ContextWrapper"
     )
 }
 
-export default withContext(Header)
+export default Header

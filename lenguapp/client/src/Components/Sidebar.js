@@ -1,6 +1,29 @@
-import React from 'react'
+import React , { useState }from 'react';
+import { useAppData, useAppDispatch } from "../Services/ContextProvider";
 
 function Sidebar() {
+  const [params, setParams] = useState({})
+  const { search } = useAppDispatch();
+
+  function handleOption(e,option){
+    switch(option){
+        case "contentType":
+            setParams({...params,contentType: e.target.value});
+            break;
+        case "language":
+            setParams({...params,language:e.target.value});
+            break; 
+        case "theme":
+            setParams({...params,theme:e.target.value});
+            break; 
+        case "level":
+            setParams({...params,language:e.target.value});
+            break;
+        case "text":
+            setParams({...params,text:e.target.value});
+            break;
+    }
+  }
   return (
     <div className="sidebar">
                 <div>

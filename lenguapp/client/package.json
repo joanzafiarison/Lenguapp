@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^1.6.2",
+    "d3": "^7.8.5",
     "enzyme": "^3.11.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -19,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts --openssl-legacy-provider build ",
-    "test": "jest",
+    "test": "react-scripts test -- --config jest.config.js",
     "eject": "react-scripts eject",
     "homepage": "http://localhost:5000/"
   },
@@ -43,6 +44,9 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-numeric-separator": "^7.23.4",
+    "@babel/preset-env": "^7.23.6",
+    "@babel/preset-react": "^7.23.3",
+    "babel-jest": "^29.7.0",
     "expect": "^29.4.3",
     "react-scripts": "^5.0.0"
   }

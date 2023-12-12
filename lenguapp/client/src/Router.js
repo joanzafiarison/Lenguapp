@@ -1,32 +1,24 @@
 import React from "react";
 import {
-  BrowserRouter as Router
+    Routes,
+    Route
 } from "react-router-dom";
-import AppRouter  from "./Router";
-import "./index.scss";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
 
+import Train from "./Container/Train";
+import TrainPage from './Container/TrainPage';
+import SignUp from "./Container/SignUp"; 
+import Login from "./Container/Login";
+import UserProfile from "./Container/UserProfile";
+import HomePage from "./Container/Homepage";
+import Learn from "./Container/Learn";
+import LearnPage from "./Container/LearnPage";
+import DashboardAdmin from "./Container/DashboardAdmin";
+import DashboardUser from "./Container/DashboardUser";
+import CreateCourse from "./Container/Create";
 
-import ContextProvider from "./Services/ContextProvider";
-
-export default function App() {
-  
-    return (
-    <ContextProvider>
-      <Router>
-        <Header/>
-        <div className="mainContainer">
-          <AppRouter/>
-        </div>
-        <Footer/>
-      </Router>
-    </ContextProvider>
-    );
-}
-
-/**
- *           <Routes>
+export default function AppRouter () {
+    return(
+        <Routes>
             <Route path="/" element={ <HomePage/> }/>
             <Route path="/train/item/:exercise_id" element={ <Train/>}/>
             <Route path="/train/" element={ <TrainPage/> }/>
@@ -39,4 +31,5 @@ export default function App() {
             <Route path="/dashboard/user" element={<DashboardUser/> }/>
             <Route path="/create" element={ <CreateCourse/> }/>
           </Routes>
- */
+    )
+}

@@ -1,7 +1,7 @@
-import React , {useState,useContext,useEffect} from "react"
+import React , {useState, useEffect} from "react";
 import axios from "axios"
-import {withContext} from "../Services/ContextWrapper"
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import { useAppData } from "../Services/ContextProvider";
 import {colors} from "../utils/colors"
 
 
@@ -65,7 +65,9 @@ function useTransitionControl(duration){
      const [result,setResult] = useState({})
      const [state,enter,exit] = useTransitionControl(2000);
      const [success,setSuccess] = useState(false);
+     const { user } = useAppData();
      const location = useLocation();
+     console.log("location ",location);
      const {exercise_id} = location.state;
 
      let state_ = {
@@ -94,7 +96,7 @@ function useTransitionControl(duration){
             axios.post("http://localhost:5000/scores",
                     {
                         content : selected,
-                        user_id: props.context.user_id,
+                        user_id: user.user_id,
                         type:content.type,
                         theme : content.theme,
                         language: content.language
@@ -102,6 +104,7 @@ function useTransitionControl(duration){
                     .then((res) =>{
                         setResult(res.data)
                         })
+                    .catch(err => console.log(err))
         }
          
     },[cursor === count])
@@ -195,4 +198,4 @@ function useTransitionControl(duration){
         )
 }
 
-export default withContext(TrainInstance)
+export default TrainInstance

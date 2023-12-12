@@ -1,15 +1,15 @@
-import React , {useEffect,useContext,useState} from "react"
-import axios from "axios"
-import { withContext } from "../Services/ContextWrapper"
+import React , {useEffect, useState} from "react";
+import axios from "axios";
+import { useAppData } from "../Services/ContextProvider";
 
 
  function UserProfile(props){
     const [userInfo,setUserInfo] = useState({})
-        
+    const { user } = useAppData();
     console.log("context",props.context)
     useEffect( () => {
         //Récupérer un cookie ou localstorage
-        axios.get(`http://localhost:5000/user/${props.context[0].user_id}`).then( (resp) => {
+        axios.get(`http://localhost:5000/user/${user.user_id}`).then( (resp) => {
             setUserInfo(resp.data[0])
         }).catch((err) => console.log(err))
         console.log("useEffect")
@@ -22,8 +22,8 @@ import { withContext } from "../Services/ContextWrapper"
                 <div className="meta_info">
                 
                     <h1>Mon Compte</h1>
-                    <p>Nom : {props.context.username}</p>
-                    <p>E-mail : {props.context.mail}</p>
+                    <p>Nom : {user.username}</p>
+                    <p>E-mail : {user.mail}</p>
                 </div>
                 <div className="performance">
                     <p>Score : </p>
@@ -80,4 +80,4 @@ import { withContext } from "../Services/ContextWrapper"
 }
 
 
-export default withContext(UserProfile)
+export default UserProfile

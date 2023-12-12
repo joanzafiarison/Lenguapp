@@ -1,5 +1,4 @@
 import React , {useEffect, useState } from "react"
-import {withContext} from "../Services/ContextWrapper"
 import axios from "axios"
 import {useLocation} from "react-router-dom"
 
@@ -54,7 +53,7 @@ import {useLocation} from "react-router-dom"
     )
 }
 
-export default withContext(Learn)
+export default Learn
 
 
 /*
