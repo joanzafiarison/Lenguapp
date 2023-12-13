@@ -7,11 +7,10 @@ const AppDispatchContext = createContext(null);
 //Mail , lang , username should not appear
 let init_context =  {
     user : {
-        username :"bendoFlex",
-        mail :"bendoMail.fr",
-        user_id :"63dd7bae6dfe86b3e0186613",
-        token :"516516511fhlnk",
-        lang : "french",
+        username :"",
+        user_id :"",
+        token :"",
+        lang : "",
     },
     search :{
         lang :"malagasy",
@@ -56,6 +55,15 @@ function authReducer(initContext, action){
                 ...initContext,
                 user : action.user
             };
+        case "UPDATE_TOKEN" : {
+            return {
+                ...initContext,
+                user : {
+                    ...initContext.user,
+                    token : action.token
+                }
+            }
+        }
         case "SEARCH":
             return {
                 ...initContext,

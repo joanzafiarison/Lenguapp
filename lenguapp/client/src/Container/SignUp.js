@@ -2,38 +2,33 @@ import React ,{useState,useEffect} from "react";
 import {sign_up} from "../Services/auth";
 
 export default function SignUp () {
-        const [password,setPassword] = useState("");
-        const [id,setId] = useState("");
-        const [email,setEmail] = useState("");
-        const [langage,setLangage] = useState("");
+        const [password, setPassword] = useState("");
+        const [passwordConfirm, setPasswordConfirm] = useState("");
+        const [username, setUsername] = useState("");
+        const [email, setEmail] = useState("");
+        const [options, setOptions] = useState({})
 
-        useEffect( ()=> {
-            sign_up(email,password,id).then(res=>console.log(res.data))
-        });
+        function handleSubmit(e) {
+            e.preventDefault();
+            sign_up({email : email, password : password, username : username})
+                .then(res=>console.log(res.data))
+                .catch(err => console.log(err))
+        }
+
         return(
             <div className="container_one">
                 <h1>Création du compte</h1>
-                <form >
+                <form onSubmit={handleSubmit}>
                     <div className="container_wrap">
                         <p>
                             <label htmlFor="username">
-                                Identifiant :<input type="text" name="username" id="username" onChange={(e)=>setId(e.target.value)}/>
+                                Identifiant :<input type="text" name="username" id="username" onChange={(e)=>setUsername(e.target.value)}/>
                             </label>
                         </p>
                         <p>
                             <label htmlFor="email">
                                 E-mail : <input type="email" name="email" id="email" onChange={(e)=>setEmail(e.target.value)}/>
                             </label>
-                        </p>
-                        <p>
-                                <label htmlFor="identifiant">
-                                Prénom : <input type="text" name="name" id="name"/>
-                                </label>
-                        </p>
-                        <p>
-                                <label htmlFor="identifiant">
-                                Nom : <input type="text" name="name" id="name"/>
-                                </label>
                         </p>
                         <p>
                             <label htmlFor="password">

@@ -1,6 +1,7 @@
 import React, { useEffect,useState}from "react";
 import { Link , useNavigate } from "react-router-dom";
 import {login} from "../Services/auth";
+import { useAppData , useAppDispatch } from "../Services/ContextProvider";
 
 
 
@@ -10,6 +11,10 @@ export default function Login () {
             const [overlay,setOverlay] = useState(false);
             const [alertText,setAlertText]=useState("");
             const navigate = useNavigate();
+            const { user } = useAppData();
+            const dispatch = useAppDispatch();
+
+            console.log("user ",user)
 
             // history = useHistory();
             //ben, mail@mail.com, b
@@ -23,6 +28,10 @@ export default function Login () {
                         localStorage.setItem("auth_token", res.headers.authorization)
                         setAlertText("Redirection");
                         setOverlay(true);
+                        dispatch({
+                            "token" : res.headers.authorization,
+                            "type" : "UPDATE_TOKEN"
+                        })
                         navigate("/");
                     }
                     else{

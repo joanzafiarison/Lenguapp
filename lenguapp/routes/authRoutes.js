@@ -41,7 +41,7 @@ router.post("/login", service.auth)
 
 
 router.post("/register", async(req,res) => {
-    console.log("attempt to register")
+    console.log("body ",req.body)
     const {username, password , email} = req.body
     subscribe = false
 
@@ -85,6 +85,22 @@ router.post("/register", async(req,res) => {
         msg = `${username} not subscribed`
     }
     res.send(msg)
+})
+
+router.post("/forgotpassword", async ( req, res) => {
+    const { email , password } = req.body;
+    let User = db.model("Users",UserModel)
+    const user = await User.find({email : email, password : password});
+    if (user.length === 1) {
+        await User.updateOne(
+            { email : email },
+            {
+                $set : {
+                   password : password  
+                }
+            }
+        );
+    }
 })
 
 

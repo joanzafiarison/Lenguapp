@@ -10,6 +10,7 @@ const scoreSchema = new mongoose.Schema({
 })
 const userSchema = new mongoose.Schema({
   username: { type: String,required : true},
+  role : { type: String,required : false, default : "user"},
   email: { type: String, unique: true },
   password: { type: String, required:true },
   token: { type: String, required : false},
