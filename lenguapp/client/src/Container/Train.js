@@ -83,9 +83,9 @@ function useTransitionControl(duration){
         axios.get(`http://localhost:5000/exercises/${exercise_id}`)
             .then((response) => setContent(response.data[0]))
 
-        //mettre directement le lien dans le composant audio
+        /*mettre directement le lien dans le composant audio
         axios.get("http://localhost:5000/resources")
-            .then((response)=>console.log("audio",response))
+            .then((response)=>console.log("audio",response))*/
     
     },[])
 
@@ -130,11 +130,11 @@ function useTransitionControl(duration){
             enter();
             setSolution(content.content[cursor].solution)
             exit();
-            
-    }
-        //console.log("PROPS",props)
-        //console.log("focus "+focus)
 
+            //if finished --> Go to Train/
+            //TODO
+    }
+        
  
         return(
             <div id ="train_container" className={state == "entering" ? "layoutTransition":""}>

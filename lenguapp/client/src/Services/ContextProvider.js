@@ -4,20 +4,20 @@ import React, {useContext, createContext, useReducer } from 'react';
 const AppContext = createContext(null);
 const AppDispatchContext = createContext(null);
 
+//Mail , lang , username should not appear
 let init_context =  {
     user : {
         username :"bendoFlex",
         mail :"bendoMail.fr",
         user_id :"63dd7bae6dfe86b3e0186613",
-        last_expiration_time : "051651561",
         token :"516516511fhlnk",
-        authentificated : "true"
+        lang : "french",
     },
     search :{
-        lang_src : "french",
-        lang_dest :"japanese",
-        theme : "words",
-        level :"beginner"
+        lang :"malagasy",
+        theme : "food",
+        level :"beginner",
+        type : "words"
     }
 
 }
@@ -44,11 +44,12 @@ export function useAppData() {
   }
   
 export function useAppDispatch() {
-    console.log("course dispatch used")
+    console.log("app dispatch used")
     return useContext(AppDispatchContext);
 }
 
 function authReducer(initContext, action){
+    console.log(initContext)
     switch(action.type) {
         case "USER" :
             return {

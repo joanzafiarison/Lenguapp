@@ -1,5 +1,5 @@
 import React, { useEffect,useState}from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import {login} from "../Services/auth";
 
 
@@ -9,6 +9,7 @@ export default function Login () {
             const [password,setPassword] = useState("");
             const [overlay,setOverlay] = useState(false);
             const [alertText,setAlertText]=useState("");
+            const navigate = useNavigate();
 
             // history = useHistory();
             //ben, mail@mail.com, b
@@ -17,10 +18,12 @@ export default function Login () {
                 const {email,password} = e.target
                 login(email.value,password.value)
                 .then((res)=>{
-                    if(res.data.message =="auth_ok"){
-                        localStorage.setItem("auth_token", res.headers.Authorization)
+                    if(res.data.message =="good credentials"){
+                        //console.log("new auth ", res.headers.authorization)
+                        localStorage.setItem("auth_token", res.headers.authorization)
                         setAlertText("Redirection");
                         setOverlay(true);
+                        navigate("/");
                     }
                     else{
                         setAlertText("Mauvais mot de passe");

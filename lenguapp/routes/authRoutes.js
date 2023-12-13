@@ -1,11 +1,15 @@
 const express= require("express")
 const router = express.Router()
 const fs = require('fs');
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+
 
 const mongoose = require("mongoose")
 const db = require("../config/database")
 const UserModel = require("../models/user")
+
+
+const service = require("../services/user");
 
 router.post("/hash",  (req,res) => {
     saltRounds = 10;
@@ -23,59 +27,18 @@ router.post("/tanks", async(req,res) => {
         //then search
         selected = await Tank.find({name : name}) 
         if(selected){
-            resp = selected
+            res = selected
         }
     }catch (e) {
-        resp = {message : "no no such tank"}
+        res = {message : "no no such tank"}
     }
 
     res.send(resp)
 })
 /*USER ROUTES*/
-router.post("/login", async(req,res) => {
-    //if first connexion no cookie , give him cookie
-    
-    const {password,email} = req.body
-    token = {}
-    if( password && email){
-        // find if email already exist
-        // get user  database
-        User = db.model("users",UserModel)
+router.post("/login", service.auth)
 
-        selected = await User.findOne({email : email})
-        if( selected != null) {
-            //console.log(selected)
-            pass =  await bcrypt.compare(password,selected["password"])
-            if (pass) {
-                console.log(selected["username"])
-                token = {
-                    "session":req.session,
-                    "username":selected["username"],
-                    "status":200
-                }
-                console.log("OK");
-                //GENERATE TOKEN HERE
-            }
-            else {
-                token = {
-                    "status":400
-                 }
-                 console.log("not OK");
-            }
-        }
-        else {
-             token = {
-                "status":400
-             }
-             console.log("not OK");
-        }
-        
-    }
-    console.log("token",token)
-    //cookie attached to user (act like a token)
-   
-    res.send(token)
-})
+
 
 router.post("/register", async(req,res) => {
     console.log("attempt to register")

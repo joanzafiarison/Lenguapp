@@ -10,6 +10,15 @@ function sign_up(email,password,username){
     
 }
 
+function isLoggedIn(token){
+    //check Token 
+    // if it is OK return the user info 
+    return {};
+}
+
+function logOut(){
+    //delete The token
+}
 
 export {
     login,

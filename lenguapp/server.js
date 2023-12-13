@@ -4,7 +4,12 @@ const express = require("express");
 const cors = require("cors")
 const path = require("path")
 
+var corsOptions = {
+  exposedHeaders: "Authorization"
+}
+
 const app = express(); 
+app.use(cors(corsOptions));
 
 
 connexion = require("./config/database")
@@ -39,7 +44,7 @@ app.use(express.urlencoded({ extended: true }))
 
 var corsOptions = {
     origin: true,
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    //optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 app.use(cors(corsOptions))
 

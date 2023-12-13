@@ -15,7 +15,7 @@ export default function FlashCard (props) {
     const colorValue = contentTypes[props.type].color;
     return(
         <div className="training_card" style={{backgroundColor:colors.colorValue}}>
-            <Link to={`/train/item/${props.exercise_id}`} state={{ exercise_id: props.exercise_id }} >
+            <Link to={`/${props.cardType}/item/${props.exercise_id}`} state={{ exercise_id: props.exercise_id }} >
                 <div className="training_meta">
                     <figure style={{width:20,margin:0}}>
                         <img src={flags[props.language]} alt="flag" style={{width:"100%"}}/>

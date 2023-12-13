@@ -3,6 +3,7 @@ const router = express.Router()
 const fs = require('fs');
 const bcrypt = require("bcrypt")
 
+const auth = require("../middleware/auth");
 const userSchema = require('../models/user')
 const db = require("../config/database")
 const User = db.model("Users",userSchema)
@@ -15,10 +16,9 @@ router.get("/users",async function (req,res) {
 })
 
 // get one user OK
-router.get("/user/:userId", async function (req,res,next) {
+router.get("/user/:userId",  async function (req,res,next) {
     const user = await User.find({_id : req.params.userId})
     // moving to next route
-    next()
     res.send(user)
 
 })
