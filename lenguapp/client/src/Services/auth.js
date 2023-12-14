@@ -4,6 +4,10 @@ function login(email,password){
      return axios.post("http://localhost:5000/login",{password : password,email:email})
 }
 
+function changePassword(email, password){
+    return axios.post("http://localhost:5000/forgotpassword",{password : password, email : email})
+}
+
 
 function sign_up(userData){
     return axios.post("http://localhost:5000/register", userData)
@@ -22,5 +26,6 @@ function logOut(){
 
 export {
     login,
-    sign_up
+    sign_up,
+    changePassword
 }

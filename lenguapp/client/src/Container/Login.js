@@ -29,8 +29,12 @@ export default function Login () {
                         setAlertText("Redirection");
                         setOverlay(true);
                         dispatch({
-                            "token" : res.headers.authorization,
-                            "type" : "UPDATE_TOKEN"
+                            "user" : {
+                                token : res.headers.authorization,
+                                user_id : res.data.user_id ,
+                                username : res.data.username,
+                            },
+                            "type" : "UPDATE_USER"
                         })
                         navigate("/");
                     }
@@ -75,7 +79,7 @@ export default function Login () {
                                     Mot de Passe :<input type="password" name="password" id="pwd" />
                                 </label>
                             </p>
-                            <a><p className="little_text">Récupérer son mot de passe</p></a>
+                            <Link to="/forgotpassword"><p className="little_text">Récupérer son mot de passe</p></Link>
                             <button className="button_large">Se connecter</button>
                             <button className="button_google">Se connecter avec Google</button>
                         </div>

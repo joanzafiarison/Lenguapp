@@ -23,7 +23,8 @@ import { useAppData } from "../Services/ContextProvider";
                 
                     <h1>Mon Compte</h1>
                     <p>Nom : {user.username}</p>
-                    <p>E-mail : {user.mail}</p>
+                    <p>E-mail : {userInfo.email}</p>
+                    <p>Role : {userInfo.role}</p>
                 </div>
                 <div className="performance">
                     <p>Score : </p>

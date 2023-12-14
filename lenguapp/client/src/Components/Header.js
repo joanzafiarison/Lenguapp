@@ -5,7 +5,7 @@ import { useAppData } from "../Services/ContextProvider";
 
 //Context User ou Admin 
 //context Contient aussi session user & cookie
- function Header (props){
+ function Header (){
         //test only
         const { user } = useAppData();
         const [isAdmin,setAdmin] = useState(true);
@@ -20,7 +20,7 @@ import { useAppData } from "../Services/ContextProvider";
         
          const [time,setTime] = useState(new Date().toLocaleTimeString("fr-FR",options))
          const [connected,setConnected]=useState(true)
-        console.log("CONTEXT",props.context)
+        console.log("CONTEXT",user)
         return(
             <header style={{width:"100%",display:"flex",justifyContent:"space-between"}}>
                 <div id="logo" style={{flex:1}}>

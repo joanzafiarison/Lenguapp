@@ -10,6 +10,7 @@ const UserModel = require("../models/user")
 
 
 const service = require("../services/user");
+const secure = require("../services/secure");
 
 router.post("/hash",  (req,res) => {
     saltRounds = 10;
@@ -45,10 +46,10 @@ router.post("/register", async(req,res) => {
     const {username, password , email} = req.body
     subscribe = false
 
-    User = db.model("Users",UserModel)
+    const User = db.model("Users",UserModel)
 
     if(username && password && email) {
-        new_user = await User.find({email:email})
+        let new_user = await User.find({email:email})
         //si pas d'users
         if(new_user.length == 0){
             try {
@@ -62,11 +63,17 @@ router.post("/register", async(req,res) => {
                     password : hashed_pass,
                     username : username
                 }
-                await User.create(new_user_info)
+                try {
+                    await User.create(new_user_info)
+                } catch(err) {
+                    //erreur de création
+                    throw new Error(err);
+                }
+                
                 //vérification
-                users = await User.find()
-                console.log(users)
-                if(users.length == 0){
+                let found_user = await User.find({email:email})
+                console.log("found ",found_user)
+                if(found_user.length == 0){
                     console.log("not subbed")
                 }
                 else {
@@ -89,18 +96,23 @@ router.post("/register", async(req,res) => {
 
 router.post("/forgotpassword", async ( req, res) => {
     const { email , password } = req.body;
-    let User = db.model("Users",UserModel)
-    const user = await User.find({email : email, password : password});
+    let User = db.model("Users",UserModel);
+
+    let hashed_pass = secure.hash_pass(password);
+
+    const user = await User.find({email : email});
     if (user.length === 1) {
-        await User.updateOne(
+        let result = await User.updateOne(
             { email : email },
             {
                 $set : {
-                   password : password  
+                   password : hashed_pass  
                 }
             }
         );
+        return res.status(200).json(result);
     }
+    return res.status(400).json({"message" : "utilisateur non trouvé"});
 })
 
 

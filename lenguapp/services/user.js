@@ -35,7 +35,7 @@ exports.auth = async (req, res, next) => {
                     return res.header('Authorization', 'Bearer ' + token).status(200)
                             .json({
                                 'message' : 'good credentials',
-                                'id' : user._doc.id,
+                                'user_id' : user._doc._id,
                                 'username' : user._doc.username
                                 
                             });

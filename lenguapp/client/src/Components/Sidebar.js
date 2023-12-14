@@ -261,7 +261,7 @@ function Sidebar({type}) {
   }
   return (
     <div className="sidebar">    
-        <div>
+        <div className="attr_section">
             <h3>Langue</h3>
             <select value={search.lang} name="language" id="language" onChange={(e)=>handleOption(e,"lang")}>
                 {meta && meta.lang.map( lang => (
@@ -269,7 +269,7 @@ function Sidebar({type}) {
                 ))}
             </select>
         </div>
-        <div>
+        <div className="attr_section">
             <h3>Theme</h3>
             <select value={search.theme} name="theme" id="theme" onChange={(e)=>handleOption(e,"theme")}>
                 {meta && meta.theme.map( th => (
@@ -277,7 +277,7 @@ function Sidebar({type}) {
                 ))}
             </select>
         </div>
-        <div>
+        <div className="attr_section">
             <h3>Niveau</h3>
             <select value={search.level} name="level" id="level" onChange={(e)=>handleOption(e,"level")}>
                 {meta && meta.level.map( lv => (
@@ -285,8 +285,8 @@ function Sidebar({type}) {
                 ))}
             </select>
         </div>
-        <div>
-            <h3>Type</h3>
+        <div className="attr_section">
+            <h3 className="attr_title">Type</h3>
             <select value={search.type} name="type" id="type" onChange={(e)=>handleOption(e,"type")}>
                 {meta && meta.contentType.map( tp => (
                         <option value={tp.attr}>{tp.value}</option>

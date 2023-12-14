@@ -15,6 +15,7 @@ import LearnPage from "./Container/LearnPage";
 import DashboardAdmin from "./Container/DashboardAdmin";
 import DashboardUser from "./Container/DashboardUser";
 import CreateCourse from "./Container/Create";
+import ForgotPassword from "./Container/ForgotPassword";
 
 export default function AppRouter () {
     return(
@@ -24,6 +25,7 @@ export default function AppRouter () {
             <Route path="/train/" element={ <TrainPage/> }/>
             <Route path="/courses/item" element={<Learn/>}/>
             <Route path="/courses" element={ <LearnPage/> }/>
+            <Route path="/forgotpassword" element={ <ForgotPassword/> }/>
             <Route path="/register" element={ <SignUp/> }/>
             <Route path ="/signin" element={ <Login/> }/>
             <Route path="/user" element={ <UserProfile/> }/>

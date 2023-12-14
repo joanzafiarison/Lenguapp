@@ -50,10 +50,15 @@ export function useAppDispatch() {
 function authReducer(initContext, action){
     console.log(initContext)
     switch(action.type) {
-        case "USER" :
+        case "UPDATE_USER" :
+            console.log(action)
             return {
                 ...initContext,
-                user : action.user
+                user :{
+                    token : action.user.token,
+                    user_id : action.user.user_id,
+                    username : action.user.username
+                } 
             };
         case "UPDATE_TOKEN" : {
             return {

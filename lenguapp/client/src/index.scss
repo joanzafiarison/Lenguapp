@@ -23,6 +23,9 @@ h1 {
   font-size: 20px;
 }
 
+option {
+  font-size : 14px;
+} 
 
 .centered {
   display: flex;
@@ -163,10 +166,11 @@ footer {
   align-items: center;
 }
 
-.searchContainer {
+.SearchContainer {
   display:flex;
   flex-direction: column;
   justify-content: center;
+  width : 100%;
 }
 
 
@@ -428,15 +432,13 @@ margin:1.2em
 
 .sidebar {
   background-color: #D9D9D9;
-  margin-bottom: 20px;
-  width: 150px;
-  height: 65vh;
+  margin : 0px 0px 20px 20px;
   border-radius: 2%;
-  padding:10px;
-  margin-left:20px;
+  padding:1rem;
   h3{
     font-size: 16px;
-    text-decoration: underline;
+    font-weight :600;
+    margin : 1em;
   }
   @media screen and (max-width:375px){
     display: flex;
@@ -449,6 +451,11 @@ margin:1.2em
       font-size:14px;
     }
   }
+}
+
+.attr_section{
+  margin : 1.5em auto;
+  text-align : center;
 }
 
 #search {
@@ -494,11 +501,12 @@ margin:1.2em
   flex-direction :column;
   align-items:center;
   justify-content: space-around;
-  width: 12vw;
-  height: 10em;
+  min-width : 10em;
+  max-height: 10em;
   background-color: $color-dull-blue;
   margin : 3vh;
-  border-radius: 15px;
+  border-radius: 10px;
+  box-shadow : 2px 2px 5px grey;
 
   .training_meta {
     display: flex;

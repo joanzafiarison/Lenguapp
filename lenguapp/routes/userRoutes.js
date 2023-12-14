@@ -18,7 +18,7 @@ router.get("/users",async function (req,res) {
 // get one user OK
 router.get("/user/:userId",  async function (req,res,next) {
     const user = await User.find({_id : req.params.userId})
-    // moving to next route
+    delete user[0]._doc.password;// moving to next route
     res.send(user)
 
 })
