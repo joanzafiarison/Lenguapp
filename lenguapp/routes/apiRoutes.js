@@ -59,6 +59,28 @@ router.post("/exercises/", async function (req,res){
     }
    res.send(exercise)
 })
+
+router.post("/exercise/create", async function (req,res){
+    const {options , content} = req.body;
+    const { theme, name, level, lang_dest,  lang_src} = options;
+    let exercises = []
+    let operation = {}
+   try {
+    exercises = await Exercise.find({theme : theme, name : name , level : level, language : lang_dest , from : lang_src })
+    // operation check si unique
+    if (exercises.length == 0){
+        console.log("le cours est inédit")
+        console.log("contenu", content)
+        operation = await Exercise.insert({})
+    }
+    
+   }
+    catch(e) {
+        console.log("duplicate", e)
+    }
+   res.send(operation)
+})
+
 //get courses OK
 router.post("/courses/", async function (req,res){
     let courses = [];
@@ -73,7 +95,7 @@ router.post("/courses/", async function (req,res){
    res.send(courses)
 })
 //create a course OK
-router.post("/course/", async function (req,res){
+router.post("/course/create", async function (req,res){
     const {options , content} = req.body;
     const { theme, name, level, lang_dest,  lang_src} = options;
     let courses = []
@@ -84,15 +106,17 @@ router.post("/course/", async function (req,res){
     if (courses.length == 0){
         console.log("le cours est inédit")
         console.log("contenu", content)
-        //operation = await Course.create(req.body)
+        operation = await Course.insert({})
     }
     
    }
     catch(e) {
-        console.log(e)
+        console.log("duplicate", e)
     }
    res.send(operation)
 })
+
+
 
 router.get("/course/:course_id", async(req,res) => {
     const {course_id} = req.params

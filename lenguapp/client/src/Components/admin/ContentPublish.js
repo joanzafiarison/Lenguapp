@@ -37,8 +37,10 @@ function ContentPublish(){
     const [status_, setStatus] = useState(status)
 
     useEffect( () => {
+        console.log("options ",options);
+        console.log("content ",content);
         const fetchData = async () => {
-            return await axios.post("http://localhost:5000/course",{options, content})
+            return await axios.post("http://localhost:5000/course/create",{options, content})
                                 //.then(res=>console.log(res))
                                 //.catch(console.log)
         }

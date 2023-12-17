@@ -1,7 +1,7 @@
 
 const db = require("../config/database");
-const UserSchema = require("../models/user")
-const User = db.model("Users",UserSchema)
+const UserSchema = require("../models/user");
+const User = db.model("Users",UserSchema);
 
 //user@mail ,ab
 test("login successfully ", async () => {
