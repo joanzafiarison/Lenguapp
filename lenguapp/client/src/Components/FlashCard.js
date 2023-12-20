@@ -11,8 +11,7 @@ const flags ={
 }
 //theme,number,type[and you say, words, building],language
 export default function FlashCard (props) {
-    console.log("props ",props)
-    const colorValue = contentTypes[props.type].color;
+    //const colorValue = contentTypes[props.type].color;
     return(
         <div className="training_card" style={{backgroundColor:colors.colorValue}}>
             <Link to={`/${props.cardType}/item/${props.exercise_id}`} state={{ exercise_id: props.exercise_id }} >

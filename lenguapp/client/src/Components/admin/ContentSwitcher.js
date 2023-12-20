@@ -1,5 +1,5 @@
 import React from "react"; 
-import {useCourse ,useCourseDispatch } from "../../Services/CourseContextProvider";
+import {useCourse } from "../../Services/CourseContextProvider";
 
 import ContentCreate from "./ContentCreate";
 import ContentMeta from "./ContentMeta";

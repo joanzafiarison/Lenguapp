@@ -4,12 +4,6 @@ import { useAppData, useAppDispatch } from "../Services/ContextProvider";
 function Sidebar({type}) {
   const { search } = useAppData ();
   const dispatch = useAppDispatch();
-  const [params, setParams] = useState({
-    lang :search.lang,
-    theme : search.theme,
-    level : search.level,
-    contentType : search.type
-  });
   const [meta, setMeta] = useState()
 
   useEffect(()=>{
@@ -109,6 +103,14 @@ function Sidebar({type}) {
                 {
                     "attr":"tourism",
                     "value" :"Tourisme"
+                },
+                {
+                    "attr":"greetings",
+                    "value" :"Salutations"
+                },
+                {
+                    "attr":"weather",
+                    "value" :"Météo"
                 }
             ]
         },
@@ -210,50 +212,44 @@ function Sidebar({type}) {
   
   function handleOption(e,option){
     console.log("opt ",option);
+   
     switch(option){
-        case "type":
-            console.log("type")
-            setParams({...params,type : e.target.value});
+        case "lang":
+            console.log("event ",e.target.value);
             dispatch({
                 filters : {
-                    ...params,
+                    ...search,
+                    lang : e.target.value
+                },
+                type : "SEARCH"
+            });
+            break; 
+        case "theme" : 
+                dispatch({
+                    filters : {
+                        ...search,
+                        theme : e.target.value
+                    },
+                    type : "SEARCH"
+                });
+                break;
+        case "level" : 
+                dispatch({
+                    filters : {
+                        ...search,
+                        level : e.target.value
+                    },
+                    type : "SEARCH"
+                });
+                break;
+        case "type" : 
+            dispatch({
+                filters : {
+                    ...search,
                     type : e.target.value
                 },
                 type : "SEARCH"
             });
-            break;
-        case "lang":
-            setParams({...params,language:e.target.value});
-            dispatch({
-                filters : {
-                    ...params,
-                    language : e.target.value
-                },
-                type : "SEARCH"
-            });
-            break; 
-        case "theme":
-            setParams({...params,theme:e.target.value});
-            dispatch({
-                filters : {
-                    ...params,
-                    theme : e.target.value
-                },
-                type : "SEARCH"
-            });
-            break; 
-        case "level":
-            setParams({...params,level:e.target.value});
-            dispatch({
-                filters : {
-                    ...params,
-                    level : e.target.value
-                },
-                type : "SEARCH"
-            });
-            break;
-        case "text":
-            setParams({...params,text:e.target.value});
             break;
         default :
             console.log('default')

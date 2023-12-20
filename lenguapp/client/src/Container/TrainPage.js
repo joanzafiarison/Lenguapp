@@ -1,5 +1,4 @@
 import React , {useState,useContext,useEffect} from "react";
-import axios from "axios";
 import FlashCard from "../Components/FlashCard";
 import Sidebar from "../Components/Sidebar";
 import { useAppData, useAppDispatch } from "../Services/ContextProvider";
@@ -20,10 +19,17 @@ function TrainPage (props) {
         loadData();
     },[])
 
+    async function handleSubmit(e) {
+        e.preventDefault();
+        await getExercisesFeed(search)
+        .then((res) => setExercises(res.data))
+        .catch((err)=>alert(JSON.stringify(err)))
+    }
+
     return (
         <div className="SearchContainer">
             <div id="searchbar">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <p><input type="text" name="search"/></p>
                     <p><input type='submit'value="rechercher"/></p>
                 </form>

@@ -48,7 +48,8 @@ export function useAppDispatch() {
 }
 
 function authReducer(initContext, action){
-    console.log(initContext)
+    console.log("auth reducer ",initContext)
+    console.log("action ",  action)
     switch(action.type) {
         case "UPDATE_USER" :
             console.log(action)
@@ -72,7 +73,7 @@ function authReducer(initContext, action){
         case "SEARCH":
             return {
                 ...initContext,
-                search : action.search
+                search : action.filters
             };
         default :
             return initContext;

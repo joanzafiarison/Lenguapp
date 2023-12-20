@@ -33,7 +33,7 @@ const status = [
 ];
 
 function ContentPublish(){
-    const {step, options, content} = useCourse();
+    const { options, content} = useCourse();
     const [status_, setStatus] = useState(status)
 
     useEffect( () => {
