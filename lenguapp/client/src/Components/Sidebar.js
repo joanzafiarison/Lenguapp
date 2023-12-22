@@ -35,7 +35,7 @@ function Sidebar({type}) {
                     "value" : "Jeux"
                 },
                 {
-                    "attr" : "pendu",
+                    "attr" : "hangman",
                     "value" : "Pendu"
                 }
             ],

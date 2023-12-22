@@ -19,9 +19,7 @@ function Quizz({exercise_id}) {
     const { user } = useAppData();
     const { selected } = useFlow();
     
-    console.log("in quizz",Object.keys(content).length == 0)
     console.log(exercise_id)
-    console.log("content",content)
 
     const dispatch = useFlowDispatch();
     useEffect( () => {

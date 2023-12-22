@@ -77,7 +77,7 @@ const initialFlow = {
   focus : "",
   selected : [],
   solution : "",
-  content : [],
+  content : {},
   success : false,
   result : {}
 }

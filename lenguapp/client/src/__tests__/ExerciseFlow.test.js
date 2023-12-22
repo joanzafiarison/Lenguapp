@@ -24,7 +24,9 @@ const mock_content = {
     result : {}
 }
 
-const word_exercise_id = "657f5e8aa5433f7160fb027c"
+const word_exercise_id = "657f5e8aa5433f7160fb027c";
+const building_exercise_id ="657f5e8aa5433f7160fb027e";
+const hangman_exercise_id = "6585cba44638eb97c1042b6f";
 
 test("simple render of exercise with actual context", async ()=>{
     render(<ContextProvider>
@@ -75,3 +77,61 @@ test("exercise words flow completion ", async () => {
     expect( result).toBe("Vous avez trouvé 2/2 mots")
 })
 
+test("test focus array functionnality in building", async() => {
+    render(<ContextProvider>
+        <FlowContextProvider>
+            <Quizz exercise_id={building_exercise_id}/>
+        </FlowContextProvider>
+    </ContextProvider>
+    );
+    const valid_response =[
+        {
+            word :"handeha",
+            type :"V"
+        },
+        {
+            word :"mihinana",
+            type :"V"
+        },
+        {
+            word :"zahay",
+            type : "S"
+        },
+    ];
+    for( let block of valid_response){
+        let part = await screen.findByText(block.word);
+        fireEvent.click(part)
+    }
+    let choices = document.querySelectorAll(".choice");
+    expect(Array.from(choices).filter( el => el.className == "choice focus").map(filtered => filtered.textContent )).toBe(valid_response.map(res => res.word))
+})
+
+
+
+test("focus array in hangman ", async () => {
+    render(<ContextProvider>
+        <FlowContextProvider>
+            <Quizz exercise_id={hangman_exercise_id}/>
+        </FlowContextProvider>
+    </ContextProvider>
+    );
+    let keys = [
+        ["m","a","s","i","k","t"],
+        ["a","n"],
+        ["m","a","h","n","d","r","o"],
+        ["m","a","t","s","i","r","o"]
+    ]
+
+    for ( let k of keys[1]){
+        let part = await screen.findByText(k);
+        fireEvent.click(part);
+    }
+
+    let result_screen = document.querySelector("response_box");
+
+    expect(result_screen.textContent).toBe("Bravo ! 0 vies perdue(s)")
+    //masikita
+    //anana
+    //mahandro
+    //matsiro
+})
