@@ -56,11 +56,16 @@ function flowReducer (flow, action) {
           ...flow,
           content : action.content
         };
-        case "UPDATE_SUCCESS" :
-          return { 
-            ...flow,
-            success : action.success
-          };
+      case "UPDATE_SUCCESS" :
+        return { 
+          ...flow,
+          success : action.success
+        };
+      case "UPDATE_RESULT" :
+        return { 
+          ...flow,
+          result : action.result
+        };
     default :
       throw Error("unknow action")
   }
@@ -70,8 +75,10 @@ function flowReducer (flow, action) {
 const initialFlow = {
   cursor :0 ,
   focus : "",
-  selected : {},
+  selected : [],
   solution : "",
-  content : []
+  content : [],
+  success : false,
+  result : {}
 }
 

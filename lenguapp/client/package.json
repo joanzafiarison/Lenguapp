@@ -9,6 +9,7 @@
     "axios": "^1.6.2",
     "d3": "^7.8.5",
     "enzyme": "^3.11.0",
+    "jsdom": "^16.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^5.2.1",
@@ -20,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts --openssl-legacy-provider build ",
-    "test": "react-scripts test -- --config jest.config.js",
+    "test": "jest",
     "eject": "react-scripts eject",
     "homepage": "http://localhost:5000/"
   },

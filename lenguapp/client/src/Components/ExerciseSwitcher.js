@@ -12,11 +12,14 @@ import ResponseBox from './ResponseBox';
     setFocus("");*/
 
 function Question () {
-    const { cursor, content, focus} = useFlow();
+    const { cursor, result , content, focus, solution, selected, success} = useFlow();
     const dispatch = useFlowDispatch();
     console.log("c ",cursor);
-    console.log("ct ",content);
+    console.log("ct ",content.content.length);
     console.log("fc ",focus);
+    console.log("solution ",solution);
+    console.log("success ",success);
+    console.log("result ",result)
 
     async function validate(){
         console.log("validate")
@@ -26,21 +29,17 @@ function Question () {
             success : valid,
             type : "UPDATE_SUCCESS"
         })
-        if(cursor +1 < content.length){
-            dispatch({
-                cursor : cursor + 1,
-                type : "NEXT_STEP"
-            })
-        }
-        else {
-            console.log("display finak screen")
-        }
+        dispatch({
+            cursor : cursor + 1,
+            type : "NEXT_STEP"
+        })
+        
         
        
         //setCursor(cursor +1);
     
         dispatch({
-            selected : [],
+            selected : [...selected,{item : content.content[cursor],chosen : focus}],
             type : "UPDATE_SELECTION"
         })
     
@@ -52,9 +51,9 @@ function Question () {
     
         //enter();
     
-    
+        console.log("sol ",content.content[cursor].solution.word)
         dispatch({
-            solution : "",
+            solution : content.content[cursor].solution.word,
             type : "UPDATE_SOLUTION"
         })
         //exit();
@@ -65,30 +64,30 @@ function Question () {
 
     return(
         <div className="words">
-            { cursor === content.length ?
+            { cursor < content.content.length ?
             <>
-            <h2 style={{fontSize:22, margin :'0.8rem'}}>{content.content[cursor].item.word}</h2>
-            <figure>
-                <audio
-                    controls
-                    src="http://localhost:5000/resources">
-                        <a href="http://localhost:5000/resources">
-                            Download audio
-                        </a>
-                </audio>
-            </figure>
-            <ul>
-                {content.content[cursor].choices.map((wd)=>(
-                    <div>
-                        <button className={focus === wd.word ? 'choice focus' : 'choice'} key = {wd.word} onClick= {()=> dispatch({focus : wd.word, type: "UPDATE_FOCUS"})}>{wd.word}</button>
-                    </div>
-                ))}
-            </ul>
-            <div className="right_side">
-                <button className="btn" disabled = {focus === "" ? true : false} onClick = {() => validate()}>suivant !</button>    
-            </div>
+                <h2 style={{fontSize:22, margin :'0.8rem'}}>{content.content[cursor].item.word}</h2>
+                <figure>
+                    <audio
+                        controls
+                        src="http://localhost:5000/resources">
+                            <a href="http://localhost:5000/resources">
+                                Download audio
+                            </a>
+                    </audio>
+                </figure>
+                <ul>
+                    {content.content[cursor].choices.map((wd)=>(
+                        <div>
+                            <button className={focus === wd.word ? 'choice focus' : 'choice'} key = {wd.word} onClick= {()=> dispatch({focus : wd.word, type: "UPDATE_FOCUS"})}>{wd.word}</button>
+                        </div>
+                    ))}
+                </ul>
+                <div className="right_side">
+                    <button className="btn" disabled = {focus === "" ? true : false} onClick = {() => validate()}>suivant !</button>    
+                </div>
             </>
-            : <ResponseBox content={content}/>
+            : <ResponseBox result={result}/>
             }
             
         </div>
@@ -122,7 +121,7 @@ const filterTypes = ( name) => {
 
 function ExerciseSwitcher() {
  const { content } = useFlow();
- console.log("content switch ",content)
+ //console.log("content switch ",content)
  
   function getComponent (item){
     const name = filterTypes(item.type);

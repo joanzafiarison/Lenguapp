@@ -1,5 +1,5 @@
 //module Name mapper to import scss
-const esModules = ['d3', 'd3-array', 'd3-delaunay', 'internmap', 'delaunator' , 'robust-predicates'].join('|');
+const esModules = ['d3', 'd3-array', 'd3-delaunay', 'internmap', 'delaunator' , 'robust-predicates', 'axios'].join('|');
 module.exports = {
     collectCoverage: false,
     moduleFileExtensions: [

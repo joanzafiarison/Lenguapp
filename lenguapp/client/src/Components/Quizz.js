@@ -12,14 +12,13 @@ import ExerciseSwitcher from './ExerciseSwitcher';
 
 function Quizz({exercise_id}) {
     const [state,enter,exit] = useTransitionControl(2000);
-    const [cursor,setCursor] = useState(0);
-    //const [content,setContent] = useState({})
-    const [selected,setSelected] = useState([]);
-    const [focus,setFocus] = useState("");
+    const { cursor, content, success  } = useFlow();
+    //const [selected,setSelected] = useState([]);
+    const [count,setCount] = useState(content.content ? content.content.length : 0);
     const [solution, setSolution] = useState("");
-    const [result,setResult] = useState({});
     const { user } = useAppData();
-    const { content, success  } = useFlow();
+    const { selected } = useFlow();
+    
     console.log("in quizz",Object.keys(content).length == 0)
     console.log(exercise_id)
     console.log("content",content)
@@ -40,9 +39,20 @@ function Quizz({exercise_id}) {
     
     },[])
 
+    useEffect(() => {
+        exit();
+
+        return () => enter();
+    },[cursor])
+
     useEffect( () => {
-        console.log("effect score data")
+        console.log("effect score data ",cursor)
+        console.log("content length ",count)
+        console.log("select ",selected)
+        console.log("content ",content)
+        
         if(cursor > 0){
+ 
             axios.post("http://localhost:5000/scores",
                     {
                         content : selected,
@@ -52,43 +62,30 @@ function Quizz({exercise_id}) {
                         language: content.language
                     })
                     .then((res) =>{
-                        setResult(res.data)
+                        console.log("message data ",res.data)
+                        dispatch({
+                            result : res.data,
+                            type : "UPDATE_RESULT"
+                        })
                         })
                     .catch(err => console.log(err))
         }
          
-    },[cursor === content.length])
+    },[cursor === count])
 
-    async function validate(){
-        console.log("validate")
-        let valid = focus === content.content[cursor].solution.word;
-        //setSuccess(valid);
-       
-        setCursor(cursor +1);
-        setSelected([...selected,{item : content.content[cursor],chosen : focus}]);
-        
-        //setSuccess(content.solution === result.chosen)
-        setFocus("");
-
-        enter();
-        setSolution(content.content[cursor].solution.word)
-        exit();
-    
-        //if finished --> Go to Train/
-        //TODO
-    }
-
+  
   return (
     <div id ="train_container" className={state == "entering" ? "layoutTransition":""}>
         <div className="progress_bar">
             <div className="advancement" style={{width:`${(cursor/content.length)*100}%`}}></div>
         </div>
         <div className="train_meta">
-                <p style={{fontSize :12}}> {content.theme}</p>
+                <p style={{fontSize :12}}>{content.theme}</p>
         </div> 
         <div className="train_content">
             <ExerciseSwitcher/>
         </div>
+        <p>Lifecycle : {state}</p>
         {content.content && 
                     <div className="success_overlay" style={{display: state === "exiting" ? "flex" : "none"}}>
                             <p>{success? "Bravo !" :"la réponse était : "+solution}</p>
