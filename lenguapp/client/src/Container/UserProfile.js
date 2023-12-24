@@ -34,7 +34,7 @@ import { useAppData } from "../Services/ContextProvider";
                             <ul>
                                 <li>score : {score.score}/{score.total}</li>
                                 <li>theme : {score.theme}</li>
-                                <li>langage : anglais </li>
+                                <li>langage : {score.language} </li>
                                 <li>type :  {score.exercise_type}</li>
                             </ul>
                          ))}

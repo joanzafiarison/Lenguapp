@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import { useFlow, useFlowDispatch } from "../Services/FlowContextProvider";
 import axios from "axios";
 
@@ -62,7 +63,10 @@ function Building ({content}) {
 
 function FinishScreen ({name}){
     return(
-        <h1>{name} terminé</h1>
+        <div style={{minHeight : 300}}>
+            <h1>{name} terminé</h1>
+            <Link to="/user">Retour</Link>
+        </div>
     )
 }
 
