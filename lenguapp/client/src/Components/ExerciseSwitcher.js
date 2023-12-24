@@ -31,7 +31,7 @@ function Pendu () {
             setFocus([]);
         }
         //
-    },[cursor])
+    },[])
 
     useEffect(() =>{
        let rest = toFound.filter( el => focus.indexOf(el) == -1);

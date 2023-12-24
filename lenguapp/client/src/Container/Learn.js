@@ -1,6 +1,8 @@
 import React , {useEffect, useState } from "react"
 import axios from "axios"
-import {useLocation} from "react-router-dom"
+import {useLocation} from "react-router-dom";
+import CourseSwitcher from "../Components/CourseSwitcher";
+import { FlowContextProvider } from "../Services/FlowContextProvider";
 
  function Learn (props) {
     const [step,setStep] = useState(0)
@@ -23,32 +25,9 @@ import {useLocation} from "react-router-dom"
     
     return(
         <div className="mainElement">
-            <div className="learn_meta">
-                <p className="course_theme">{course.theme}</p>
-                <p className="course_lang">{course.language}</p>
-                {course.content != null ?
-                    <p>{step+1}/{course.content.length}</p>
-                    :
-                    null
-                }
-            </div>
-            
-
-            <div className="course_content">
-
-            {course.content != null ?
-                <>  
-                     <h2>{course.content[step].title}</h2>
-                </>
-                :
-                null
-            }
-            </div>
-    
-            <button className ="btn" disabled = {step === 0 ? true :false} onClick ={() => setStep(step + 1)}>Suivant</button>
-            <button className ="btn" disabled = {step === 0 ? true :false} onClick ={() => setStep(step - 1)}>Précédent</button>
-            
-
+            <FlowContextProvider>
+                <CourseSwitcher/>
+            </FlowContextProvider>
         </div>
     )
 }

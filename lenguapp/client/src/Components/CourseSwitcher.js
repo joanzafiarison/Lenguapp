@@ -1,0 +1,100 @@
+import React, {useState, useEffect} from 'react';
+import { useFlow, useFlowDispatch } from "../Services/FlowContextProvider";
+import axios from "axios";
+
+
+// test 1 : Vérifier que le type varie
+// lancer component switcher 
+//appuyer sur le bouton pour passer a la suite et voir si cela change
+
+//test 2 : idem mais avec vision sur le mot ou quelque chose d'autre
+
+
+//test 3 : récupérer la partie exercice et vérifier le bon déroulement
+function Words ({type, content}) {
+    const {cursor} = useFlow();
+    const dispatch = useFlowDispatch();
+    return(
+        <div>
+            <h1 data-testid="course_type">{type}</h1>
+            <p>{content.content.content}</p>
+            <p>Audio</p>
+            <p>{content.content.translation}</p>
+            <button onClick={()=> dispatch({cursor : cursor + 1, type :"NEXT_STEP"})}>Compris</button>
+        </div>
+    )
+}
+
+function BuildingBlock ({item}) {
+    const COLORS = {
+        "S" : "blue",
+        "V" : "green",
+        "O" : "red"
+    }
+    return(
+        <li>
+            <p style={{color : COLORS[item.fonction]}}>{item.value}</p>
+            <p style={{color : COLORS[item.fonction]}}>{item.fonction}</p>
+            <p>{item.translation}</p>
+        </li>
+    )
+
+}
+
+function Building ({content}) {
+    const {cursor} = useFlow();
+    const dispatch = useFlowDispatch();
+    return(
+        <div>
+            <h1 data-testid="course_type">Building</h1>
+            <ul style={{display:"flex", justifyContent:"space-around"}}>
+                {content.content.content.map((el) => (
+                    <BuildingBlock item={el}/>
+                ))}
+            </ul>
+            <p>{content.content.translation}</p>
+            <p>{content.content.phonetics}</p>
+            <p>Attachment : {content.content.attachment.audio}</p>
+            <button onClick={()=> dispatch({cursor : cursor + 1, type :"NEXT_STEP"})}>Compris</button>
+        </div>
+    )
+}
+
+function FinishScreen ({name}){
+    return(
+        <h1>{name} terminé</h1>
+    )
+}
+
+function CourseSwitcher() {
+    const [content, setContent] = useState({});
+    const { cursor } = useFlow();
+    //const [cursor, setCursor] = useState(3);
+    //console.log(content.content[cursor]);
+    useEffect(() => {
+        let course_id = "63eaee326dfe86b3e0e37490"
+        axios.get(`http://localhost:5000/courses/${course_id}`)
+            .then((res) => setContent(res.data))
+    },[])
+    function getComponent (item){
+        switch(item.type){
+            case "words" :
+                return <Words type='words' content={item}  />
+            case "building" :
+                return <Building content={item}/>
+            case "sounds" :
+                return <Words type='sounds'  content={item}/>
+            case "writing" :
+                return <Words type='writing'  content={item}/>
+            default :
+                return <p>{JSON.stringify(item)}</p>
+        }
+      }
+  return (
+    <div>
+        {content.content && cursor < content.content.length  ? getComponent(content.content[cursor]) : <FinishScreen name={content.name}/>}
+    </div>
+  )
+}
+
+export default CourseSwitcher
