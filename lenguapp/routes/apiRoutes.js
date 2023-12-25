@@ -52,7 +52,7 @@ router.post("/exercises/", async function (req,res){
         level : level,
         type : type
     })
-    console.log("exercises", exercise)
+    console.log("exercises", JSON.stringify(exercise))
    }
     catch(e) {
         console.log(e)
@@ -97,7 +97,7 @@ router.post("/courses/", async function (req,res){
 //create a course OK
 router.post("/course/create", async function (req,res){
     const {options , content} = req.body;
-    const { theme, name, level, lang_dest,  lang_src} = options;
+    const { theme, name, type, level, lang_dest,  lang_src} = options;
     let courses = []
     let operation = {}
    try {
@@ -106,7 +106,7 @@ router.post("/course/create", async function (req,res){
     if (courses.length == 0){
         console.log("le cours est inédit")
         console.log("contenu", content)
-        operation = await Course.insert({})
+        operation = await Course.create({...options,content : content})
     }
     
    }
@@ -118,7 +118,7 @@ router.post("/course/create", async function (req,res){
 
 
 
-router.get("/course/:course_id", async(req,res) => {
+router.get("/courses/:course_id", async(req,res) => {
     const {course_id} = req.params
     let result = {}
     try {
@@ -204,52 +204,53 @@ router.post("/sentences/create", async (req,res) => {
 })
 
 router.post("/scores/" , async (req,res) => {
-    const {content, user_id, type, theme} = req.body
+    const {content, user_id, type, theme, language } = req.body
+    let op = {"message" : "exercise record created"};
     console.log("scores in request")
-    let total = content.length
-    let score = 0
+    let total = content.length;
+    let score = 0;
+    op["total"] = total;
+    op["score"] = score;
     for ( result of content) {
-        if(result.item.solution === result.chosen ){
+        if(result.item.solution.word === result.chosen ){
             score += 1
         }
     }
     let score_item = {
         score : score,
         total :total,
+        content : content,
         type : type,
         theme :theme,
-        language : "japanese"
+        language : language
     }
-    console.log("score in route",score_item)
-
-    try {
-        current_user = await User.find({_id : user_id}) 
-        if(current_user.length == 1) {
-            User.updateOne(
-                {_id : user_id},
-                {
-                    $set : {
-                        "email" : "new@email.com"
+    console.log("score in route", score_item)
+    if ( user_id !== ""){
+        try {
+            current_user = await User.find({_id : user_id}) 
+            if(current_user.length == 1) {
+                await User.updateOne(
+                    {_id : user_id},
+                    {
+                        $push : {
+                            "scores" : score_item
+                        }
                     }
-                }
-            )
-            .then((res) => console.log("res ",res))
-            .catch((e)=> console.log(e))
+                )
+            }
         }
-    }
-    catch (e){
-        console.log(e)
+        catch (e){
+            throw new Error(e);
+        }
+    } else {
+        op["message"] = "User_id not defined";
     }
 
-    
     //calcul {
     /*item: { word: 'décreter', words: [Array], solution: 'decree' },
     chosen: 'order'
   },*/
-    res.send({
-        score:score,
-        total:total
-    })
+    res.send(op);
 
 })
 

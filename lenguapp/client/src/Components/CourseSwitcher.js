@@ -18,9 +18,15 @@ function Words ({type, content}) {
     return(
         <div>
             <h1 data-testid="course_type">{type}</h1>
-            <p>{content.content.content}</p>
-            <p>Audio</p>
-            <p>{content.content.translation}</p>
+            <div style={{display : "flex", justifyContent : "flex-end", width : "100%"}}>
+                <button>Enr.</button>
+            </div>
+            <div>
+                <p style={{fontWeight : 600}}>{content.content.content}</p>
+                <p>Audio</p>
+                <p style={{fontSize : 14}}>{content.content.translation}</p>
+            </div>
+            <p>{content.content.composition ? content.content.composition.join("-") : ""}</p>
             <button onClick={()=> dispatch({cursor : cursor + 1, type :"NEXT_STEP"})}>Compris</button>
         </div>
     )
@@ -42,17 +48,36 @@ function BuildingBlock ({item}) {
 
 }
 
+function BuildingBlockBis ({item}) {
+    const COLORS = {
+        "S" : "blue",
+        "V" : "green",
+        "O" : "red"
+    }
+    return(
+        <div>
+            <p>{item.map(el => (<span style={{ color : COLORS[el.fonction]}}>{el.value}</span>))}</p>
+            <p>{item.map(el => (<span style={{ color : COLORS[el.fonction]}}>{el.fonction}</span>))}</p>
+        </div>
+    )
+
+}
+
 function Building ({content}) {
     const {cursor} = useFlow();
     const dispatch = useFlowDispatch();
     return(
         <div>
             <h1 data-testid="course_type">Building</h1>
+            <div style={{display : "flex", justifyContent : "flex-end", width : "100%"}}>
+                <button>Enr.</button>
+            </div>
             <ul style={{display:"flex", justifyContent:"space-around"}}>
                 {content.content.content.map((el) => (
                     <BuildingBlock item={el}/>
                 ))}
             </ul>
+            <BuildingBlockBis item={content.content.content}/>
             <p>{content.content.translation}</p>
             <p>{content.content.phonetics}</p>
             <p>Attachment : {content.content.attachment.audio}</p>

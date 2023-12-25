@@ -4,6 +4,7 @@ const scoreSchema = new mongoose.Schema({
     type :{ type: String,required : true},
     score :{ type: Number,required : true},
     total:{ type: Number,required : true},
+    content : {type : Array, required : true},
     language:{ type: String,required : true},
     theme:{ type: String,required : true},
     datetime:{type : Date , default : Date.now}

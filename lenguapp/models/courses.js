@@ -16,9 +16,11 @@ const feedbackSchema = new mongoose.Schema({
 
 const courseSchema = new mongoose.Schema({
     theme : {type : String, required : true},
+    type : {type : String, required : true},
     name  : {type :String , required : true},
-    level : {type : Number , required  : true},
-    language: {type : String , required  : true}, 
+    level : {type : String , required  : true},
+    lang_src: {type : String , required  : true}, 
+    lang_dest: {type : String , required  : true},
     content : [contentSchema],
     feedback : [feedbackSchema]
 })
