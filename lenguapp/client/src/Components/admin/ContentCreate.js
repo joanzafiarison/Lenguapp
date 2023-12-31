@@ -56,7 +56,7 @@ function ContentCreate(){
     function searchWords(e){
         e.preventDefault();
         console.log("appel api",search);
-        axios.post("http://localhost:9000/search",{options})
+        axios.post("http://localhost:5000/search",{options})
              .then(res => console.log(res))
              .catch(console.log)
     }

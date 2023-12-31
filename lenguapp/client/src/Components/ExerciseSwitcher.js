@@ -98,12 +98,12 @@ function Pendu () {
 function Question () {
     const { cursor, result , content, focus, solution, selected, success} = useFlow();
     const dispatch = useFlowDispatch();
-    console.log("c ",cursor);
-    console.log("ct ",content.content.length);
-    console.log("fc ",focus);
-    console.log("solution ",solution);
-    console.log("success ",success);
-    console.log("result ",result)
+    //console.log("c ",cursor);
+    //console.log("ct ",content.content.length);
+    //console.log("fc ",focus);
+    //console.log("solution ",solution);
+    //console.log("success ",success);
+    //console.log("result ",result)
 
     
     async function validate(){

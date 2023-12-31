@@ -15,6 +15,7 @@ import axios from "axios";
 function Words ({type, content}) {
     const {cursor} = useFlow();
     const dispatch = useFlowDispatch();
+    console.log("ct ",content)
     return(
         <div>
             <h1 data-testid="course_type">{type}</h1>
@@ -99,7 +100,7 @@ function CourseSwitcher() {
     const [content, setContent] = useState({});
     const { cursor } = useFlow();
     //const [cursor, setCursor] = useState(3);
-    //console.log(content.content[cursor]);
+    console.log(content);
     useEffect(() => {
         let course_id = "63eaee326dfe86b3e0e37490"
         axios.get(`http://localhost:5000/courses/${course_id}`)

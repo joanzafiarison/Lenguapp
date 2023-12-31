@@ -1,40 +1,16 @@
 const mongoose = require("mongoose") 
 // 3 languages for now
-const variationSchema = new mongoose.Schema({
-    usual : {type :String},
-    variation : {type :Array}
-})
-const traductionSchema = new mongoose.Schema({
-    fr : {
-        word : { type : String, required : true},
-        variations : [variationSchema]
-    },
-    jp : {
-        word : { type : String, required : true},
-        variations : [variationSchema]
-    },
-    de : {
-        word : { type : String, required : true},
-        variations : [variationSchema]
-    },
-    ch : {
-        word : { type : String, required : true},
-        variations : [variationSchema]
-    },
-    mg : {
-        word : { type : String, required : true},
-        variations : [variationSchema]
-    },
-})
+
 const dicoSchema = new mongoose.Schema({
     word : {type : String , required : true},
-    composition : { type : Array , required : false},
+    word_id : {type : String},
+    definition : {type : String},
+    composition : { type : Array },
     type : { type : Array , required : true},
-    themes  : {type : Array ,  required : false},
-    audio : { type : String, required : true},
-    phonetics : { type : String, required : true},
-    language : { type : String, required : true},
-    translation : [traductionSchema]
+    themes  : {type : Array },
+    attachment: { type : Object },
+    phonetics : { type : String },
+    lang : { type : String, required : true},
 });
 
 module.exports = dicoSchema

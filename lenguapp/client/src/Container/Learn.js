@@ -10,6 +10,7 @@ import { FlowContextProvider } from "../Services/FlowContextProvider";
     const location = useLocation()
     const {course_id} = location.state
 
+    /*
     useEffect( () => {
         axios.get(`http://localhost:5000/course/${course_id}`)
              .then((res) =>{
@@ -20,7 +21,7 @@ import { FlowContextProvider } from "../Services/FlowContextProvider";
              .catch((e)=>console.log(e))
     },[step === 0])
 
-    console.log("COURSE",course)
+    console.log("COURSE",course)*/
     
     
     return(
@@ -32,16 +33,4 @@ import { FlowContextProvider } from "../Services/FlowContextProvider";
     )
 }
 
-export default Learn
-
-
-/*
-{
-    content.content.map((item) => (
-                  <>
-                    <p>{item.title}</p>
-                    <p>{item.content}</p>
-                  </>
-        ))
-}
-*/ 
+export default Learn;

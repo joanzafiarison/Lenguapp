@@ -131,11 +131,24 @@ router.get("/courses/:course_id", async(req,res) => {
     res.send(result)
 })
 //search the traduction for a word
-router.post("/dico/", async function (req,res){
-    const {word,lang} = req.body
+router.post("/search/", async function (req,res){
+    const {word,lang, word_id} = req.body
+    
     let word_info = []
    try {
-    word_info = await Dico.find({word : word , lang : lang})
+    if(word_id !== ""){
+        word_info = await Dico.find({
+            word_id : word_id ,
+            lang : lang
+        })
+    }
+    else{
+        word_info = await Dico.find({
+            word : word ,
+            lang : lang
+        })
+    }
+
    }
     catch(e) {
         console.log(e)
@@ -209,13 +222,13 @@ router.post("/scores/" , async (req,res) => {
     console.log("scores in request")
     let total = content.length;
     let score = 0;
-    op["total"] = total;
-    op["score"] = score;
     for ( result of content) {
         if(result.item.solution.word === result.chosen ){
             score += 1
         }
     }
+    op["score"] = score;
+    op["total"] = total;
     let score_item = {
         score : score,
         total :total,

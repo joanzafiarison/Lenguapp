@@ -1,10 +1,8 @@
 const mongoose = require("mongoose") 
 
 const contentSchema = new mongoose.Schema({
-    word : {type : String  , required :true},
-    translation : {type : String, required : true},
-    phonetic : {type : String},
-    path : {type: String}
+    type : {type : String  , required :true},
+    content : {type : Object, required : true},//3 content :Word/sound/Writing -- andyousay --building
 });
 
 const feedbackSchema = new mongoose.Schema({

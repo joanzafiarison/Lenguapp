@@ -12,28 +12,31 @@ import ExerciseSwitcher from './ExerciseSwitcher';
 
 function Quizz({exercise_id}) {
     const [state,enter,exit] = useTransitionControl(2000);
-    const { cursor, content, success  } = useFlow();
+    const { cursor, content, success, solution } = useFlow();
     //const [selected,setSelected] = useState([]);
-    const [count,setCount] = useState(content.content ? content.content.length : 0);
-    const [solution, setSolution] = useState("");
+    const [count,setCount] = useState(0);
     const { user } = useAppData();
     const { selected } = useFlow();
-    
-    console.log(exercise_id)
 
+    console.log("count ",count)
+    console.log("cursor ",cursor)
     const dispatch = useFlowDispatch();
     useEffect( () => {
 
         async function loadData () {
             await axios.get(`http://localhost:5000/exercises/${exercise_id}`)
-            .then((response) => dispatch({
-                content : response.data[0],
-                type : "UPDATE_CONTENT"
-            }))
+            .then((response) => {
+                dispatch({
+                    content : response.data[0],
+                    type : "UPDATE_CONTENT"
+                })
+        })
             .catch(err => console.log(err))
         }
 
         loadData();
+     
+       
     
     },[])
 
@@ -43,10 +46,15 @@ function Quizz({exercise_id}) {
         return () => enter();
     },[cursor])
 
+    useEffect(() => {
+        if(content.content){
+            setCount(content.content.length)
+        }
+    },[content])
+
     useEffect( () => {
-        console.log("effect score data ",cursor)
-        console.log("content length ",count)
-        console.log("select ",selected)
+        console.log("cursor quizz ",cursor)
+        //console.log("select ",selected)
         console.log("content ",content)
         
         if(cursor > 0){
