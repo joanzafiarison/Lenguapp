@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import Quizz from './Exercises/Quizz';
+import ResponseBox from './ResponseBox';
 import { Link } from 'react-router-dom';
 import { useFlow, useFlowDispatch } from "../Services/FlowContextProvider";
 import axios from "axios";
@@ -15,7 +17,15 @@ import axios from "axios";
 function Words ({type, content}) {
     const {cursor} = useFlow();
     const dispatch = useFlowDispatch();
-    console.log("ct ",content)
+    //console.log("ct ",content)
+    function validate(){
+        console.log("cursor ",cursor)
+        console.log("count ",content)
+        if(cursor < 4){
+            console.log("update cursor ",cursor)
+            dispatch({cursor : cursor + 1, type :"NEXT_STEP"})
+        }
+    }
     return(
         <div>
             <h1 data-testid="course_type">{type}</h1>
@@ -24,11 +34,12 @@ function Words ({type, content}) {
             </div>
             <div>
                 <p style={{fontWeight : 600}}>{content.content.content}</p>
+                {content.content.romanized ? <p style={{fontWeight : 600}}>{content.content.romanized}</p> : null }
                 <p>Audio</p>
                 <p style={{fontSize : 14}}>{content.content.translation}</p>
             </div>
             <p>{content.content.composition ? content.content.composition.join("-") : ""}</p>
-            <button onClick={()=> dispatch({cursor : cursor + 1, type :"NEXT_STEP"})}>Compris</button>
+            <button onClick={()=> validate() }>Compris</button>
         </div>
     )
 }
@@ -57,8 +68,8 @@ function BuildingBlockBis ({item}) {
     }
     return(
         <div>
-            <p>{item.map(el => (<span style={{ color : COLORS[el.fonction]}}>{el.value}</span>))}</p>
-            <p>{item.map(el => (<span style={{ color : COLORS[el.fonction]}}>{el.fonction}</span>))}</p>
+            <p>{item.map((el,k) => (<span key={k} style={{ color : COLORS[el.fonction]}}>{el.value}</span>))}</p>
+            <p>{item.map((el,k) => (<span key={k} style={{ color : COLORS[el.fonction]}}>{el.fonction}</span>))}</p>
         </div>
     )
 
@@ -74,8 +85,8 @@ function Building ({content}) {
                 <button>Enr.</button>
             </div>
             <ul style={{display:"flex", justifyContent:"space-around"}}>
-                {content.content.content.map((el) => (
-                    <BuildingBlock item={el}/>
+                {content.content.content.map((el, k) => (
+                    <BuildingBlock key={k} item={el}/>
                 ))}
             </ul>
             <BuildingBlockBis item={content.content.content}/>
@@ -96,35 +107,93 @@ function FinishScreen ({name}){
     )
 }
 
-function CourseSwitcher() {
+function CourseSwitcher({course_id}) {
     const [content, setContent] = useState({});
-    const { cursor } = useFlow();
+    const [count, setCount] = useState(0);
+    const [isExercise, setIsExercise] = useState(false);
+    const [cards, setCards] = useState([]);
+    const [screen , setScreen] = useState("");
+    const { cursor, result , selected} = useFlow();
+    const dispatch = useFlowDispatch();
+    
     //const [cursor, setCursor] = useState(3);
-    console.log(content);
+    console.log("course content",content);
+    console.log("cursor ", cursor);
+    console.log("count ",count);
+    console.log("screen ",screen)
+    console.log('exercise ?', isExercise)
+    console.log("cards",cards)
+    //console.log("id ", course_id)
     useEffect(() => {
-        let course_id = "63eaee326dfe86b3e0e37490"
+        //let course_id = "63eaee326dfe86b3e0e37490"
         axios.get(`http://localhost:5000/courses/${course_id}`)
             .then((res) => setContent(res.data))
     },[])
-    function getComponent (item){
-        switch(item.type){
-            case "words" :
-                return <Words type='words' content={item}  />
-            case "building" :
-                return <Building content={item}/>
-            case "sounds" :
-                return <Words type='sounds'  content={item}/>
-            case "writing" :
-                return <Words type='writing'  content={item}/>
-            default :
-                return <p>{JSON.stringify(item)}</p>
+
+    useEffect(() => {
+        if(content.content){
+            setCount(content.content.length);
+            setCards(content.content)
+        }   
+    },[content])
+
+    useEffect(() =>{
+        
+        console.log("effect count ")
+        if(count > 0 && cursor === count -1   ){
+            if(isExercise){
+                setScreen("end");
+                console.log("selection ",selected)
+                console.log("end screen");
+            }
+            else{
+                setScreen("transition")
+                console.log("transition screen")
+                setCards(cards.sort(() =>  Math.random() - 0.5));
+                setIsExercise(true);
+                dispatch({cursor : 0, type :"NEXT_STEP"})
+            }
         }
+    },[cursor]);
+
+    function ComponentFactory ({item}){
+      const itemType = isExercise ? "exercise" : "content"
+      console.log("screen ",screen);
+      if (screen == "end") {
+        return <ResponseBox result={result} />
+      }
+      else {
+            switch(item.type)
+                {
+                    case "words" :
+                        if (isExercise){
+                            return <Quizz content={item} />
+                        }
+                        else {
+                            return <Words type='words' content={item}  />
+                        }
+                    case "building" :
+                        return <Building content={item}/>
+                    case "sounds" :
+                        return <Words type='sounds'  content={item}/>
+                    case "writing" :
+                        return <Words type='writing'  content={item}/>
+                    default :
+                        return <p>{JSON.stringify(item)}</p>
+                }
+        }
+        
       }
   return (
     <div>
-        {content.content && cursor < content.content.length  ? getComponent(content.content[cursor]) : <FinishScreen name={content.name}/>}
+        {cards.length > 0  ? 
+            <ComponentFactory item={cards[cursor]}/> 
+            : null
+        }
     </div>
   )
 }
 
+/*:
+            <FinishScreen name={content.name}/> */
 export default CourseSwitcher

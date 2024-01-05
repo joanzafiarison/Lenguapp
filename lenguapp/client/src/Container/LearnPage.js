@@ -56,7 +56,7 @@ function LearnPage (props) {
         </div>
         
         <div id="search">
-                    <Sidebar type="exercise" />
+                    <Sidebar type="course" />
                     <div id="inline_search">
                         {content != null ?
                             content.map((exercise) => (

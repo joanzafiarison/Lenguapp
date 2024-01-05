@@ -84,9 +84,10 @@ router.post("/exercise/create", async function (req,res){
 //get courses OK
 router.post("/courses/", async function (req,res){
     let courses = [];
+    const {theme, level} = req.body;
     console.log("body ",req.body)
    try {
-    courses = await Course.find({theme : "food"})
+    courses = await Course.find({theme : theme, level : level})
    }
     catch(e) {
         console.log(e)

@@ -201,7 +201,11 @@ function Sidebar({type}) {
                 {
                     "attr":"tourism",
                     "value" :"Tourisme"
-                }
+                },
+                {
+                    "attr":"greetings",
+                    "value" :"Salutations"
+                },
             ]
         }
     }

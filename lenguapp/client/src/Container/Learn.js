@@ -8,7 +8,7 @@ import { FlowContextProvider } from "../Services/FlowContextProvider";
     const [step,setStep] = useState(0)
     const [course,setCourse] = useState({})
     const location = useLocation()
-    const {course_id} = location.state
+    const {exercise_id} = location.state
 
     /*
     useEffect( () => {
@@ -27,7 +27,7 @@ import { FlowContextProvider } from "../Services/FlowContextProvider";
     return(
         <div className="mainElement">
             <FlowContextProvider>
-                <CourseSwitcher/>
+                <CourseSwitcher course_id= {exercise_id}/>
             </FlowContextProvider>
         </div>
     )

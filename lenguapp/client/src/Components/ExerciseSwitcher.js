@@ -212,6 +212,10 @@ function Building () {
             cursor : cursor + 1,
             type : "NEXT_STEP"
         })
+        dispatch({
+            solution : content.content[cursor].solution.word,
+            type : "UPDATE_SOLUTION"
+        })
         
         
        
@@ -252,7 +256,7 @@ function Building () {
             </div>
             
         </div>
-         : <ResponseBox result={result}/>
+         : <ResponseBox result={result} />
         }
         </>
     )

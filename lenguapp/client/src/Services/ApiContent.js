@@ -18,8 +18,8 @@ export  async function getExercisesFeed(params){
 export  async function getCoursesFeed(params){
     console.log("params ",params)
     return await axios.post(COURSE_CONTENT, {
-        type : params.contentType,
-        lang : params.language,
+        type : params.type,
+        lang : params.lang,
         theme : params.theme,
         level : params.level
     })
