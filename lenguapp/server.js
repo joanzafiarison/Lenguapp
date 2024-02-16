@@ -48,6 +48,9 @@ var corsOptions = {
   }
 app.use(cors(corsOptions))
 
+
+
+
 app.use('/',apiRouter);
 app.use('/', userRouter);
 app.use('/', postRouter);

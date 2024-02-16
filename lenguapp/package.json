@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon server.js && cd client && npm start",
+    "dev": "nodemon server.js",
+    "start" : "node server.js",
+    "build/client" : "cd client && npm run build",
     "load_db": "node config/load_db.js"
   },
   "keywords": [],
