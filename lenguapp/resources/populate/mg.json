@@ -1,0 +1,22 @@
+{
+    "words" : [
+    { "word": "hisotro", "type": "V","word_id": "drink","variation":"futur" },
+    { "word": "hihinana", "type": "V", "word_id": "eat", "variation":"futur"  },
+    { "word": "handeha", "type": "V", "word_id": "go", "variation":"futur"},
+    { "word": "hiresaka", "type": "V", "word_id": "talk", "variation":"futur"},
+    { "word": "mahandro", "type": "V", "word_id": "cook", "variation":"present" },
+    { "word": "mivanga", "type": "V", "word_id": "buy", "variation":"present" },
+    { "word": "mamaky", "type": "V","word_id": "read", "variation":"present" },
+    { "word": "mandeha", "type": "V","word_id": "go", "variation":"present" },
+    { "word": "miresaka", "type": "V", "word_id": "talk", "variation":"present" },
+    { "word": "zahay", "type": "S", "word_id" :"us" },
+    { "word": "zaho", "type": "S", "word_id" :"me"},
+    { "word": "aho", "type": "S", "word_id" :"me" },
+    { "word": "anao", "type": "S", "word_id" :"you" },
+    { "word": "zare", "type": "S", "word_id" :"them" },
+    { "word": "nareo", "type": "S", "word_id":"them" },
+    { "word": "rano", "type": "N", "word_id" : "water"},
+    { "word": "masoandro", "type": "N", "word_id" :"sun" },
+    { "word": "mofo", "type": "N", "word_id" :"bread" }
+  ]
+}

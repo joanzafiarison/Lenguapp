@@ -1,0 +1,93 @@
+{
+    "type" : "words",
+    "name" : "allons manger",
+    "language": "malagasy",
+    "theme": "food",
+    "level": "beginner",
+    "content": [
+      {
+        "choices": [
+            {"item" : "rano"},
+            {"item" : "fotsy"},
+            {"item" : "pamaraka"},
+            {"item" : "mofo"}
+        ],
+        "solution": {
+          "word": "mofo"
+        },
+        "item": {
+          "word": "pain"
+        }
+      },
+      {
+        "choices": [
+          {"item" :"afo"},
+          {"item" : "maloto"},
+          {"item" : "rano"},
+          {"item" :"dimy"}
+        ],
+        "solution": {
+            "word" : "rano"
+        },
+        "item": {
+          "word": "eau"
+        }
+      },
+      {
+        "item" : {
+            "word": "Je m'apelle ..."
+        },
+        "choices": [
+          {"item" :"za mila ..."},
+          {"item" : "ino ty ..."},
+          {"item" :"... ty anarako"},
+          {"item" : "aotriny ny ..."}
+        ],
+        "solution": {
+            "word" : "... ty anarako"
+        }
+      },
+      {
+        "item" : {
+            "word": "brochette"
+        },
+        "choices": [
+          {"item" :"maskita"},
+          {"item" :"balahazo"},
+          {"item" :"ronono"},
+          {"item" :"rano"}
+        ],
+        "solution": {
+            "word" : "maskita"
+        }
+      },
+      {
+        "item" : {
+            "word": "J'ai faim"
+        },
+        "choices": [
+          {"item" :"mosary aho"},
+          {"item" :"alo andeha"},
+          {"item" :"mihinana"},
+          {"item" :"mazoto mihinana"}
+        ],
+        "solution": {
+            "item" : "mosary aho"
+        }
+      },
+      {
+        "item" : {
+            "word": "Bon appétit"
+        },
+        "choices": [
+          {"item" :"mandroso"},
+          {"item" :"aiza ny rano"},
+          {"item" :"mangala"},
+          {"item" :"mazoto mihinana"}
+        ],
+        "solution": {
+            "word" :  "mazoto mihinana"
+        }
+      }
+    ]
+  }
