@@ -1,5 +1,5 @@
 import React , { useState, useEffect }from 'react';
-import { useAppData, useAppDispatch } from "../Services/ContextProvider";
+import { useAppData, useAppDispatch } from "../../Services/ContextProvider";
 
 function Sidebar({type}) {
   const { search } = useAppData ();

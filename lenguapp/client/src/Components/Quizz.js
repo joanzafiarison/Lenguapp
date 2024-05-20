@@ -4,6 +4,8 @@ import { useFlow, useFlowDispatch } from "../Services/FlowContextProvider";
 import { useTransitionControl } from "../hooks/transition";
 import { useAppData } from "../Services/ContextProvider";
 import {colors} from "../utils/colors";
+import { FaBeer, FaCheckCircle ,FaRegWindowClose } from 'react-icons/fa';
+
 import ResponseBox from './ResponseBox';
 import ExerciseSwitcher from './ExerciseSwitcher';
 
@@ -95,8 +97,8 @@ function Quizz({exercise_id}) {
         {content.content && 
                     <div className="success_overlay" style={{display: state === "exiting" ? "flex" : "none"}}>
                             <p>{success? "Bravo !" :"la réponse était : "+solution}</p>
-                            <div className="tick" style={{width:50,height:50,backgroundColor: success ? colors.green : colors.red}}>
-
+                            <div className="tick" style={{display :"flex" , alignItems :"center", width:50,height:50 , margin :"0.5rem"}}>
+                                {success  ? <FaCheckCircle color={colors.green} />:<FaRegWindowClose  color={colors.red}/>}
                             </div>
                     </div>
                         }

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import HeroStatement from '../Components/HeroStatement'
+import HeroStatement from '../Components/Parts/HeroStatement'
 import Download from '../Components/Download'
-import MyCloud from '../Components/Cloud'
+import MyCloud from '../Components/Parts/Cloud'
 
 
 function randomPos(){

@@ -1,5 +1,5 @@
 import React , {useState,useContext,useEffect} from "react"
-import Sidebar from "../Components/Sidebar";
+import Sidebar from "../Components/Parts/Sidebar";
 import FlashCard from "../Components/FlashCard";
 import { useAppData , useAppDispatch } from "../Services/ContextProvider";
 import { getCoursesFeed } from "../Services/ApiContent";
