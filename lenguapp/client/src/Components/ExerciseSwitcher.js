@@ -181,7 +181,7 @@ function Building () {
     const dispatch = useFlowDispatch();
     console.log(exerciseLength)
     console.log("content ",content)
-    console.log("focus ",focus)
+    console.log("focus",focus)
 
     useEffect(() =>{
         console.log("useeffect building")
@@ -235,7 +235,7 @@ function Building () {
     return(
         <>
         {content.content && cursor < content.content.length ?
-        <div>
+        <div className="words">
             
             <p>{content.name}</p>
             <p>{content.content[cursor].item.word}</p>
@@ -248,7 +248,9 @@ function Building () {
             </div>
             <ul>
                 {content.content[cursor].choices.map((wd, k) => (
-                    <button key={k} className={ focus.indexOf(wd.word) !== -1 ? 'choice focus' : 'choice'} onClick={() => handleParts( wd.word)} >{wd.word}</button>
+                    <div>
+                        <button key={k} className={ focus.indexOf(wd.word) !== -1 ? 'choice focus' : 'choice'} onClick={() => handleParts( wd.word)} >{wd.word}</button>
+                    </div>
                 ))}
             </ul>
             <div className="right_side">

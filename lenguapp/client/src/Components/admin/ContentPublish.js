@@ -1,6 +1,8 @@
 import React ,{useState,useEffect} from "react";
 import {useCourseDispatch,useCourse} from "../../Services/CourseContextProvider";
 import axios from "axios";
+import {  FaCheckCircle ,FaRegWindowClose } from 'react-icons/fa';
+import {colors} from "../../utils/colors";
 
 
 
@@ -91,18 +93,18 @@ function ContentPublish(){
             <div>
                 <ul>
                     {status_.map(stat=>(
-                        <li style={{display: "flex", margin : 10}}>
+                        <li style={{display: "flex", alignItems: 'center', justifyContent: "space-around", margin : 10}}>
                             <p>{stat.desc}</p>
                             {stat.status === "loading" ?
                                 <div className="lds-dual-ring"></div>
                                 : null 
                             }
                             {stat.status === "succeed" ?
-                                <div className="lds-success"></div>
+                                <FaCheckCircle color={colors.green} height="2em" width="2em"/>
                                 : null 
                             }
                             {stat.status === "failed" ?
-                                <div className="lds-failed"></div>
+                                <FaRegWindowClose color={colors.red} height="2em" width="2em"/>
                                 : null 
                             }
                         </li>
