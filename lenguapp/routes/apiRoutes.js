@@ -1,4 +1,5 @@
 const express= require("express")
+const {spawn} = require('child_process');
 const router = express.Router()
 
 
@@ -177,13 +178,36 @@ router.post("/dico/create", async function (req,res){
 
 //NLP  get traduction ,japanese :: omae wa mo shindeiru => tu es déjà mort
 router.post("/traduction", function (req,res){
-    const {TextToTranslate,textToTranslate} = req.body
+    const {TextToTranslate,lang} = req.body
     //let msg = api(req.body)
     //console.log(msg)
     res.send("traduction ...")
 
     //apiCall to NLP
     //make api call and get results
+})
+
+//NLP  get POS
+router.post("/pos", function (req,res){
+    const {text, lang} = req.body
+
+    var dataToSend;
+    // spawn new child process to call the python script
+    const nlpUtils = spawn('python', ['../utils/python/text2pos.py', text, lang]);
+    // collect data from script
+    console.log(nlpUtils)
+    nlpUtils.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ...');
+        dataToSend = data.toString();
+    });
+    // in close event we are sure that stream from child process is closed
+    nlpUtils.on('close', (code) => {
+        console.log(`child process close all stdio with code ${code}`);
+    })
+    // send data to browser
+    res.send(dataToSend);
+   
+
 })
 //get all sentences
 router.post("/sentences/find", async (req,res) => {
@@ -219,6 +243,7 @@ router.post("/sentences/create", async (req,res) => {
 
 router.post("/scores/" , async (req,res) => {
     const {content, user_id, type, theme, language } = req.body
+    //TODO UserId Avec session
     let op = {"message" : "exercise record created"};
     console.log("scores in request")
     let total = content.length;
@@ -242,6 +267,10 @@ router.post("/scores/" , async (req,res) => {
     if ( user_id !== ""){
         try {
             current_user = await User.find({_id : user_id}) 
+            //Recupérer données sur les résultats TODO
+            //+1, reussite
+            //-1, echec
+            //level?
             if(current_user.length == 1) {
                 await User.updateOne(
                     {_id : user_id},

@@ -20,8 +20,17 @@ function Pendu () {
     const [ life, setLife ] = useState(5);
     const dispatch = useFlowDispatch();
     console.log(toFound)
-    console.log(content)
     console.log("cursor in hangman ",cursor)
+
+    /*
+    // Start a new Path
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(300, 150);
+
+    // Draw the Path
+    ctx.stroke();
+    */
 
     useEffect(() =>{
         console.log("effect 1 ",content)
@@ -46,7 +55,9 @@ function Pendu () {
             cursor : cursor + 1,
             type :"NEXT_STEP"
         })
-        setLife(5)
+        setFocus([]);
+        setLife(5);
+        setToFound(content.content[cursor].word.split(""));
        }
     },[focus])
 
@@ -60,6 +71,11 @@ function Pendu () {
                 cursor : cursor + 1,
                 type :"NEXT_STEP"
             })
+            console.log("ct",content)
+            //setToFound(content.content[cursor].word)
+            setFocus([]);
+            setToFound(content.content[cursor].word.split(""));
+            setLife(5);
         }
     },[life])
 
