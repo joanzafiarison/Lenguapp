@@ -43,22 +43,28 @@ function ContentCreate(){
     const [focus,setFocus] = useState({})
     const [search, setSearch] = useState("");
     const [overlay,setOverlay] = useState(false);
+    const [overlayType,setOverlayType] = useState("view");
     const [overlay_preview, setOverlayPreview] = useState(false);
     console.log("current filters",options)
-    console.log("search ",search);
-    console.log("content ", content)
+    console.log("content ", chosenElements)
     useEffect(()=>{
         //appel api avec les filtres
-        setElements(mockData);
+        searchWords();
     },[])
     
 
-    function searchWords(e){
-        e.preventDefault();
-        console.log("appel api",search);
-        axios.post("http://localhost:5000/search",{options})
-             .then(res => console.log(res))
-             .catch(console.log)
+    function searchWords(){
+        axios.post("http://localhost:5000/words/search",{
+            lang : options.lang_src,
+            theme : options.theme,
+            level : options.level
+            
+        })
+        .then((res) => {
+            console.log("res",res.data)
+            setElements(res.data);
+         })
+        .catch(console.log)
     }
 
     function addWord(word){
@@ -66,11 +72,30 @@ function ContentCreate(){
         let newElements = chosenElements;
         //filter
         if(newElements.findIndex(el => el.id == word.id) == -1){
-            newElements.push(word);
+            let new_word = {
+                content : word,
+                type : "words"
+            }
+            newElements.push(new_word);
             setChosenElements(newElements);
         }
     }
 
+    function editWordContent(e){
+        e.preventDefault();
+        //retrouver l'index 
+        let newElements = chosenElements;
+        let element_index = newElements.findIndex(el => el.id == focus.id)
+        //filter
+        if(element_index !== -1){
+            let new_word = {
+                content : focus,
+                type : e.target.value
+            }
+            newElements[element_index] = new_word;
+            setChosenElements(newElements);
+        }
+    }
 
     function handleSubmit(e){
         e.preventDefault();
@@ -97,32 +122,43 @@ function ContentCreate(){
             </div>
             <div className="searchResult">
                 <ul>
-                {mockData.map(data=>(
-                    <div className="search_element">
+                {elements.map(data=>(
+                    <div className="search_element" key={data._id}>
                         <div>
-                            <p>{data.element}</p>
-                            <p>{data.traduction}</p>
+                            <p>{data.word}</p>
+                            <p>{data.word_id}</p>
                         </div>
                         <div>
-                            {data.tags.map(tag=>(
-                                <div className="tag_button">{tag}</div>
+                            {data.themes.map(tag=>(
+                                <div className="tag_button">{tag.name}</div>
                             ))}
                         </div>
                         <button className="detail_button" onClick={()=>{setOverlay(!overlay);setFocus(data);}}>Voir</button>
-                        <button className="add_button" onClick={()=>addWord(data)}>Ajouter</button>
+                        <button className="add_button" onClick={()=>{setOverlay(!overlay); setOverlayType("add");setFocus(data);}}>Ajouter</button>
                     </div>
                 ))}
                 </ul>
             </div>
-            <div className="word_overlay" style={{display : overlay? "flex":"none"}}>
-                <h1>{focus.element}</h1>
-                <button onClick={()=>setOverlay(false)}>X</button>
+            <div className="word_overlay" style={{display : overlay && overlayType == "view" ? "flex":"none"}}>
+                <h1>{focus.word}</h1>
+                <button className="close_button" onClick={()=>setOverlay(false)}>X</button>
+            </div>
+            <div className="word_overlay" style={{display : overlay && overlayType == "add" ? "flex":"none"}}>
+                <h1>{focus.word}</h1>
+                <select onChange={(e)=>editWordContent(e)}>
+                    <option value="word">Mots/phrases</option>
+                    <option value="pronounciation">Prononciation</option>
+                    <option value="listen">Ecoute</option>
+                    <option value="writing">Ecrire</option>
+                </select>
+                <button onClick={()=> {setOverlay(!overlay); setOverlayType("view");addWord(focus, focus.id)}}>Ajouter</button>
+                <button className="close_button" onClick={()=>{{setOverlay(false); setOverlayType("view")}}}>X</button>
             </div>
             <div className="preview_overlay" style={{display : overlay_preview? "flex":"none"}}>
                 {chosenElements.map(el => (
                         <div className="word_item">
-                            <p>{el.element}</p>
-                            <p>{el.traduction}</p>
+                            <p>{el.content.word}</p>
+                            <p>{el.content.word_id}</p>
                         </div>
                     ))
                 }

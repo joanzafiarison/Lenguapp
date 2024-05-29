@@ -32,15 +32,16 @@ function ContentValidation(){
 
     return(
         <div className="centered">
-            <h1>{options.name}</h1>
+            <h1>Titre : {options.name}</h1>
+            <p>{options.theme}</p>
             <p>{options.level}</p>
             <p>De {options.lang_src} à {options.lang_dest}</p>
-            <p>{content.length} mots ou phrases</p>
+            <p>{content.length} élément{content.length > 1 ? "s" :""}</p>
             
             <div style={{flexDirection : "row"}}>
                 {content.map(el=>(
                     <div style={{backgroundColor:"grey", display:"flex", justifyContent:"space-around", borderRadius :5, padding : 5, minWidth :50}}>
-                        <p>{el.element}</p>
+                        <p>{el.content.word.slice(0,10)}</p>
                     </div>
                 ))}
             </div>

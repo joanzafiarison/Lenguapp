@@ -26,7 +26,14 @@ const User = db.model("Users",UserSchema)
 
 
 
-
+const LANG = {
+    "eng" : "english",
+    "mg":"malagasy",
+    "fr" : "french",
+    "jp" :"japanese",
+    "de" :"deutch",
+    "sw" :"swahili"
+}
 
 
 /*EXERCISES*/ 
@@ -102,13 +109,14 @@ router.post("/course/create", async function (req,res){
     const { theme, name, type, level, lang_dest,  lang_src} = options;
     let courses = []
     let operation = {}
+    console.log("create course?")
    try {
     courses = await Course.find({theme : theme, name : name , level : level, language : lang_dest , from : lang_src })
     // operation check si unique
     if (courses.length == 0){
         console.log("le cours est inédit")
         console.log("contenu", content)
-        operation = await Course.create({...options,content : content})
+        operation = await Course.create({...options, content : content})
     }
     
    }
@@ -133,24 +141,17 @@ router.get("/courses/:course_id", async(req,res) => {
     res.send(result)
 })
 //search the traduction for a word
-router.post("/search/", async function (req,res){
-    const {word,lang, word_id} = req.body
-    
+router.post("/words/search/", async function (req,res){
+    const {lang, theme, level} = req.body
     let word_info = []
    try {
-    if(word_id !== ""){
+    if ( Object.keys(LANG).indexOf(lang) != -1 ) {
         word_info = await Dico.find({
-            word_id : word_id ,
-            lang : lang
+            lang : LANG[lang],
+            theme : theme,
+            level :level
         })
     }
-    else{
-        word_info = await Dico.find({
-            word : word ,
-            lang : lang
-        })
-    }
-
    }
     catch(e) {
         console.log(e)
@@ -193,9 +194,10 @@ router.post("/pos", function (req,res){
 
     var dataToSend;
     // spawn new child process to call the python script
-    const nlpUtils = spawn('python', ['../utils/python/text2pos.py', text, lang]);
+    //const nlpUtils = spawn('py', ['-m','../utils/python/text2pos.py', text, lang]);
+    const nlpUtils = spawn('ls');
     // collect data from script
-    console.log(nlpUtils)
+    //console.log(nlpUtils)
     nlpUtils.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
         dataToSend = data.toString();
@@ -299,6 +301,7 @@ router.post("/scores/" , async (req,res) => {
 
 router.post('/publish', (req,res) => {
     const {options , content } = req.body;
+    console.log(options)
     res.send({
         "status" :"ok"
     })
@@ -307,20 +310,12 @@ router.post('/publish', (req,res) => {
 router.post('/resources', (req,res)=>{
     // add query parameter for resource for example profile.png
     // then check user directory and send 
-    const LANG = {
-        "english" : "eng",
-        "malagasy" : "mg",
-        "french" :"fr",
-        "japanese" :"jp",
-        "deutch" : "de",
-        "swahili" :"sw"
-    }
     const  { language, path } = req.body;
     let audioPath = "resources/audio/";
 
     if ( Object.keys(LANG).indexOf(language) != -1 && path != "") {
-        audioPath += `${LANG[language]}/${path}`;
-        pipeFile(req,res,"resources/audio/eng/eng_subvenir.mp3")
+        audioPath += `${language}/${path}`;
+        pipeFile(req,res, audioPath)
     }
     /*
     let audio = fs.readFileSync("resources/audio/mg_5.aac")

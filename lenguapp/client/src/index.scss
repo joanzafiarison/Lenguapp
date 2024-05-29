@@ -670,6 +670,7 @@ margin:1.2em
 
 .searchResult {
   padding : 5px;
+  width:100%;
 }
 
 .search_element {
@@ -742,4 +743,10 @@ button {
   background-color: red;
   width: 30px;
   height: 30px;
+}
+
+.close_button {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

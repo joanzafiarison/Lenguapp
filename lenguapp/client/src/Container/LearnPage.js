@@ -60,7 +60,7 @@ function LearnPage (props) {
                     <div id="inline_search">
                         {content != null ?
                             content.map((exercise) => (
-                                <FlashCard type={exercise.type} cardType="courses" theme={exercise.theme} language={exercise.language} exercise_id={exercise._id} key={exercise._id}/>
+                                <FlashCard type={exercise.type} cardType="courses" theme={exercise.theme} language={exercise.lang_src} exercise_id={exercise._id} key={exercise._id}/>
                             ))
                             :
                             <p>Pas d'exercices crées pour le moment</p>

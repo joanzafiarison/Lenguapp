@@ -5,9 +5,9 @@ import {colors,contentTypes} from "../utils/colors";
 
 const flags ={
     "jp":"img/flags/jp_flag.png",
-    "french":"img/flags/fr_flag.png",
-    "malagasy":"img/flags/mg_flag.png",
-    "english":"img/flags/uk_flag.webp"
+    "fr":"img/flags/fr_flag.png",
+    "mg":"img/flags/mg_flag.png",
+    "eng":"img/flags/uk_flag.webp"
 }
 //theme,number,type[and you say, words, building],language
 export default function FlashCard (props) {
