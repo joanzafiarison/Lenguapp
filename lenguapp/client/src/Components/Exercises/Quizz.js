@@ -10,11 +10,11 @@ export default function Quizz ({content}) {
     //console.log("solution ",solution);
     //console.log("success ",success);
     //console.log("result ",result)
-
+    console.log("ex content",content.exercise.choices)
     
     async function validate(){
         console.log("validate")
-        let valid = focus === content.content.exercise.solution.word;
+        let valid = focus === content.exercise.solution.word;
         console.log("valid ",valid)
         dispatch({
             success : valid,
@@ -26,7 +26,7 @@ export default function Quizz ({content}) {
         })
         
         dispatch({
-            selected : [...selected,{item : content.content,chosen : focus}],
+            selected : [...selected,{item : content,chosen : focus}],
             type : "UPDATE_SELECTION"
         })
     
@@ -36,9 +36,9 @@ export default function Quizz ({content}) {
         })
         //enter();
     
-        console.log("sol ",content.content.exercise.solution.word)
+        console.log("sol ",content.exercise.solution.word)
         dispatch({
-            solution : content.content.exercise.solution.word,
+            solution : content.exercise.solution.word,
             type : "UPDATE_SOLUTION"
         })
         //exit();
@@ -51,7 +51,8 @@ export default function Quizz ({content}) {
         <div className="words">
             { content  ?
             <>
-                <h2 style={{fontSize:22, margin :'0.8rem'}}>{content.content.content}</h2>
+                <h2 style={{fontSize:22, margin :'0.8rem'}}>{content.content.word}</h2>
+                
                 <figure>
                     <audio
                         controls
@@ -62,7 +63,7 @@ export default function Quizz ({content}) {
                     </audio>
                 </figure>
                 <ul>
-                    {content.content.exercise.choices.map((wd)=>(
+                    {content.exercise.choices.map((wd)=>(
                         <div>
                             <button className={focus === wd.word ? 'choice focus' : 'choice'} key = {wd.word} onClick= {()=> dispatch({focus : wd.word, type: "UPDATE_FOCUS"})}>{wd.word}</button>
                         </div>

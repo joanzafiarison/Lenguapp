@@ -39,16 +39,18 @@ function ContentCreate(){
     const {step, options, content} = useCourse();
     const dispatch =useCourseDispatch()
     const [elements,setElements] = useState([])
+    const [elementType,setElementType] = useState("words")
     const [chosenElements,setChosenElements] = useState([])
     const [focus,setFocus] = useState({})
     const [search, setSearch] = useState("");
     const [overlay,setOverlay] = useState(false);
     const [overlayType,setOverlayType] = useState("view");
     const [overlay_preview, setOverlayPreview] = useState(false);
-    console.log("current filters",options)
+    
     console.log("content ", chosenElements)
     useEffect(()=>{
         //appel api avec les filtres
+        console.log("current filters",options)
         searchWords();
     },[])
     
@@ -67,35 +69,42 @@ function ContentCreate(){
         .catch(console.log)
     }
 
-    function addWord(word){
+    function addWord(word, id){
         
         let newElements = chosenElements;
         //filter
-        if(newElements.findIndex(el => el.id == word.id) == -1){
-            let new_word = {
-                content : word,
-                type : "words"
-            }
-            newElements.push(new_word);
-            setChosenElements(newElements);
+        let element_index = newElements.findIndex(el => el.content._id == word._id)
+        let new_word = {
+            content : word,
+            type : "words"
         }
+
+        if(element_index == -1){
+            newElements.push(new_word);
+        }
+        else{
+            if(newElements[element_index] !== new_word){
+                newElements[element_index] = new_word;
+            }
+        }
+        setChosenElements(newElements);
     }
+    
 
     function editWordContent(e){
         e.preventDefault();
         //retrouver l'index 
-        let newElements = chosenElements;
-        let element_index = newElements.findIndex(el => el.id == focus.id)
-        //filter
-        if(element_index !== -1){
-            let new_word = {
-                content : focus,
-                type : e.target.value
-            }
-            newElements[element_index] = new_word;
-            setChosenElements(newElements);
-        }
+        setElementType(e.target.value);
     }
+
+    
+    function deleteWordContent(word){
+        //retrouver l'index 
+        let newElements = chosenElements;
+        newElements = newElements.filter(el => el.content._id !== word._id);
+        setChosenElements(newElements);
+    }
+
 
     function handleSubmit(e){
         e.preventDefault();
@@ -159,6 +168,7 @@ function ContentCreate(){
                         <div className="word_item">
                             <p>{el.content.word}</p>
                             <p>{el.content.word_id}</p>
+                            <button onClick={()=>deleteWordContent(el.content)}>X</button>
                         </div>
                     ))
                 }

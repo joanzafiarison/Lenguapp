@@ -14,32 +14,36 @@ import axios from "axios";
 
 
 //test 3 : récupérer la partie exercice et vérifier le bon déroulement
-function Words ({type, content}) {
-    const {cursor} = useFlow();
+function Words ({type}) {
+    const {cursor, content} = useFlow();
+    const [count, setCount] = useState(content.content.length);
     const dispatch = useFlowDispatch();
-    //console.log("ct ",content)
+    const [currentElement, setCurrentElement ] = useState(content.content[cursor])
+    //console.log("ct ",currentElement)
+    //console.log("conter",count)
+    console.log("lenght", count)
+    console.log("update cursor ",cursor)
     function validate(){
-        console.log("cursor ",cursor)
-        console.log("count ",content)
-        if(cursor < 4){
-            console.log("update cursor ",cursor)
+       
+        if(cursor  < count ){   
             dispatch({cursor : cursor + 1, type :"NEXT_STEP"})
         }
     }
+
     return(
         <div>
-            <h1 data-testid="course_type">{type}</h1>
+            <h1 data-testid="course_type">{currentElement.type}</h1>
             <div style={{display : "flex", justifyContent : "flex-end", width : "100%"}}>
                 <button>Enr.</button>
             </div>
             <div>
-                <p style={{fontWeight : 600}}>{content.content.content}</p>
-                {content.content.romanized ? <p style={{fontWeight : 600}}>{content.content.romanized}</p> : null }
+                <p style={{fontWeight : 600}}>{currentElement.content.word}</p>
+                {currentElement.content.romanized ? <p style={{fontWeight : 600}}>{currentElement.content.romanized}</p> : null }
                 <p>Audio</p>
-                <p style={{fontSize : 14}}>{content.content.translation}</p>
+                <p style={{fontSize : 14}}>{currentElement.content.translation}</p>
             </div>
-            <p>{content.content.composition ? content.content.composition.join("-") : ""}</p>
-            <button onClick={()=> validate() }>Compris</button>
+            <p>{currentElement.content.composition ? currentElement.content.composition.join("-") : ""}</p>
+            <button onClick={()=> validate()}>Compris</button>
         </div>
     )
 }
@@ -100,86 +104,114 @@ function Building ({content}) {
 
 function FinishScreen ({name}){
     return(
-        <div style={{minHeight : 300}}>
+        <div className="response_box">
             <h1>{name} terminé</h1>
-            <Link to="/user">Retour</Link>
+            <Link to="/courses">Retour</Link>
         </div>
     )
 }
 
 function CourseSwitcher({course_id}) {
-    const [content, setContent] = useState({});
-    const [count, setCount] = useState(0);
     const [isExercise, setIsExercise] = useState(false);
     const [cards, setCards] = useState([]);
     const [screen , setScreen] = useState("");
-    const { cursor, result , selected} = useFlow();
+    const { cursor, result , selected, content} = useFlow();
+    const [count, setCount] = useState(0);
     const dispatch = useFlowDispatch();
     
     //const [cursor, setCursor] = useState(3);
-    console.log("course content",content);
-    console.log("cursor ", cursor);
-    console.log("count ",count);
-    console.log("screen ",screen)
+  
+    //console.log("screen ",screen)
     console.log('exercise ?', isExercise)
     console.log("cards",cards)
+    console.log("count", count)
+
+    function fisherYates( array ){
+        let count = array.length,
+            randomnumber,
+            temp;
+        let new_array = array;
+        while( count ){
+            randomnumber = Math.random() * count-- | 0;
+            temp = new_array[count];
+            new_array[count] = new_array[randomnumber];
+            new_array[randomnumber] = temp
+        }
+        return new_array;
+    }
     //console.log("id ", course_id)
     useEffect(() => {
         //let course_id = "63eaee326dfe86b3e0e37490"
         axios.get(`http://localhost:5000/courses/${course_id}`)
-            .then((res) => setContent(res.data))
+            .then((res) => {
+                //get Exercise
+                let course_data = {...res.data}
+                let exercises = fisherYates([...res.data.content])
+
+                //Shuffle content and add type exercise
+                exercises = exercises.map(ex =>  {
+                    //get choices --get words
+                    let choices = [{"word":"rand"},{"word":"rand1"},{"word": "rand"},{"word":"rand"}]
+                    return Object.assign({}, ex, {
+                      ...ex , type : "exercise", exercise : { choices : choices, solution : "rand1"}
+                    });
+                });
+
+                //add new content to course_data
+                let new_content = course_data.content.concat(exercises)
+                course_data.content = new_content;
+                
+
+                console.log("shuffle",exercises);
+                console.log("full",course_data);
+                dispatch({content : course_data , type :"UPDATE_CONTENT"})
+                
+            })
     },[])
 
     useEffect(() => {
         if(content.content){
-            setCount(content.content.length);
             setCards(content.content)
-        }   
+            setCount(content.content.length)
+        }  
     },[content])
 
     useEffect(() =>{
         
-        console.log("effect count ")
-        if(count > 0 && cursor === count -1   ){
-            if(isExercise){
-                setScreen("end");
-                console.log("selection ",selected)
-                console.log("end screen");
+        console.log("cursor ", cursor);
+        if(content.content){
+            if( cursor < count ){
+                setScreen("transition");
+                //dispatch({cursor : 0, type :"NEXT_STEP"})
             }
             else{
-                setScreen("transition")
-                console.log("transition screen")
-                setCards(cards.sort(() =>  Math.random() - 0.5));
-                setIsExercise(true);
-                dispatch({cursor : 0, type :"NEXT_STEP"})
+                setScreen("end");
             }
         }
+       
     },[cursor]);
 
     function ComponentFactory ({item}){
       const itemType = isExercise ? "exercise" : "content"
-      console.log("screen ",screen);
-      if (screen == "end") {
-        return <ResponseBox result={result} />
+     
+      if (cursor === count) {
+        return <FinishScreen />
       }
       else {
             switch(item.type)
                 {
                     case "words" :
-                        if (isExercise){
-                            return <Quizz content={item} />
-                        }
-                        else {
-                            return <Words type='words' content={item}  />
-                        }
+                        return <Words type='words' />
+                    case "exercise" :
+                        return <Quizz content={item} />
                     case "building" :
                         return <Building content={item}/>
                     case "sounds" :
-                        return <Words type='sounds'  content={item}/>
+                        return <Words type='sounds' />
                     case "writing" :
-                        return <Words type='writing'  content={item}/>
+                        return <Words type='writing' />
                     default :
-                        return <p>{JSON.stringify(item)}</p>
+                        return <p>{item.type}</p>
                 }
         }
         
