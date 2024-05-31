@@ -1,6 +1,6 @@
 import React , {useContext,useState} from 'react';
 import { Link } from "react-router-dom";
-import { useAppData } from "../Services/ContextProvider";
+import { useAppData, useAppDispatch } from "../Services/ContextProvider";
 
 
 //Context User ou Admin 
@@ -8,6 +8,8 @@ import { useAppData } from "../Services/ContextProvider";
  function Header (){
         //test only
         const { user } = useAppData();
+        const dispatch = useAppDispatch();
+
         const [isAdmin,setAdmin] = useState(true);
         const [opened,setOpened] = useState(false);
         let options = {
@@ -17,6 +19,18 @@ import { useAppData } from "../Services/ContextProvider";
             minute: "2-digit",
            second: "2-digit"
          }
+        function logout(){
+            localStorage.setItem("auth_token","")
+            dispatch({
+                "user" : {
+                    token : "",
+                    user_id : "" ,
+                    username : "",
+                },
+                "type" : "UPDATE_USER"
+            })
+            //Update Storage
+        }
         console.log("opened",opened)
          const [time,setTime] = useState(new Date().toLocaleTimeString("fr-FR",options))
          const [connected,setConnected]=useState(true)
@@ -36,9 +50,7 @@ import { useAppData } from "../Services/ContextProvider";
                         <li style={{fontSize:"0.8rem"}} >
                             <Link to="/courses">Learn </Link>
                         </li>
-                        <li style={{fontSize:"0.8rem"}}>
-                            <Link to ="/user">Role</Link>
-                        </li>
+        
                         { isAdmin? 
                             (   
                                 <>
@@ -48,12 +60,25 @@ import { useAppData } from "../Services/ContextProvider";
                                     <li style={{fontSize:"0.8rem"}}>
                                         <Link to ="/create">Create</Link>
                                     </li>
+                                    <li style={{fontSize:"0.8rem"}}>
+                                        <Link to ="/user">Compte</Link>
+                                    </li>
                                 </>
                             ):
                             (
-                                <li style={{fontSize:"1rem"}}>
-                                <Link to ="/dashboard/user">Dashboard</Link>
-                                </li>
+                                <>
+                                    <li style={{fontSize:"1rem"}}>
+                                    <Link to ="/dashboard/user">Dashboard</Link>
+                                    </li>
+                                    
+                                    <li style={{fontSize:"0.8rem"}}>
+                                        <Link to="/register">Créer un compte</Link>
+                                    </li>
+                                    <li style={{fontSize:"0.8rem"}} >
+                                        <Link to="/signin">Se connecter</Link>
+                                    </li>
+                    
+                                </>
                             )
                         }
 
@@ -61,13 +86,13 @@ import { useAppData } from "../Services/ContextProvider";
                 </nav>
                 <div id="admin">
                     <div className='account-big'>
-                        <figure>
+                        <figure onClick={()=> logout()}>
                             <Link to ="/signin">
                                 <img src={connected ? "img/profil.png" : "img/question_mark.png"} style={{width:"100%"}}/>
                             </Link>
                         </figure>
                         
-                        <p style={{fontSize:"0.8rem"}}>{user.username}</p>
+                        <p style={{fontSize:"0.8rem"}} >{user.username}</p>
 
                         <div className='switch' style={{backgroundColor: isAdmin? "green":"grey",width:"2em",height:"1em",display:"flex",justifyContent: isAdmin? "flex-start":"flex-end"}}>
                             <div onClick={()=>setAdmin(!isAdmin)} style={{backgroundColor:"black",width:"45%",height:"100%",borderRadius:20}} ></div>
@@ -94,14 +119,25 @@ import { useAppData } from "../Services/ContextProvider";
                                             <Link to ="/dashboard/admin">Dashboard</Link>
                                         </li>
                                         <li className="menu_link"  onClick={()=>setOpened(!opened)}>
-                                            <Link to ="/create">Create</Link>
+                                            <Link to ="/create">Creer</Link>
+                                        </li>
+                                        <li className="menu_link"  onClick={()=>setOpened(!opened)}>
+                                            <Link to ="/user">Compte</Link>
                                         </li>
                                     </>
                                 ):
                                 (
-                                    <li className="menu_link"  onClick={()=>setOpened(!opened)}>
-                                    <Link to ="/dashboard/user">Dashboard</Link>
-                                    </li>
+                                    <>
+                                        <li className="menu_link"  onClick={()=>setOpened(!opened)}>
+                                        <Link to ="/dashboard/user">Dashboard</Link>
+                                        </li>
+                                        <li style={{fontSize:"1rem"}}>
+                                        <Link to ="/dashboard/user">Dashboard</Link>
+                                        </li>
+                                        <li style={{fontSize:"0.8rem"}}>
+                                            <Link to="/register">Créer un compte</Link>
+                                        </li>
+                                    </>
                                 )
                             }
                         </ul>

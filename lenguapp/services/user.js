@@ -8,8 +8,17 @@ const bcrypt = require("bcrypt");
 const SECRET_KEY = process.env.SECRET_KEY;
 console.log("SECRET ",SECRET_KEY)
 
-exports.auth = async (req, res, next) => {
+exports.auth = async (roles = []) => {
     const {email, password} = req.body;
+    if (!Array.isArray(roles)) roles = [roles];
+    /*
+    return (req, res, next) => {
+        function sendError(msg) {
+          return res.status(403).json({
+            message: msg,
+          });
+        }
+    }*/
     
     try {
         let user = await User.findOne({ email: email }, '-__v -createdAt -updatedAt');
@@ -22,7 +31,10 @@ exports.auth = async (req, res, next) => {
                 if (response) {
                     delete user._doc.password;
                     console.log("response",response)
-                    const expireIn = 24 * 60 * 60;
+                    const HOURS = 1; 
+                    const MINUTES = 60; 
+                    const SECONDS = 60;
+                    const expireIn = HOURS * MINUTES * SECONDS;
                     const token   = jwt.sign({
                         user: user
                     },
@@ -50,3 +62,30 @@ exports.auth = async (req, res, next) => {
         return res.status(501).json(error);
     }
 }
+
+exports.issueToken = function(user) {
+
+    const HOURS = 1; 
+    const MINUTES = 60; 
+    const SECONDS = 60;
+    const expiresIn = HOURS * MINUTES * SECONDS;
+
+    var token = jwt.sign({
+            ...user, 
+            iss :"Node-Auth"
+        }
+        ,   SECRET_KEY,
+        {
+            expiresIn : expiresIn
+        }
+    )
+
+    return token;
+}
+
+exports.Roles = {
+    User: ["user"],
+    Teacher: ["teacher"],
+    Admin : ["admin"],
+    All: ["user", "teacher", "admin"],
+  };

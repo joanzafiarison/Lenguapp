@@ -299,15 +299,3 @@ function Sidebar({type}) {
 
 export default Sidebar
 
-/*
-
-                <div>
-                    <h3>Theme</h3>
-                    <select name="theme" id="theme" onChange={(e)=>handleOption(e,"theme")}>
-                        {meta.theme && meta.theme.map( th => (
-                            <option value={th.attr}>{th.value}</option>
-                        ))}
-                    </select>
-                </div>
-
-                */

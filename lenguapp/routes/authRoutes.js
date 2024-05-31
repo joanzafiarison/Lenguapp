@@ -7,9 +7,11 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose")
 const db = require("../config/database")
 const UserModel = require("../models/user")
+const User = db.model("users",UserModel);
 
 
 const service = require("../services/user");
+const Roles = service.Roles
 const secure = require("../services/secure");
 
 router.post("/hash",  (req,res) => {
@@ -34,19 +36,54 @@ router.post("/tanks", async(req,res) => {
         res = {message : "no no such tank"}
     }
 
-    res.send(resp)
+    res.send(res)
 })
 /*USER ROUTES*/
-router.post("/login", service.auth)
+router.post("/login", async(req, res) => {
+    const {email, password} = req.body;
+    try {
+        
+        let user = await User.findOne({ email: email }, '-__v -createdAt -updatedAt');
+        console.log("user found ",user)
+     
+        if (user) {
+            bcrypt.compare(password, user.password, function(err, response) {
+                if (err) {
+                    throw new Error(err);
+                }
+                if (response) {
+                    delete user._doc.password;
+                    console.log("response",response)
+                    
+                    let token = service.issueToken(user);
+
+                    return res.header('Authorization', 'Bearer ' + token).status(200)
+                            .json({
+                                'message' : 'good credentials',
+                                'user_id' : user._doc._id,
+                                'username' : user._doc.username
+                                
+                            });
+                }
+
+                return res.status(403).json('wrong_credentials');
+            });
+        } else {
+            return res.status(404).json('user_not_found');
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(501).json(error);
+    }
+})
 
 
 
 router.post("/register", async(req,res) => {
     console.log("body ",req.body)
     const {username, password , email} = req.body
-    subscribe = false
+    let msg = `${username} not subscribed`;
 
-    const User = db.model("Users",UserModel)
 
     if(username && password && email) {
         let new_user = await User.find({email:email})
@@ -54,9 +91,8 @@ router.post("/register", async(req,res) => {
         if(new_user.length == 0){
             try {
                 //hashing
-                saltRounds = 10;
-                const salt = bcrypt.genSaltSync(saltRounds);
-                hashed_pass =  bcrypt.hashSync(password,salt);
+                
+                hashed_pass =  secure.hash_pass(password)
                 let new_user_info = 
                 {
                     email : email,
@@ -77,19 +113,17 @@ router.post("/register", async(req,res) => {
                     console.log("not subbed")
                 }
                 else {
-                    subscribe = true
+                    const token = service.issueToken(found_user);
+                    msg = `${username} subscribed succesfully`
+                    //send Verif email
+                    res.status(200).json({ ...found_user, token });
+                    
                 }
             }
             catch (e) {
-                console.log(e)
+                res.send(msg)
             }
         }
-    }
-    if(subscribe){
-        msg = `${username} subscribed succesfully`
-    }
-    else {
-        msg = `${username} not subscribed`
     }
     res.send(msg)
 })

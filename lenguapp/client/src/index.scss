@@ -1,5 +1,6 @@
 @import 'sass/styles/_colors.scss';
 @import 'sass/styles/_headers.scss';
+@import 'sass/styles/_footer.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); 
 
 
@@ -358,7 +359,6 @@ margin:1.2em
   margin :20px;
   form{
     display: flex;
-    width:30%;
   }
   input[type=text] {
     border : 1px solid black;
