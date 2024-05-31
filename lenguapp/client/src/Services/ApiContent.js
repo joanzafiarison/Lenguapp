@@ -1,8 +1,9 @@
 
 import axios from "axios";
 
-const EXERCISE_CONTENT = "http://localhost:5000/exercises";
-const COURSE_CONTENT = "http://localhost:5000/courses";
+const EXERCISE_CONTENT = "/exercises";
+const COURSE_CONTENT = "/courses";
+//process.env.REACT_APP_API_BASE_URL
 
 export  async function getExercisesFeed(params){
     console.log("params ",params)

@@ -2,7 +2,7 @@ const express= require("express")
 const router = express.Router()
 const fs = require('fs');
 const bcrypt = require("bcrypt");
-
+const nodemailer = require("nodemailer")
 
 const mongoose = require("mongoose")
 const db = require("../config/database")
@@ -12,6 +12,15 @@ const User = db.model("users",UserModel);
 
 const service = require("../services/user");
 const secure = require("../services/secure");
+
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail.com',
+    auth: {
+        user: 'your-email-username',
+        pass: 'your-email-password',
+    },
+});
 
 router.post("/hash",  (req,res) => {
     saltRounds = 10;
@@ -115,7 +124,23 @@ router.post("/register", async(req,res) => {
                     const token = service.issueToken(found_user);
                     msg = `${username} subscribed succesfully`
                     //send Verif email
-                    res.status(200).json({ ...found_user, token });
+                    const mailOptions = {
+                        from: 'joanzafdev@gmail.com',
+                        to: found_user.email,
+                        subject: 'Confirm your email address',
+                        text: `Click on this link to verify your email: http://localhost:5000/verify?token=${token}`,
+                    };
+                
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            console.log(error);
+                            res.status(500).send('Error sending verification email.');
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                            res.send('Verification email sent.');
+                        }
+                    });
+                    //res.status(200).json({ ...found_user, token });
                     
                 }
             }
@@ -124,7 +149,6 @@ router.post("/register", async(req,res) => {
             }
         }
     }
-    res.send(msg)
 })
 
 router.post("/forgotpassword", async ( req, res) => {
