@@ -8,59 +8,48 @@ const bcrypt = require("bcrypt");
 const SECRET_KEY = process.env.SECRET_KEY;
 console.log("SECRET ",SECRET_KEY)
 
-exports.auth = async (roles = []) => {
-    const {email, password} = req.body;
+exports.auth =  (roles = []) => {
+
     if (!Array.isArray(roles)) roles = [roles];
-    /*
-    return (req, res, next) => {
+    
+    return async (req, res, next) => {
         function sendError(msg) {
           return res.status(403).json({
             message: msg,
           });
         }
-    }*/
-    
-    try {
-        let user = await User.findOne({ email: email }, '-__v -createdAt -updatedAt');
-        console.log("user found ",user)
-        if (user) {
-            bcrypt.compare(password, user.password, function(err, response) {
-                if (err) {
-                    throw new Error(err);
-                }
-                if (response) {
-                    delete user._doc.password;
-                    console.log("response",response)
-                    const HOURS = 1; 
-                    const MINUTES = 60; 
-                    const SECONDS = 60;
-                    const expireIn = HOURS * MINUTES * SECONDS;
-                    const token   = jwt.sign({
-                        user: user
-                    },
-                    SECRET_KEY,
-                    {
-                        expiresIn: expireIn
-                    });
-                    
 
-                    return res.header('Authorization', 'Bearer ' + token).status(200)
-                            .json({
-                                'message' : 'good credentials',
-                                'user_id' : user._doc._id,
-                                'username' : user._doc.username
-                                
-                            });
-                }
+        try {
+            //get header token
+            let token = req.headers["Authorization"] || req.headers["authorization"];
 
-                return res.status(403).json('wrong_credentials');
-            });
-        } else {
-            return res.status(404).json('user_not_found');
+            if(!token) return sendError("no token")
+            if (token.indexOf("Bearer") !== 0) return sendError("Error: Token format invalid"); // Wrong format
+
+            //verify token
+            const tokenString = token.split(" ")[1];
+            jwt.verify(tokenString, SECRET_KEY , (err, decodedToken) => {
+                if(err){
+                    //error
+                    console.log("error",err)
+                    sendError("Error : Broken or expired Token")
+                }
+                //Check role
+                if(!decodedToken._doc.role) return sendError("Error : no role defined");
+                const userRole = decodedToken._doc.role;
+                //Check if correct Role is met
+                if(roles.indexOf(userRole) === -1) return sendError("Error: User not authorized")
+
+                req.user = decodedToken;
+                next();
+                
+
+            })
+
+        } catch (error) {
+            return res.status(501).json(error);
         }
-    } catch (error) {
-        return res.status(501).json(error);
-    }
+  }
 }
 
 exports.issueToken = function(user) {

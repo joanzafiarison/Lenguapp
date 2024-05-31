@@ -3,40 +3,31 @@ const router = express.Router()
 const fs = require('fs');
 const bcrypt = require("bcrypt")
 
-const auth = require("../middleware/auth");
+const auth = require("../services/user");
+const secure = require("../services/secure");
 const userSchema = require('../models/user')
 const db = require("../config/database")
 const User = db.model("Users",userSchema)
 
-//get all users OK
-router.get("/users",async function (req,res) {
-    console.log("hello")
-    const users = await User.find()
-    res.send(users)
-})
-
 // get one user OK
-router.get("/user/:userId",  async function (req,res,next) {
+router.get("/user/:userId", auth.auth(auth.Roles.All), async function (req,res,next) {
     const user = await User.find({_id : req.params.userId})
     delete user[0]._doc.password;// moving to next route
     res.send(user)
 
 })
  
-
 //delete user OK
-router.delete("/user/:userId", async function (req,res) {
+router.delete("/user/:userId", auth.auth(auth.Roles.Admin), async function (req,res) {
     const user = await User.deleteOne({_id : req.params.userId})
     res.send(user)
 })
+
 //update OK
-router.put("/user/:userId", async function (req,res) {
+router.put("/user/:userId",auth.auth(auth.Roles.Admin), async function (req,res) {
     const {username,email,password,scores,friends} = req.body
     console.log(req.body)
-    user = {}
-    saltRounds = 10;
-    const salt = bcrypt.genSaltSync(saltRounds);
-    hashed_pass =  bcrypt.hashSync(password,salt);
+    hashed_pass =  secure.hash_pass(password);
     try {
         const user = await User.updateOne({_id : req.params.userId}, 
             {$set: {
@@ -47,14 +38,13 @@ router.put("/user/:userId", async function (req,res) {
                friends: friends
             }
         })
-        .then((res)=> console.log(res))
-        .catch((e) => console.log(e))
+        res.send("User updated")
     }
     catch {
         console.log(e)
     }
     
-    res.send(user)
+    res.send("Error")
 })
 
 

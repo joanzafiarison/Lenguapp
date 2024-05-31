@@ -11,7 +11,6 @@ const User = db.model("users",UserModel);
 
 
 const service = require("../services/user");
-const Roles = service.Roles
 const secure = require("../services/secure");
 
 router.post("/hash",  (req,res) => {
