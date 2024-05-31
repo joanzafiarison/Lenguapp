@@ -25,7 +25,7 @@ exports.auth =  (roles = []) => {
 
             if(!token) return sendError("no token")
             if (token.indexOf("Bearer") !== 0) return sendError("Error: Token format invalid"); // Wrong format
-
+            console.log("verify",token)
             //verify token
             const tokenString = token.split(" ")[1];
             jwt.verify(tokenString, SECRET_KEY , (err, decodedToken) => {

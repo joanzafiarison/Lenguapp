@@ -10,7 +10,6 @@ import { useAppData, useAppDispatch } from "../Services/ContextProvider";
         const { user } = useAppData();
         const dispatch = useAppDispatch();
 
-        const [isAdmin,setAdmin] = useState(true);
         const [opened,setOpened] = useState(false);
         let options = {
             timeZone:"Europe/Paris",
@@ -31,7 +30,7 @@ import { useAppData, useAppDispatch } from "../Services/ContextProvider";
             })
             //Update Storage
         }
-        console.log("opened",opened)
+        console.log("user",user)
          const [time,setTime] = useState(new Date().toLocaleTimeString("fr-FR",options))
          const [connected,setConnected]=useState(true)
         console.log("CONTEXT",user)
@@ -51,7 +50,7 @@ import { useAppData, useAppDispatch } from "../Services/ContextProvider";
                             <Link to="/courses">Learn </Link>
                         </li>
         
-                        { isAdmin? 
+                        { user.user_id !== "" ? 
                             (   
                                 <>
                                     <li style={{fontSize:"0.8rem"}}>
@@ -94,9 +93,6 @@ import { useAppData, useAppDispatch } from "../Services/ContextProvider";
                         
                         <p style={{fontSize:"0.8rem"}} >{user.username}</p>
 
-                        <div className='switch' style={{backgroundColor: isAdmin? "green":"grey",width:"2em",height:"1em",display:"flex",justifyContent: isAdmin? "flex-start":"flex-end"}}>
-                            <div onClick={()=>setAdmin(!isAdmin)} style={{backgroundColor:"black",width:"45%",height:"100%",borderRadius:20}} ></div>
-                        </div>
                     </div>
                     <div className={`hamburger ${opened ? 'hamburger_open' : ''}`}>
                         <figure onClick={()=>setOpened(!opened)}>
@@ -112,7 +108,7 @@ import { useAppData, useAppDispatch } from "../Services/ContextProvider";
                             <li className="menu_link"  onClick={()=>setOpened(!opened)}>
                                 <Link to ="/user">Role</Link>
                             </li>
-                            { isAdmin? 
+                            { user ? 
                                 (   
                                     <>
                                         <li className="menu_link"  onClick={()=>setOpened(!opened)}>

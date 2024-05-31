@@ -6,16 +6,18 @@ import { useAppData } from "../Services/ContextProvider";
  function UserProfile(props){
     const [userInfo,setUserInfo] = useState({})
     const { user } = useAppData();
-    console.log("context",props.context)
+    console.log("context",user)
     useEffect( () => {
         //Récupérer un cookie ou localstorage
-        axios.get(`http://localhost:5000/user/${user.user_id}`).then( (resp) => {
+        axios.get(`http://localhost:5000/user/${user.user_id}`, { headers: {
+            'Content-Type': 'application/json',
+            'Authorization': user.token
+        }}).then( (resp) => {
             setUserInfo(resp.data[0])
         }).catch((err) => console.log(err))
         console.log("useEffect")
     },[])
     
-    console.log("user info")
     console.log(userInfo)
     return(
             <div id="user_admin" className="mainElement" >
