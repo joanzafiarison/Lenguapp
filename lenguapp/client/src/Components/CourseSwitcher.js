@@ -151,9 +151,9 @@ function CourseSwitcher({course_id}) {
                 //Shuffle content and add type exercise
                 exercises = exercises.map(ex =>  {
                     //get choices --get words
-                    let choices = [{"word":"rand"},{"word":"rand1"},{"word": "rand"},{"word":"rand"}]
+                    let choices = [{"word":ex.content.word},{"word":"rand1"},{"word": "rand3"},{"word":"ran5d"}]
                     return Object.assign({}, ex, {
-                      ...ex , type : "exercise", exercise : { choices : choices, solution : "rand1"}
+                      ...ex , type : "exercise", exercise : { choices : choices, solution : {word : ex.content.word}}
                     });
                 });
 

@@ -1,4 +1,5 @@
 @import 'sass/styles/_colors.scss';
+@import 'sass/styles/_headers.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); 
 
 
@@ -36,127 +37,13 @@ option {
 }
 
 
-header {
- display: flex;
- justify-content: space-around;
- align-items: center;
- height :15vh; 
- //background-color: $color-red;
- background-color: $color-yellow-green ;
- @media screen and (max-width :650px){
-  height:10vh;
- }
-
-}
-
-.icon_container {
-  display:flex;
-  justify-content: space-around;
-  align-items : center;
-}
-
-nav > ul {
-  display: flex;
-  width :40vw;
-  justify-content: space-around;
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-}
-
 
 
 form > p {
   margin :1rem;
 }
 
-#admin {
-  //width:15%;
-  height:30%;
-  flex:1;
-  //background-color: blue;
-  .account-big {
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    figure {
-      width:1.2rem;
-      height:1rem;
-      background-color:yellow;
-      margin:0.1em;
-    }
-  }
-  
-  .hamburger{
-    display: none;
-  }
 
-  @media screen and (max-width : 768px) {
-    .hamburger_open {
-      position: absolute;
-      top: 1%;
-      left: 0%;
-      height: 100vh;
-      width: 100%;
-      z-index: 15;
-    }
-
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      transition: right 1s ease;
-      figure {
-        width:25px;
-        height:25px;
-        background-color: $color-yellow-green;
-        padding:2px;
-        margin:auto;
-        img {
-          width:100%;
-          height:100%;
-        }
-      }
-
-      .menu {
-        margin:0px;
-        background-color:  $color-yellow-green-dark;
-      }
-
-      .menu_open {
-        width: 100%;
-        height: 100vh;
-        padding: 3rem 5rem;
-      }
-
-      .menu_link {
-        font-size: 2.8rem;
-      }
-     
-    }
-    .account-big {
-      display : none
-    }
-  }
-  
-}
-
-footer {
-  display: flex;
-  justify-content : space-around;
-  align-items: center;
-  background-color:#84C36D ;
-  height:30vh;
-  @media screen and (max-width :375px){
-    flex-direction: column;
-    h2{
-      font-size: 14px;
-    }
-    p{
-      font-size: 12px;
-    }
- }
-}
 
 
 
@@ -273,8 +160,6 @@ margin:1.2em
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 40vw;
-  min-height: 20rem;
   margin: 1em;
   padding:1em;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -300,7 +185,7 @@ margin:1.2em
 
 .words > ul {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .choice {
@@ -310,8 +195,8 @@ margin:1.2em
   font-size : 14px;
   background-color: #C4C4C4;
   border-style: none;
-  width: 100px;
-  min-height: 115px;
+  //width: 100px;
+  min-width: 90px;
   margin: 5px;
   padding:8px;
 }

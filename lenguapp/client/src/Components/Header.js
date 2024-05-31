@@ -17,7 +17,7 @@ import { useAppData } from "../Services/ContextProvider";
             minute: "2-digit",
            second: "2-digit"
          }
-        
+        console.log("opened",opened)
          const [time,setTime] = useState(new Date().toLocaleTimeString("fr-FR",options))
          const [connected,setConnected]=useState(true)
         console.log("CONTEXT",user)
@@ -33,8 +33,8 @@ import { useAppData } from "../Services/ContextProvider";
                         <li style={{fontSize:"0.8rem"}}>
                             <Link to="/train">Train</Link>
                         </li>
-                        <li style={{fontSize:"0.8rem"}}>
-                            <Link to="/courses">Learn</Link>
+                        <li style={{fontSize:"0.8rem"}} >
+                            <Link to="/courses">Learn </Link>
                         </li>
                         <li style={{fontSize:"0.8rem"}}>
                             <Link to ="/user">Role</Link>
@@ -78,28 +78,28 @@ import { useAppData } from "../Services/ContextProvider";
                             <img src="img/hamburger.png"/>
                         </figure>
                         <ul className={`menu ${opened ? "menu_open" : ""}`} style={{display:opened?"block":"none"}}>
-                            <li className="menu_link" >
-                                <Link to="/train">Train</Link>
+                            <li className="menu_link"  onClick={()=>setOpened(!opened)}>
+                                <Link to="/train" >Train</Link>
                             </li>
-                            <li className="menu_link" >
+                            <li className="menu_link"  onClick={()=>setOpened(!opened)}>
                                 <Link to="/courses">Learn</Link>
                             </li>
-                            <li className="menu_link" >
+                            <li className="menu_link"  onClick={()=>setOpened(!opened)}>
                                 <Link to ="/user">Role</Link>
                             </li>
                             { isAdmin? 
                                 (   
                                     <>
-                                        <li className="menu_link" >
+                                        <li className="menu_link"  onClick={()=>setOpened(!opened)}>
                                             <Link to ="/dashboard/admin">Dashboard</Link>
                                         </li>
-                                        <li className="menu_link" >
+                                        <li className="menu_link"  onClick={()=>setOpened(!opened)}>
                                             <Link to ="/create">Create</Link>
                                         </li>
                                     </>
                                 ):
                                 (
-                                    <li className="menu_link" >
+                                    <li className="menu_link"  onClick={()=>setOpened(!opened)}>
                                     <Link to ="/dashboard/user">Dashboard</Link>
                                     </li>
                                 )

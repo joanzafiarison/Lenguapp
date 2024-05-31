@@ -1,0 +1,19 @@
+@import '_colors.scss';
+
+footer {
+    display: flex;
+    justify-content : space-around;
+    align-items: center;
+    background-color:$color-green;
+    height:30vh;
+    @media screen and (max-width :375px){
+      flex-direction: column;
+      h2{
+        font-size: 14px;
+      }
+      p{
+        font-size: 12px;
+      }
+   }
+  }
+  

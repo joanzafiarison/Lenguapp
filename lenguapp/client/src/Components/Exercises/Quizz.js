@@ -16,6 +16,7 @@ export default function Quizz ({content}) {
         console.log("validate")
         let valid = focus === content.exercise.solution.word;
         console.log("valid ",valid)
+        
         dispatch({
             success : valid,
             type : "UPDATE_SUCCESS"
@@ -42,7 +43,6 @@ export default function Quizz ({content}) {
             type : "UPDATE_SOLUTION"
         })
         //exit();
-    
         //if finished --> Go to Train/
         //TODO
     }

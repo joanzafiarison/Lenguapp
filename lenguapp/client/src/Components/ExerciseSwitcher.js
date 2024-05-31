@@ -254,11 +254,11 @@ function Building () {
         <div className="words">
             
             <p>{content.name}</p>
-            <p>{content.content[cursor].item.word}</p>
+            <p style={{margin :10}}>{content.content[cursor].item.word}</p>
             <div className="build_parts">
                 <ul style={{display : "flex", justifyContent :"space-around"}}>
                     {focus.map(wd => (
-                        <li>{wd}</li>
+                        <li style={{ backgroundColor: 'darkseagreen', padding: 5, margin: "0px 5px", borderRadius: 5}} >{wd}</li>
                     ))}
                 </ul>
             </div>
