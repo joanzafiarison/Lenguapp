@@ -165,8 +165,8 @@ function Question () {
                 <figure>
                     <audio
                         controls
-                        src="http://localhost:5000/resources">
-                            <a href="http://localhost:5000/resources">
+                        src="/resources">
+                            <a href="/resources">
                                 Download audio
                             </a>
                     </audio>

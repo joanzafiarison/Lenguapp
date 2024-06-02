@@ -142,7 +142,7 @@ function CourseSwitcher({course_id}) {
     //console.log("id ", course_id)
     useEffect(() => {
         //let course_id = "63eaee326dfe86b3e0e37490"
-        axios.get(`http://localhost:5000/courses/${course_id}`)
+        axios.get(`/courses/${course_id}`)
             .then((res) => {
                 //get Exercise
                 let course_data = {...res.data}
