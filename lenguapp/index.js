@@ -38,7 +38,7 @@ const authRouter = require('./routes/authRoutes')
 
 
 const publicPath = path.join(__dirname, 'client/build');
-app.use(express.static(publicPath));
+//app.use(express.static(publicPath));
 app.use('*', express.static(publicPath));
 //app.use(express.static(path.join(__dirname,"client/public")))
 
@@ -65,8 +65,8 @@ app.use('/',authRouter)
 
 
 app.listen(5000 , () => {
-    console.log("server started on port 5000")
+    console.log("server started on port 3000")
 })
 
 
-//module.exports = app;
+module.exports = app;

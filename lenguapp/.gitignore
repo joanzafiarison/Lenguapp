@@ -2,6 +2,7 @@
 /node_modules
 resources/audio
 resources/video
-/Include/
-/Lib/
-/Scripts/
+Include/
+Lib/
+Scripts/
+.vercel
