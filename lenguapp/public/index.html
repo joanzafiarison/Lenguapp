@@ -1,58 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Express App</title>
-    <link rel="stylesheet" href="/css/style.css" />
+    <meta charset="utf-8" />
+    <!--<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Kozé</title>
   </head>
   <body>
-    <header>
-      <div id="logo">
-        <h1>Served Html</h1>
-      </div>
-      <nav>
-        <ul>
-          <li>Train</li>
-          <li>Share</li>
-          <li>Read</li>
-        </ul>
-      </nav>
-      <div id=admin>
-        <div id="date">
-          <button type="button" class="btn">Display today's date</button>
-          <div class="date"></div>
-        </div>
-        <a href="/account">
-          <button id="account">
-            Se connecter
-          </button>
-        </a>
-        
-      </div>
-    </header>
-    <div id="hero">
-      <h1>Train, learn , share</h1>
-    </div>
-     <div id="presentation">
-        <div id="themes" class="hero_pres">
-          <h1>Thèmes utilisés dans la vie courante</h1>
-          <p>Professionnel , Tourisme</p>
-        </div>
-        <div id="langues" class="hero_pres">
-          <h1>Langues disponibles</h1>
-          <p>Anglais</p>
-        </div>
-        <div id="share" class="hero_pres">
-          <h1>Partager votre aventure d'apprentissage</h1>
-          <p>Poster des photos, des quizz , des commentaires</p>
-        </div>
-     </div>
-     
-    <footer>
-
-    </footer>
-    
-    <script src="/js/script.js"></script>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
   </body>
 </html>

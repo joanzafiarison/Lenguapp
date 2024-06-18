@@ -1,18 +1,36 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require("cors");
+const path = require('path');
+
 const app = express();
 //const { sql } = require('@vercel/postgres');
 
-const bodyParser = require('body-parser');
-const path = require('path');
-
-// Create application/x-www-form-urlencoded parser
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
 app.set('port', (process.env.PORT || 8081));
-//app.use(express.static('build'));
-app.use(express.static("build"));
+app.use(express.static('build'));
+//app.use(express.static("build"));
+
+//middleware to parse body : ERROR String is required at parse
+/*app.use(express.json())
+//app.use(express.urlencoded({ extended: true }))*/
+
+var corsOptions = {
+	//exposedHeaders: "Authorization",
+	origin : true
+  }
+
+app.use(cors(corsOptions))
+
+
+//DB connexion = require("./config/database")*
+const userRouter = require('./routes/userRoutes')
+const authRouter = require('./routes/authRoutes')
+app.use('/', userRouter);
+app.use('/', authRouter);
+//const publicPath = path.join(__dirname, '..', 'build');
+//app.use(express.static(publicPath));
+//app.use('*', express.static(publicPath));
 
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
