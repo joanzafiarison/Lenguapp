@@ -1,11 +1,15 @@
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+
 const Dotenv = require('dotenv-webpack');
  
 module.exports = {
     target:"node",
     plugins : [
         new NodePolyfillPlugin(),
-        new Dotenv()
+        new Dotenv({
+            "path" :"./env",
+            "systemvars" : true
+        })
     ],
     resolve: {
         fallback: { 
