@@ -6,6 +6,8 @@ import { useAppData } from "../Services/ContextProvider";
 import {colors} from "../utils/colors";
 import { FaBeer, FaCheckCircle ,FaRegWindowClose } from 'react-icons/fa';
 
+import { getExerciseById, sendScore } from "../Services/ApiContent";
+
 import ResponseBox from './ResponseBox';
 import ExerciseSwitcher from './ExerciseSwitcher';
 
@@ -26,14 +28,12 @@ function Quizz({exercise_id}) {
     useEffect( () => {
 
         async function loadData () {
-            await axios.get(`http://localhost:5000/exercises/${exercise_id}`)
-            .then((response) => {
-                dispatch({
-                    content : response.data[0],
-                    type : "UPDATE_CONTENT"
-                })
-        })
-            .catch(err => console.log(err))
+            let response = await getExerciseById(exercise_id);
+            
+            dispatch({
+                content : response.data[0],
+                type : "UPDATE_CONTENT"
+            })
         }
 
         loadData();
@@ -60,7 +60,16 @@ function Quizz({exercise_id}) {
         console.log("content ",content)
         
         if(cursor > 0){
- 
+            
+            async function sendScoreData () {
+                let response = await sendScore(content, selected, user);
+                console.log("message data ",response.data)
+                dispatch({
+                    result : response.data,
+                    type : "UPDATE_RESULT"
+                })
+            }
+            /*
             axios.post("http://localhost:5000/scores",
                     {
                         content : selected,
@@ -70,13 +79,10 @@ function Quizz({exercise_id}) {
                         language: content.language
                     })
                     .then((res) =>{
-                        console.log("message data ",res.data)
-                        dispatch({
-                            result : res.data,
-                            type : "UPDATE_RESULT"
+                       
                         })
-                        })
-                    .catch(err => console.log(err))
+                    .catch(err => console.log(err))*/
+            sendScoreData();
         }
          
     },[cursor === count])
