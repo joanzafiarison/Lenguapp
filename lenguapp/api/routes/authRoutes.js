@@ -30,22 +30,7 @@ router.post("/hash",  (req,res) => {
     res.send(hash)
 })
 
-router.post("/tanks", async(req,res) => {
-    const {name} = req.body
-    // create model
-    Tank = db.model("Tank",new mongoose.Schema({ name: String , size : String }))
-    try{
-        //then search
-        selected = await Tank.find({name : name}) 
-        if(selected){
-            res = selected
-        }
-    }catch (e) {
-        res = {message : "no no such tank"}
-    }
 
-    res.send(res)
-})
 /*USER ROUTES*/
 router.post("/login", async(req, res) => {
     const {email, password} = req.body;

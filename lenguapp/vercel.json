@@ -1,2 +1,11 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/api" }] }
+{
+	 "version": 2, 
+	 "rewrites": [{ "source": "/(.*)", "destination": "/api" }] ,
+	 "functions": {
+		"api/index.js" : {
+			"memory": 1000,
+      		"maxDuration": 20
+		}
+	 }
+}
  

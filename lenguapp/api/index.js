@@ -12,8 +12,8 @@ app.use(express.static('build'));
 //app.use(express.static("build"));
 
 //middleware to parse body : ERROR String is required at parse
-/*app.use(express.json())
-//app.use(express.urlencoded({ extended: true }))*/
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 var corsOptions = {
 	//exposedHeaders: "Authorization",
@@ -26,22 +26,17 @@ app.use(cors(corsOptions))
 //DB connexion = require("./config/database")*
 const userRouter = require('./routes/userRoutes')
 const authRouter = require('./routes/authRoutes')
+const apiRouter = require('./routes/apiRoutes')
+
 app.use('/', userRouter);
 app.use('/', authRouter);
+app.use('/', apiRouter);
 //const publicPath = path.join(__dirname, '..', 'build');
 //app.use(express.static(publicPath));
 //app.use('*', express.static(publicPath));
 
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
-
-app.get('/about', function (req, res) {
-	res.sendFile(path.join(__dirname, '..', 'components', 'about.htm'));
-});
-
-app.get('/ressources', function (req, res) {
-	res.json({"message" :"ok"})
 });
 
 app.listen(app.get('port'), function() {
