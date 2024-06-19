@@ -24,7 +24,7 @@ export default function Login () {
                 login(email.value,password.value)
                 .then((res)=>{
                     if(res.data.message =="good credentials"){
-                        //console.log("new auth ", res.headers.authorization)
+                        console.log(res.headers);
                         localStorage.setItem("auth_token", res.headers.authorization)
                         setAlertText("Redirection");
                         setOverlay(true);
