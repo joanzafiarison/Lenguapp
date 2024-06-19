@@ -22,8 +22,23 @@ export  async function getExercisesFeed(params){
 
 }
 
+export  async function getCoursesFeed(params){
+    console.log("params ",params)
+    return await axios.post(COURSE_URL, {
+        type : params.type,
+        lang : params.lang,
+        theme : params.theme,
+        level : params.level
+    })
+
+}
+
 export async function getExerciseById(exercise_id){
-    return  await axios.get(`${COURSE_URL}/${exercise_id}`);
+    return  await axios.get(`${EXERCISE_URL}/${exercise_id}`);
+}
+
+export async function getCourseById(course_id){
+    return  await axios.get(`${COURSE_URL}/${course_id}`);
 }
 
 
@@ -38,13 +53,3 @@ export async function sendScore(content , selected, user){
     })
 }
 
-export  async function getCoursesFeed(params){
-    console.log("params ",params)
-    return await axios.post(COURSE_URL, {
-        type : params.type,
-        lang : params.lang,
-        theme : params.theme,
-        level : params.level
-    })
-
-}

@@ -1,5 +1,5 @@
 import React , { useState } from 'react';
-import { changePassword } from "../Services/auth";
+import { changePassword } from "../Services/api/auth";
 
 function ForgotPassword() {
 

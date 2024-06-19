@@ -1,5 +1,5 @@
 import React ,{useState,useEffect} from "react";
-import {sign_up} from "../Services/auth";
+import {sign_up} from "../Services/api/auth";
 
 export default function SignUp () {
         const [password, setPassword] = useState("");

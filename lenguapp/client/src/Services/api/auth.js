@@ -1,16 +1,18 @@
 import axios from "axios";
 
+let base_url = process.env.REACT_APP_BASE_URL;
+
 function login(email,password){
-     return axios.post("/login",{password : password,email:email})
+     return axios.post(base_url+"/login",{password : password,email:email})
 }
 
 function changePassword(email, password){
-    return axios.post("/forgotpassword",{password : password, email : email})
+    return axios.post(base_url+"/forgotpassword",{password : password, email : email})
 }
 
 
 function sign_up(userData){
-    return axios.post("/register", userData)
+    return axios.post(base_url+"/register", userData)
     
 }
 
