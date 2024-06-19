@@ -6,7 +6,7 @@ export default function Nav () {
     const { user } = useAppData();
     const [opened, setOpened] = useState(false);
     return (
-      <nav >
+      <nav style={{flex :2}}>
             <figure className={`hamburger ${ opened ?  'hamburger_open' : ''}`} onClick={()=>setOpened(!opened)}>
                 <img src="img/hamburger.png"/>
             </figure>
@@ -20,7 +20,7 @@ export default function Nav () {
                 <li className="menu_link"  >
                     <Link to ="/user">Role</Link>
                 </li>
-                { user ? 
+                { user.token ? 
                     (   
                         <>
                             <li className="menu_link"  >
@@ -39,11 +39,11 @@ export default function Nav () {
                             <li className="menu_link">
                             <Link to ="/dashboard/user">Dashboard</Link>
                             </li>
-                            <li style={{fontSize:"1rem"}}>
-                            <Link to ="/dashboard/user">Dashboard</Link>
-                            </li>
-                            <li style={{fontSize:"0.8rem"}}>
+                            <li className="menu_link">
                                 <Link to="/register">Créer un compte</Link>
+                            </li>
+                            <li className="menu_link">
+                                <Link to="/signin">Se connecter</Link>
                             </li>
                         </>
                     )

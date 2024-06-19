@@ -36,7 +36,7 @@ import Nav from "./Nav";
          const [connected,setConnected]=useState(true)
         console.log("CONTEXT",user)
         return(
-            <header style={{width:"100%",display:"flex",justifyContent:"space-between"}}>
+            <header style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
                 <div id="logo" style={{flex:1}}>
                     <Link to="/">
                         <h1 style={{fontSize:"1.2rem",padding:"2rem"}}>Kozé</h1>
