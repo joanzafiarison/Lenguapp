@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from "react-router-dom";
 import { useAppData, useAppDispatch } from "../Services/ContextProvider";
 
 export default function Nav () {
     const { user } = useAppData();
-
+    const [opened, setOpened] = useState(false);
     return (
       <nav >
-            <figure className={`hamburger hamburger_open`}>
+            <figure className={`hamburger ${ opened ?  'hamburger_open' : ''}`} onClick={()=>setOpened(!opened)}>
                 <img src="img/hamburger.png"/>
             </figure>
-            <ul className={`menu menu_open`} >
+            <ul className={`menu ${ opened ?  'menu_open' : ''}`} >
                 <li className="menu_link"  >
                     <Link to="/train" >Train</Link>
                 </li>
