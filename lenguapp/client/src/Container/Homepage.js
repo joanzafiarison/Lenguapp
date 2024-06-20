@@ -53,10 +53,10 @@ export default function HomePage (){
                     Hello world!
                 </h1>
                 <HeroStatement title="Learn with your goal in sight" statement="Travel the world, prepare for new jobs ,
- make new friends with interesting people form all around the world" button="Lets go" orientation/>
+ make new friends with interesting people form all around the world" button="Lets go" link="/start" orientation/>
 
                 <HeroStatement title="Fun is not an option , its mandatory !" statement="Travel the world, prepare for new jobs ,
- make new friends with interesting people form all around the world" button="Allons y quoi"/>
+ make new friends with interesting people form all around the world" button="Allons y quoi" link="/start"/>
                 
                 <Download/>
                 

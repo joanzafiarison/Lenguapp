@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 var corsOptions = {
-	//exposedHeaders: "Authorization",
+	exposedHeaders: "Authorization",
 	origin : true
   }
 

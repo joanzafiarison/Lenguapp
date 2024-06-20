@@ -10,6 +10,7 @@ import SignUp from "./Container/SignUp";
 import Login from "./Container/Login";
 import UserProfile from "./Container/UserProfile";
 import HomePage from "./Container/Homepage";
+import Start from "./Container/Start";
 import Learn from "./Container/Learn";
 import LearnPage from "./Container/LearnPage";
 import DashboardAdmin from "./Container/DashboardAdmin";
@@ -21,6 +22,7 @@ export default function AppRouter () {
     return(
         <Routes>
             <Route path="/" element={ <HomePage/> }/>
+            <Route path="/start" element={ <Start/> }/>
             <Route path="/train/item/:exercise_id" element={ <Train/>}/>
             <Route path="/train/" element={ <TrainPage/> }/>
             <Route path="/courses/item/:course_id" element={<Learn/>}/>
