@@ -4,13 +4,18 @@ import FlowBar from "../Components/FlowBar";
 
 import {useIntroDispatch,useIntro} from "../Services/IntroContextProvider";
 
-function IntroText(){
+function IntroText({text}){
     const {step} = useIntro();
     const dispatch = useIntroDispatch();
-    console.log(step);
+    console.log(text);
     return(
-        <div>
-            <h1>IntroText</h1>
+        <div className='mainContainer'>
+            <div className="bubble down">
+                <p>{text}</p>
+            </div>
+            <div className='avatar'>
+
+            </div>
             <button onClick={()=> dispatch({
                     step : step+1,
                     type:'nextStep'
@@ -18,13 +23,26 @@ function IntroText(){
         </div>
     )
 }
-function IntroQuestion(){
+function IntroQuestion({text}){
     const {step} = useIntro();
     const dispatch = useIntroDispatch();
     console.log(step);
     return(
-        <div>
-            <h1>IntroQuestion</h1>
+        <div className='mainContainer'>
+            <div style={{display:"flex"}}>
+                <div className="bubble right">
+                    <p>{text}</p>
+                </div>
+                <div className='avatar'>
+
+                </div>
+            </div>
+            <select>
+                <option value="eng">Anglais</option>
+                <option value="jp">Japonais</option>
+                <option value="ch">Chinois</option>
+                <option value="mg">Malgache</option>
+            </select>
             <button onClick={()=> dispatch({
                     step : step+1,
                     type:'nextStep'
@@ -57,8 +75,10 @@ function DisplayXP(){
     const {step} = useIntro();
     const dispatch = useIntroDispatch();
     return(
-        <div>
-            <h1>XP</h1>
+        <div className='mainContainer'>
+            <div className="trophy">
+                
+            </div>
             <button onClick={()=> dispatch({
                         step : step+1,
                         type:'nextStep'
@@ -71,8 +91,34 @@ function Streak(){
     const {step} = useIntro();
     const dispatch = useIntroDispatch();
     return(
-        <div>
+        <div className='mainContainer'>
             <h1>Streak</h1>
+            <p>Jour</p>
+            <div>
+                <div style={{display:"flex"}}>
+                    <div>
+                        <p>L</p>
+                        <div className='roundbox checked'></div>
+                    </div>
+                    <div>
+                        <p>M</p>
+                        <div className='roundbox '></div>
+                    </div>
+                    <div>
+                        <p>M</p>
+                        <div className='roundbox '></div>
+                    </div>
+                    <div>
+                        <p>J</p>
+                        <div className='roundbox '></div>
+                    </div>
+                    <div>
+                        <p>V</p>
+                        <div className='roundbox '></div>
+                    </div>
+                </div>
+                <p>Pour ne pas perdre le streak reviens demain !</p>
+            </div>
             <button onClick={()=> dispatch({
                     step : step+1,
                     type:'nextStep'
@@ -85,8 +131,23 @@ function RythmnOfLearning(){
     const {step} = useIntro();
     const dispatch = useIntroDispatch();
     return(
-        <div>
+        <div className='mainContainer'>
             <h1>Choisis ton rythme</h1>
+            <div style={{margin: 50, width:200, border: "1px solid black", borderRadius :15, padding : 10}}>
+                <div style={{display:"flex", justifyContent:"space-around"}}>
+                    <p>14 jours</p>
+                    <p>A fond</p>
+                </div>
+                <div style={{display:"flex", justifyContent:"space-around"}}>
+                    <p>14 jours</p>
+                    <p>A fond</p>
+                </div>
+                <div style={{display:"flex", justifyContent:"space-around"}}>
+                    <p>14 jours</p>
+                    <p>A fond</p>
+                </div>
+            </div>
+        
             <button onClick={()=> dispatch({
                         step : step+1,
                         type:'nextStep'
@@ -116,9 +177,9 @@ function SwitchScreen({scenario}){
     let name = scenario[step].name;
     switch(name){
         case "intro_text":
-            return <IntroText/>
+            return <IntroText text={scenario[step].text}/>
         case "intro_question":
-            return <IntroQuestion/>
+            return <IntroQuestion text={scenario[step].text}/>
         case "intro_exercise":
             return <IntroExercise/>
         case "display_xp":
@@ -144,16 +205,16 @@ function SwitchScreen({scenario}){
 const ScreenSteps = [
     {
         "name" :"intro_text",
-        "desc" :"Nous allons définir tes préférences"
+        "text" :"Nous allons définir tes préférences"
     },
     {
         "name" :"intro_question",
-        "desc" :"Quels langages veut tu apprendre",
+        "text" :"Quels langages veut tu apprendre? ",
         "data"  : 'langs'
     },
     {
         "name" :"intro_text",
-        "desc" :"Très bien déterminons ton niveau !",
+        "text" :"Très bien déterminons ton niveau !",
     },
     {
         "name" :"intro_exercise",
