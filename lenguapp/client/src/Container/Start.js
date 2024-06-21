@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import  {IntroProvider} from "../Services/IntroContextProvider";
+import {getContentStart} from '../Services/ApiContent';
 import FlowBar from "../Components/FlowBar";
 
 import {useIntroDispatch,useIntro} from "../Services/IntroContextProvider";
@@ -52,16 +53,33 @@ function IntroQuestion({text}){
 }
 
 function IntroExercise(){
-    const {step} = useIntro();
+    const {step, meta} = useIntro();
+    const [exercises, setExercises] = useState([]);
+    const [stepExercise, setStepExercise] = useState(0);
     const dispatch = useIntroDispatch();
-    console.log(step);
+    console.log(exercises);
+    useEffect(()  => {
+        //load plusieurs mots dans le niveau voulu (12)
+        //Avec fausses traduction
+        //mixed : 4 facile(12 mots), 4 moyens(12 mots) , 4 difficiles (12mots)
+        //moyen : 4 faciles, 4 moyens 
+        //facile : 4 faciles
+        //reponse simple , building =>(Récupérer les mots et Récupérer 10 mots qui n'ont rien a voir)
+        async function loadData(){
+            let data = {
+                "lang" :"jp",
+                "level" : "beginner"
+            }; 
+            let resp = await getContentStart(data);
+            setExercises(resp.data);
+            console.log("ex count", exercises.length)
+        }   
+        loadData();
+    },[]);
     return(
         <div>
             <h1>IntroExercise</h1>
-            <button onClick={()=> dispatch({
-                        step : step+1,
-                        type:'nextStep'
-                })}>Next</button>
+            
         </div>
     )
 }

@@ -7,6 +7,7 @@ let base_url = process.env.REACT_APP_BASE_URL;
 const EXERCISE_URL = base_url+"/exercises";
 const COURSE_URL = base_url+"/courses";
 const SCORE_URL = base_url+"/scores";
+const CONTENT_URL = base_url+"/words";
 
 
 
@@ -53,3 +54,7 @@ export async function sendScore(content , selected, user){
     })
 }
 
+
+export async function getContentStart(data){
+    return await axios.post(`${CONTENT_URL}/start`, data);
+}

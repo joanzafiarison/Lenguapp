@@ -58,7 +58,9 @@ function introReducer(intro,action){
 
 const initialData = {
     "step" :0,
-    "meta":{},
+    "lang":'',
+    "level":'',
+    "results":[]
   }
 /*
   { id: 0, text: 'Philosopher’s Path', done: true },

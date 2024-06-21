@@ -68,6 +68,22 @@ router.post("/exercises/", async function (req,res){
    res.send(exercise)
 })
 
+router.post("/words/start", async function (req,res){
+    const {lang, level} = req.body;
+
+    let content = [];
+    try {
+       content =  await Dico.find({
+        lang : LANG[lang],
+        level :level
+        })
+    }
+    catch (err) {
+        console.log(err);
+    }
+    res.send(content);
+})
+
 router.post("/exercise/create", async function (req,res){
     const {options , content} = req.body;
     const { theme, name, level, lang_dest,  lang_src} = options;
