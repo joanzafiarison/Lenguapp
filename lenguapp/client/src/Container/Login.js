@@ -36,6 +36,7 @@ export default function Login () {
                             },
                             "type" : "UPDATE_USER"
                         })
+                        //Home
                         navigate("/");
                     }
                     else{
