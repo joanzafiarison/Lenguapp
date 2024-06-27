@@ -17,7 +17,8 @@ import DashboardAdmin from "./Container/DashboardAdmin";
 import DashboardUser from "./Container/DashboardUser";
 import CreateCourse from "./Container/Create";
 import ForgotPassword from "./Container/ForgotPassword";
-
+import ConditionalRoute from "./Services/ConditionalRoute";
+import PayWall from './Container/PayWall';
 export default function AppRouter () {
     return(
         <Routes>
@@ -34,6 +35,14 @@ export default function AppRouter () {
             <Route path="/dashboard/admin" element={ <DashboardAdmin/> }/>
             <Route path="/dashboard/user" element={<DashboardUser/> }/>
             <Route path="/create" element={ <CreateCourse/> }/>
+            <Route
+                path="/custom-component"
+                element={
+                    <ConditionalRoute condition={false} redirectTo="/dashboard/admin">
+                        <PayWall />
+                    </ConditionalRoute>
+                }
+            />
           </Routes>
     )
 }
