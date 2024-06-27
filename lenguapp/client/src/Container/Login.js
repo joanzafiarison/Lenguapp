@@ -33,6 +33,8 @@ export default function Login () {
                                 token : res.headers.authorization,
                                 user_id : res.data.user_id ,
                                 username : res.data.username,
+                                role : res.data.role,
+                                isLoggedIn : true
                             },
                             "type" : "UPDATE_USER"
                         })

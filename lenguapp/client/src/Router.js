@@ -3,6 +3,7 @@ import {
     Routes,
     Route
 } from "react-router-dom";
+import { useAppData, useAppDispatch } from "./Services/ContextProvider";
 
 import Train from "./Container/Train";
 import TrainPage from './Container/TrainPage';
@@ -19,7 +20,13 @@ import CreateCourse from "./Container/Create";
 import ForgotPassword from "./Container/ForgotPassword";
 import ConditionalRoute from "./Services/ConditionalRoute";
 import PayWall from './Container/PayWall';
+
+//isLoggedIn
+//isAdmin
+//isTeacher
 export default function AppRouter () {
+    const {user} = useAppData();
+    console.log("u",user);
     return(
         <Routes>
             <Route path="/" element={ <HomePage/> }/>
@@ -31,15 +38,35 @@ export default function AppRouter () {
             <Route path="/forgotpassword" element={ <ForgotPassword/> }/>
             <Route path="/register" element={ <SignUp/> }/>
             <Route path ="/signin" element={ <Login/> }/>
-            <Route path="/user" element={ <UserProfile/> }/>
-            <Route path="/dashboard/admin" element={ <DashboardAdmin/> }/>
-            <Route path="/dashboard/user" element={<DashboardUser/> }/>
-            <Route path="/create" element={ <CreateCourse/> }/>
-            <Route
-                path="/custom-component"
+            <Route 
+                path="/user"
+                element={ 
+                    <ConditionalRoute condition={user.isLoggedIn === true && user.role === "user"} redirectTo="/">
+                        <UserProfile/>
+                    </ConditionalRoute>
+                 }
+            />
+            <Route 
+                path="/dashboard/user" 
                 element={
-                    <ConditionalRoute condition={false} redirectTo="/dashboard/admin">
-                        <PayWall />
+                    <ConditionalRoute condition={user.isLoggedIn === true && user.role === "user"} redirectTo="/">
+                        <DashboardUser/>
+                    </ConditionalRoute>
+                }
+            />
+            <Route 
+                path="/dashboard/admin"
+                element={ 
+                        <ConditionalRoute condition={user.isLoggedIn === true && user.role ==="teacher"} redirectTo="/">
+                            <DashboardAdmin/> 
+                        </ConditionalRoute>
+                    }
+            />
+            <Route
+                path="/create"
+                element={
+                    <ConditionalRoute condition={user.isLoggedIn === true && user.role === "teacher"} redirectTo="/">
+                        <CreateCourse/> 
                     </ConditionalRoute>
                 }
             />

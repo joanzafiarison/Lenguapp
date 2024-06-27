@@ -54,7 +54,8 @@ router.post("/login", async(req, res) => {
                             .json({
                                 'message' : 'good credentials',
                                 'user_id' : user._doc._id,
-                                'username' : user._doc.username
+                                'username' : user._doc.username,
+                                'role' : user._doc.role
                                 
                             });
                 }

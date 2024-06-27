@@ -9,8 +9,10 @@ let init_context =  {
     user : {
         username :"",
         user_id :"",
+        role : "",
         token :"",
         lang : "",
+        isLoggedIn : false
     },
     search :{
         lang :"malagasy",
@@ -58,7 +60,10 @@ function authReducer(initContext, action){
                 user :{
                     token : action.user.token,
                     user_id : action.user.user_id,
-                    username : action.user.username
+                    username : action.user.username,
+                    role : action.user.role,
+                    lang : action.user.lang,
+                    isLoggedIn : action.user.isLoggedIn
                 } 
             };
         case "UPDATE_TOKEN" : {
